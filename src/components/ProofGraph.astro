@@ -1,0 +1,122 @@
+<section class="proof-graph" aria-labelledby="graph-title" data-proof-graph data-reveal>
+  <div class="proof-graph__canvas">
+    <div class="graph-rings" aria-hidden="true"><span></span><span></span><span></span></div>
+    <svg class="graph-lines" viewBox="0 0 760 540" aria-hidden="true">
+      <path d="M382 268 176 112M382 268 600 108M382 268 628 410M382 268 162 418"></path>
+      <path
+        class="graph-line--soft"
+        d="M176 112 600 108M600 108 628 410M628 410 162 418M162 418 176 112"></path>
+    </svg>
+
+    <div class="graph-core" aria-hidden="true">
+      <span>Y</span>
+      <small>build system</small>
+    </div>
+
+    <button
+      class="graph-node graph-node--reasoning"
+      type="button"
+      data-graph-node="reasoning"
+      aria-pressed="true"
+    >
+      <span>01</span>
+      <strong>Reasoning</strong>
+      <small>Symbolic AI</small>
+    </button>
+    <button
+      class="graph-node graph-node--learning"
+      type="button"
+      data-graph-node="learning"
+      aria-pressed="false"
+    >
+      <span>02</span>
+      <strong>Learning</strong>
+      <small>Machine learning</small>
+    </button>
+    <button
+      class="graph-node graph-node--product"
+      type="button"
+      data-graph-node="product"
+      aria-pressed="false"
+    >
+      <span>03</span>
+      <strong>Product</strong>
+      <small>Full-stack systems</small>
+    </button>
+    <button
+      class="graph-node graph-node--shipping"
+      type="button"
+      data-graph-node="shipping"
+      aria-pressed="false"
+    >
+      <span>04</span>
+      <strong>Shipping</strong>
+      <small>Production delivery</small>
+    </button>
+  </div>
+
+  <div class="proof-graph__readout" aria-live="polite">
+    <div>
+      <span class="mono" data-graph-index>/01</span>
+      <span class="signal"><i></i> Evidence channel active</span>
+    </div>
+    <h3 id="graph-title" data-graph-title>Reasoning systems</h3>
+    <p data-graph-copy>
+      Pattern mining inside Hyperon connects symbolic representation, conjunction expansion, support
+      filtering, and surprisingness scoring.
+    </p>
+    <a class="text-link" href="#capabilities" data-graph-link
+      >Inspect capability <span aria-hidden="true">↓</span></a
+    >
+  </div>
+</section>
+
+<script>
+  const graphData = {
+    reasoning: {
+      index: "/01",
+      title: "Reasoning systems",
+      copy: "Pattern mining inside Hyperon connects symbolic representation, conjunction expansion, support filtering, and surprisingness scoring.",
+    },
+    learning: {
+      index: "/02",
+      title: "Learning systems",
+      copy: "Classical machine learning is rebuilt from its mathematical core, then evaluated before higher-level abstractions take over.",
+    },
+    product: {
+      index: "/03",
+      title: "Product systems",
+      copy: "Interfaces, permissions, data, and real user flows become coherent full-stack products instead of disconnected features.",
+    },
+    shipping: {
+      index: "/04",
+      title: "Shipping systems",
+      copy: "Containers, databases, web servers, routing, and network constraints are treated as part of the product experience.",
+    },
+  } as const;
+
+  const initProofGraph = () => {
+    const graph = document.querySelector<HTMLElement>("[data-proof-graph]");
+    if (!graph || graph.dataset.ready === "true") return;
+    graph.dataset.ready = "true";
+
+    const nodes = graph.querySelectorAll<HTMLButtonElement>("[data-graph-node]");
+    const index = graph.querySelector<HTMLElement>("[data-graph-index]");
+    const title = graph.querySelector<HTMLElement>("[data-graph-title]");
+    const copy = graph.querySelector<HTMLElement>("[data-graph-copy]");
+
+    nodes.forEach((node) => {
+      node.addEventListener("click", () => {
+        const key = node.dataset.graphNode as keyof typeof graphData;
+        const data = graphData[key];
+        nodes.forEach((item) => item.setAttribute("aria-pressed", String(item === node)));
+        if (index) index.textContent = data.index;
+        if (title) title.textContent = data.title;
+        if (copy) copy.textContent = data.copy;
+      });
+    });
+  };
+
+  document.addEventListener("astro:page-load", initProofGraph);
+  initProofGraph();
+</script>

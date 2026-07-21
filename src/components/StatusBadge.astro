@@ -1,0 +1,14 @@
+---
+import type { ProjectStatus } from "@/data/projects";
+
+interface Props {
+  status: ProjectStatus;
+  label: string;
+}
+
+const { status, label } = Astro.props;
+---
+
+<span class:list={["status-badge", `status-badge--${status}`]}>
+  <span aria-hidden="true"></span>{label}
+</span>

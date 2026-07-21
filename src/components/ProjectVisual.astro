@@ -1,0 +1,129 @@
+---
+import type { ProjectVisual as VisualType } from "@/data/projects";
+
+interface Props {
+  type: VisualType;
+  compact?: boolean;
+}
+
+const { type, compact = false } = Astro.props;
+---
+
+<div
+  class:list={["project-visual", `project-visual--${type}`, { "project-visual--compact": compact }]}
+  aria-hidden="true"
+>
+  <div class="visual-grid"></div>
+
+  {
+    type === "infrastructure" && (
+      <div class="infra-map">
+        <span class="infra-line infra-line--a" />
+        <span class="infra-line infra-line--b" />
+        <span class="infra-line infra-line--c" />
+        <span class="infra-node infra-node--users">
+          <i />
+          Roles
+        </span>
+        <span class="infra-node infra-node--core">
+          <i />
+          IMS core
+        </span>
+        <span class="infra-node infra-node--db">
+          <i />
+          PostgreSQL
+        </span>
+        <span class="infra-node infra-node--sms">
+          <i />
+          SMS
+        </span>
+        <span class="infra-node infra-node--edge">
+          <i />
+          LiteSpeed
+        </span>
+        <span class="visual-label">production topology / 01</span>
+      </div>
+    )
+  }
+
+  {
+    type === "pattern" && (
+      <div class="pattern-map">
+        <svg viewBox="0 0 600 360" role="presentation">
+          <g class="pattern-lines">
+            <path d="M76 186 181 86 291 173 394 76 512 165" />
+            <path d="M76 186 190 276 291 173 401 282 512 165" />
+            <path d="M181 86 190 276M394 76 401 282" />
+          </g>
+          <g class="pattern-nodes">
+            <circle cx="76" cy="186" r="14" />
+            <circle cx="181" cy="86" r="10" />
+            <circle cx="190" cy="276" r="10" />
+            <circle class="pattern-core" cx="291" cy="173" r="23" />
+            <circle cx="394" cy="76" r="10" />
+            <circle cx="401" cy="282" r="10" />
+            <circle cx="512" cy="165" r="14" />
+          </g>
+        </svg>
+        <span class="pattern-code pattern-code--a">min_support(p) ≥ τ</span>
+        <span class="pattern-code pattern-code--b">expand ∧ score</span>
+        <span class="visual-label">hypergraph trace / 02</span>
+      </div>
+    )
+  }
+
+  {
+    type === "donation" && (
+      <div class="donation-map">
+        <div class="donor donor--local">
+          <span>ET</span>Local
+        </div>
+        <div class="donor donor--diaspora">
+          <span>↗</span>Diaspora
+        </div>
+        <div class="donation-core">
+          <span class="donation-pulse" />
+          <span>BERHAN</span>
+          <small>giving flow</small>
+        </div>
+        <div class="allocation allocation--one">
+          Cause A <span>54%</span>
+        </div>
+        <div class="allocation allocation--two">
+          Cause B <span>31%</span>
+        </div>
+        <div class="allocation allocation--three">
+          Cause C <span>15%</span>
+        </div>
+        <span class="visual-label">donation routing / 03</span>
+      </div>
+    )
+  }
+
+  {
+    type === "learning" && (
+      <div class="learning-map">
+        <div class="learning-curve">
+          <svg viewBox="0 0 560 260" role="presentation">
+            <path class="axis" d="M46 28v196h472" />
+            <path class="curve curve--ghost" d="M48 58c80 8 118 118 190 119 87 1 116-95 274-112" />
+            <path
+              class="curve"
+              d="M48 194c72-2 84-92 154-93 68-1 90 74 148 72 62-2 84-88 162-115"
+            />
+            <g>
+              <circle cx="48" cy="194" r="6" />
+              <circle cx="202" cy="101" r="6" />
+              <circle cx="350" cy="173" r="6" />
+              <circle cx="512" cy="58" r="6" />
+            </g>
+          </svg>
+        </div>
+        <span class="learning-tag learning-tag--a">derive</span>
+        <span class="learning-tag learning-tag--b">implement</span>
+        <span class="learning-tag learning-tag--c">evaluate</span>
+        <span class="visual-label">learning loop / 04</span>
+      </div>
+    )
+  }
+</div>

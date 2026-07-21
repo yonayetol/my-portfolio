@@ -1,0 +1,60 @@
+---
+const sections = [
+  { id: "top", index: "00", label: "Intro" },
+  { id: "selected-work", index: "01", label: "Work" },
+  { id: "capabilities", index: "02", label: "Systems" },
+  { id: "contact", index: "03", label: "Contact" },
+];
+---
+
+<nav class="scroll-rail" aria-label="On this page" data-scroll-rail>
+  <span class="scroll-rail__track" aria-hidden="true"><i></i></span>
+  {
+    sections.map((section, index) => (
+      <a
+        href={`#${section.id}`}
+        data-scroll-target={section.id}
+        aria-current={index === 0 ? "location" : undefined}
+      >
+        <span>{section.index}</span>
+        <i aria-hidden="true" />
+        <small>{section.label}</small>
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  const initScrollRail = () => {
+    const rail = document.querySelector<HTMLElement>("[data-scroll-rail]");
+    if (!rail || rail.dataset.ready === "true") return;
+    rail.dataset.ready = "true";
+
+    const links = [...rail.querySelectorAll<HTMLAnchorElement>("[data-scroll-target]")];
+    const sections = links
+      .map((link) => document.getElementById(link.dataset.scrollTarget ?? ""))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const setActive = (id: string) => {
+      links.forEach((link) => {
+        if (link.dataset.scrollTarget === id) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) setActive(visible.target.id);
+      },
+      { rootMargin: "-28% 0px -55%", threshold: [0, 0.15, 0.45, 0.75] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  };
+
+  document.addEventListener("astro:page-load", initScrollRail);
+  initScrollRail();
+</script>

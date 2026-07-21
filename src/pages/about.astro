@@ -1,0 +1,204 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import ContactSection from "@/components/ContactSection.astro";
+import { capabilityClusters, experience } from "@/data/profile";
+import { withBase } from "@/utils/paths";
+---
+
+<BaseLayout
+  title="About — Yonas"
+  description="How Yonas connects first-principles learning, intelligent systems, production engineering, and technical teaching."
+>
+  <main id="main-content">
+    <header class="page-hero about-hero" id="top">
+      <div class="shell about-hero__grid">
+        <div data-reveal data-visible="true">
+          <p class="section-kicker"><span>02</span><span>About / operating manual</span></p>
+          <h1>
+            I learn by taking systems <em>apart.</em> I build by putting them back together—better.
+          </h1>
+        </div>
+        <div
+          class="about-portrait"
+          aria-label="Abstract Yonas monogram portrait"
+          data-reveal
+          data-visible="true"
+        >
+          <div class="about-portrait__grid"></div>
+          <span class="about-portrait__letter">Y</span>
+          <span class="about-portrait__orbit"></span>
+          <span class="about-portrait__orbit about-portrait__orbit--two"></span>
+          <span class="about-portrait__label">ADDIS ABABA<br />09.03° N / 38.74° E</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="section about-intro">
+      <div class="shell about-intro__grid">
+        <p class="eyebrow" data-reveal>AI engineer · Software builder · Technical trainer</p>
+        <div data-reveal>
+          <p class="about-intro__lead">
+            I’m Yonas, a software developer and AI engineer working where symbolic reasoning,
+            machine learning, and real product infrastructure meet.
+          </p>
+          <p>
+            My default approach is simple: understand the mechanism, expose the evidence, and design
+            the system around the constraints that actually exist. That can mean rebuilding an ML
+            algorithm before using its framework, tracing a pattern through a hypergraph, or
+            debugging the hosting layer of a production application.
+          </p>
+          <p>
+            Teaching is part of that practice. At iCog Labs, my work includes programming, technical
+            training, intern mentorship, symbolic-AI learning material, and analytical assessment
+            design. Explaining a system makes weak understanding visible—and makes strong
+            understanding reusable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section principles-section">
+      <div class="shell">
+        <SectionHeader
+          index="01"
+          eyebrow="Working principles"
+          title="The rules behind the work."
+          description="Not personality adjectives—operating constraints I use to make better technical decisions."
+        />
+        <div class="principles-grid">
+          <article data-reveal>
+            <span>01</span><h3>Evidence before assumption.</h3><p>
+              Instrument the behavior, inspect intermediate states, and let the system show where
+              the model is wrong.
+            </p>
+          </article>
+          <article data-reveal>
+            <span>02</span><h3>Mechanism before abstraction.</h3><p>
+              Understand what a framework hides so its convenience becomes a choice rather than a
+              dependency.
+            </p>
+          </article>
+          <article data-reveal>
+            <span>03</span><h3>Correctness before optimization.</h3><p>
+              Make the path legible and testable first. Improve speed only when the evidence shows
+              where it matters.
+            </p>
+          </article>
+          <article data-reveal>
+            <span>04</span><h3>Deployment is product work.</h3><p>
+              The server, database, network, and routing layer all shape what the user experiences.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about-experience">
+      <div class="shell">
+        <SectionHeader
+          index="02"
+          eyebrow="Current trajectory"
+          title="Build. Teach. Study. Repeat."
+        />
+        <div class="about-path" data-reveal>
+          {
+            experience.map((item, index) => (
+              <article>
+                <div>
+                  <>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <i />
+                  </>
+                </div>
+                <p class="eyebrow">{item.marker}</p>
+                <h3>{item.organization}</h3>
+                <strong>{item.role}</strong>
+                <p>{item.detail}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section toolkit-section">
+      <div class="shell">
+        <SectionHeader
+          index="03"
+          eyebrow="Technical map"
+          title="Capabilities grouped by what they make possible."
+        />
+        <div class="toolkit-table">
+          {
+            capabilityClusters.map((cluster) => (
+              <article data-reveal>
+                <div>
+                  <>
+                    <span>{cluster.index}</span>
+                    <p>{cluster.signal}</p>
+                  </>
+                </div>
+                <h3>{cluster.title}</h3>
+                <p>{cluster.description}</p>
+                <ul>
+                  {cluster.tools.map((tool) => (
+                    <li>{tool}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section learning-manifesto">
+      <div class="shell learning-manifesto__grid">
+        <div data-reveal>
+          <p class="section-kicker"><span>04</span><span>Continuous learning</span></p>
+          <h2>Current knowledge is a snapshot, not an identity.</h2>
+          <p>
+            My path is moving from classical ML foundations into deep learning, transformers, AI
+            agents, RAG, LangGraph, MCP, and distributed AI. The labels stay honest: studied,
+            implementing, or exploring.
+          </p>
+          <a class="button button--ghost" href={withBase("work/ml-engineering-dojo/")}
+            >View the learning lab <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <div class="manifesto-code" data-reveal aria-label="Learning loop pseudocode">
+          <div><span></span><span></span><span></span><small>learning-loop.metta</small></div>
+          <pre><code><b>01</b>  (: learn (-> Problem Evidence))
+<b>02</b>
+<b>03</b>  (= (learn $problem)
+<b>04</b>     (let* (
+<b>05</b>       ($model (derive $problem))
+<b>06</b>       ($build (implement $model))
+<b>07</b>       ($proof (evaluate $build)))
+<b>08</b>       (iterate $proof)))
+<b>09</b>
+<b>10</b>  ; assumptions must be inspectable</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-location">
+      <div class="shell about-location__grid" data-reveal>
+        <div>
+          <span class="location-time">09:03</span><span class="mono">AFRICA / ADDIS_ABABA</span>
+        </div>
+        <div>
+          <p class="eyebrow">Context shapes engineering</p>
+          <h2>Building from Addis Ababa, for systems that travel.</h2>
+          <p>
+            Local infrastructure constraints and global technical ambition can belong in the same
+            practice. I’m interested in work that respects both.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <ContactSection />
+  </main>
+</BaseLayout>

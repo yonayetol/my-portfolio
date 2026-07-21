@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { withBase } from "@/utils/paths";
+---
+
+<BaseLayout
+  title="404 — Signal not found"
+  description="The requested portfolio route does not exist."
+  noindex
+>
+  <main id="main-content" class="not-found">
+    <div class="not-found__signal" aria-hidden="true">
+      <span>4</span><i></i><span>0</span><i></i><span>4</span>
+    </div>
+    <div class="not-found__copy">
+      <p class="eyebrow">ROUTE_ERROR / SIGNAL_NOT_FOUND</p>
+      <h1>This node is outside the graph.</h1>
+      <p>The address may have moved, or the connection was never defined.</p>
+      <a class="button" href={withBase()}
+        >Return to the workshop <span aria-hidden="true">↗</span></a
+      >
+    </div>
+  </main>
+</BaseLayout>

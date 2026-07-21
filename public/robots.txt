@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yonayetol.github.io/my-portfolio/sitemap-index.xml

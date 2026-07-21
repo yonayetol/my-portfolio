@@ -1,0 +1,35 @@
+---
+import { profile, socialLinks } from "@/data/profile";
+---
+
+<section class="contact-section" id="contact" aria-labelledby="contact-title">
+  <div class="shell contact-grid" data-reveal>
+    <div class="contact-orbit" aria-hidden="true">
+      <span class="contact-orbit__ring"></span>
+      <span class="contact-orbit__ring"></span>
+      <span class="contact-orbit__core">Y</span>
+      <span class="contact-orbit__dot contact-orbit__dot--a"></span>
+      <span class="contact-orbit__dot contact-orbit__dot--b"></span>
+    </div>
+    <div class="contact-copy">
+      <p class="eyebrow"><span class="signal-dot"></span> Open channel</p>
+      <h2 id="contact-title">Have a hard problem worth making <em>legible?</em></h2>
+      <p>
+        I’m interested in intelligent products, AI automation, research-minded engineering, and
+        systems that create practical impact.
+      </p>
+      <a class="contact-email" href={`mailto:${profile.email}`}>
+        <span>{profile.email}</span><span aria-hidden="true">↗</span>
+      </a>
+      <div class="contact-links">
+        {
+          socialLinks.slice(0, 2).map((link) => (
+            <a href={link.href} target="_blank" rel="noreferrer">
+              {link.label} <span aria-hidden="true">↗</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

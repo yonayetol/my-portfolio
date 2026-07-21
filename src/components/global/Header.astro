@@ -1,0 +1,88 @@
+---
+import { profile } from "@/data/profile";
+import { withBase } from "@/utils/paths";
+
+const path = Astro.url.pathname;
+const links = [
+  { label: "Work", href: withBase("work/"), match: "/work" },
+  { label: "About", href: withBase("about/"), match: "/about" },
+  { label: "Credentials", href: withBase("credentials/"), match: "/credentials" },
+];
+---
+
+<header class="site-header" data-header>
+  <div class="shell header-inner">
+    <a class="brand" href={withBase()}>
+      <span class="brand-mark" aria-hidden="true">Y</span>
+      <span class="brand-copy">
+        <strong>{profile.name}</strong>
+        <span>Intelligence workshop</span>
+      </span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-navigation"
+      data-nav-toggle
+    >
+      <span class="sr-only">Open navigation</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <nav id="site-navigation" class="site-nav" aria-label="Primary" data-nav>
+      <div class="nav-links">
+        {
+          links.map((link) => (
+            <a href={link.href} aria-current={path.includes(link.match) ? "page" : undefined}>
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+      <a class="button button--small" href={`${withBase()}#contact`} data-nav-contact>
+        <span>Start a conversation</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const initNavigation = () => {
+    const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+    const navigation = document.querySelector<HTMLElement>("[data-nav]");
+    if (!toggle || !navigation || toggle.dataset.ready === "true") return;
+
+    toggle.dataset.ready = "true";
+
+    const close = () => {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.querySelector(".sr-only")!.textContent = "Open navigation";
+      navigation.removeAttribute("data-open");
+      document.body.removeAttribute("data-nav-open");
+    };
+
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!open));
+      toggle.querySelector(".sr-only")!.textContent = open ? "Open navigation" : "Close navigation";
+      navigation.toggleAttribute("data-open", !open);
+      document.body.toggleAttribute("data-nav-open", !open);
+    });
+
+    navigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        close();
+        toggle.focus();
+      }
+    });
+    window.matchMedia("(min-width: 801px)").addEventListener("change", close);
+  };
+
+  document.addEventListener("astro:page-load", initNavigation);
+  initNavigation();
+</script>

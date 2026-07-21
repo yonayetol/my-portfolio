@@ -1,0 +1,145 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectVisual from "@/components/ProjectVisual.astro";
+import StatusBadge from "@/components/StatusBadge.astro";
+import ContactSection from "@/components/ContactSection.astro";
+import { projects, type Project } from "@/data/projects";
+import { withBase } from "@/utils/paths";
+
+export const getStaticPaths = (() =>
+  projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const projectIndex = projects.findIndex((item) => item.slug === project.slug);
+const nextProject = projects[(projectIndex + 1) % projects.length] ?? projects[0];
+---
+
+<BaseLayout title={`${project.title} — Yonas`} description={project.summary}>
+  <main id="main-content">
+    <article class:list={["case-study", `accent--${project.accent}`]} id="top">
+      <header class="case-hero">
+        <div class="shell">
+          <nav class="breadcrumb" aria-label="Breadcrumb" data-reveal data-visible="true">
+            <a href={withBase("work/")}>Work</a><span aria-hidden="true">/</span><span
+              aria-current="page">{project.title}</span
+            >
+          </nav>
+          <div class="case-hero__grid">
+            <div data-reveal data-visible="true">
+              <div class="case-meta">
+                <span class="mono">PROJECT /{project.index}</span>
+                <StatusBadge status={project.status} label={project.statusLabel} />
+              </div>
+              <p class="eyebrow">{project.eyebrow}</p>
+              <h1>{project.title}</h1>
+              <p class="case-statement">{project.statement}</p>
+            </div>
+            <div class="case-hero__aside" data-reveal data-visible="true">
+              <p>{project.summary}</p>
+              <ul class="tag-list">
+                {project.disciplines.map((discipline) => <li>{discipline}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="shell case-visual" data-reveal>
+        <ProjectVisual type={project.visual} />
+      </div>
+
+      <section class="case-section">
+        <div class="shell case-two-column">
+          <div class="case-section__label" data-reveal>
+            <span>01</span><p>Context</p>
+          </div>
+          <div class="case-prose" data-reveal>
+            <h2>The system behind the interface.</h2>
+            <p class="large-copy">{project.context}</p>
+            <p>{project.system}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section case-section--surface">
+        <div class="shell">
+          <div class="case-section__label" data-reveal>
+            <span>02</span><p>Engineering decisions</p>
+          </div>
+          <div class="decision-grid">
+            {
+              project.decisions.map((decision, index) => (
+                <article class="decision-card" data-reveal>
+                  <span class="mono">D-{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{decision.title}</h3>
+                  <p>{decision.detail}</p>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <div class="shell evidence-layout">
+          <div class="case-section__label" data-reveal>
+            <span>03</span><p>Evidence record</p>
+          </div>
+          <div class="evidence-panel" data-reveal>
+            <div class="evidence-panel__head">
+              <span class="signal-dot"></span><span>SUPPORTED SCOPE</span><span
+                >{String(project.proof.length).padStart(2, "0")} ITEMS</span
+              >
+            </div>
+            <ol>
+              {
+                project.proof.map((item, index) => (
+                  <li>
+                    <>
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <p>{item}</p>
+                      <i aria-hidden="true">✓</i>
+                    </>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-reflection">
+        <div class="shell case-reflection__grid" data-reveal>
+          <p class="eyebrow">Reflection / what this work makes visible</p>
+          <blockquote>{project.reflection}</blockquote>
+        </div>
+      </section>
+
+      {
+        nextProject && (
+          <aside class="next-project">
+            <a class="shell" href={withBase(`work/${nextProject.slug}/`)}>
+              <div>
+                <span class="mono">NEXT SYSTEM /{nextProject.index}</span>
+                <p>{nextProject.eyebrow}</p>
+              </div>
+              <strong>{nextProject.title}</strong>
+              <span class="next-project__arrow" aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          </aside>
+        )
+      }
+    </article>
+    <ContactSection />
+  </main>
+</BaseLayout>

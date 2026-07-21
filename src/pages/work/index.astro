@@ -1,0 +1,95 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import ContactSection from "@/components/ContactSection.astro";
+import { projects } from "@/data/projects";
+---
+
+<BaseLayout
+  title="Selected Work — Yonas"
+  description="Production systems, symbolic AI, donation infrastructure, and from-scratch machine-learning work by Yonas."
+>
+  <main id="main-content">
+    <header class="page-hero page-hero--work" id="top">
+      <div class="shell page-hero__grid">
+        <div data-reveal data-visible="true">
+          <p class="section-kicker"><span>01</span><span>Work archive</span></p>
+          <h1>Systems, not <em>screenshots.</em></h1>
+        </div>
+        <div class="page-hero__aside" data-reveal data-visible="true">
+          <p>
+            A record of shipped software, active AI work, product infrastructure, and the learning
+            systems underneath them.
+          </p>
+          <span class="mono">04 records / 03 states</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="work-archive section">
+      <div class="shell">
+        <div class="work-filter" data-work-filter data-reveal>
+          <span class="mono">FILTER /</span>
+          <div role="group" aria-label="Filter projects by status">
+            <button type="button" data-filter="all" aria-pressed="true">All <span>04</span></button>
+            <button type="button" data-filter="shipped" aria-pressed="false"
+              >Shipped <span>01</span></button
+            >
+            <button type="button" data-filter="in-progress" aria-pressed="false"
+              >In progress <span>02</span></button
+            >
+            <button type="button" data-filter="research" aria-pressed="false"
+              >Learning lab <span>01</span></button
+            >
+          </div>
+          <p class="sr-only" aria-live="polite" data-filter-status>Showing all 4 projects.</p>
+        </div>
+
+        <div class="work-grid" id="project-results">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+
+        <div class="archive-note" data-reveal>
+          <span class="mono">A note on evidence</span>
+          <p>
+            Status labels are intentional. “In progress” means the direction is active—not that
+            every proposed integration is live. Learning work stays a learning lab until its
+            implementation record is complete.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <ContactSection />
+  </main>
+</BaseLayout>
+
+<script>
+  const initFilter = () => {
+    const filter = document.querySelector<HTMLElement>("[data-work-filter]");
+    if (!filter || filter.dataset.ready === "true") return;
+    filter.dataset.ready = "true";
+
+    const buttons = filter.querySelectorAll<HTMLButtonElement>("[data-filter]");
+    const cards = document.querySelectorAll<HTMLElement>("[data-project-card]");
+    const status = filter.querySelector<HTMLElement>("[data-filter-status]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const value = button.dataset.filter;
+        let count = 0;
+        buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        cards.forEach((card) => {
+          const show = value === "all" || card.dataset.status === value;
+          card.toggleAttribute("hidden", !show);
+          if (show) count += 1;
+        });
+        if (status)
+          status.textContent = `Showing ${count} ${count === 1 ? "project" : "projects"}.`;
+      });
+    });
+  };
+
+  document.addEventListener("astro:page-load", initFilter);
+  initFilter();
+</script>
