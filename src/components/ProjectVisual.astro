@@ -29,7 +29,7 @@ const { type, compact = false } = Astro.props;
         />
         <div class="ims-evidence__topline">
           <span>
-            <i /> APPROVED PROJECT CAPTURE
+            <i /> PROJECT SCREENSHOT
           </span>
           <span>ABDI ADAMA SCHOOL / SCHOOL LIFE</span>
         </div>
@@ -38,7 +38,7 @@ const { type, compact = false } = Astro.props;
           <strong>From system architecture to the screen people use.</strong>
           <small>ROLES → DATA → NOTIFICATIONS → DEPLOYMENT</small>
         </div>
-        <span class="ims-evidence__index">DEPLOYED / 01</span>
+        <span class="ims-evidence__index">DEPLOYED SCHOOL IMS</span>
       </div>
     )
   }
@@ -64,35 +64,85 @@ const { type, compact = false } = Astro.props;
         </svg>
         <span class="pattern-code pattern-code--a">min_support(p) ≥ τ</span>
         <span class="pattern-code pattern-code--b">expand ∧ score</span>
-        <span class="visual-label">hypergraph trace / 02</span>
+        <span class="visual-label">HYPERGRAPH PATTERN SEARCH</span>
       </div>
     )
   }
 
   {
     type === "donation" && (
-      <div class="donation-map">
-        <div class="donor donor--local">
-          <span>ET</span>Local
+      <div class="donation-product">
+        <div class="donation-product__intro">
+          <span>BERHAN · PRODUCT DIRECTION</span>
+          <strong>Giving should feel clear before it asks for commitment.</strong>
+          <small>IN-PROGRESS CONCEPT</small>
         </div>
-        <div class="donor donor--diaspora">
-          <span>↗</span>Diaspora
+        <div class="giving-preview">
+          <div class="giving-preview__head">
+            <div class="berhan-mark" aria-hidden="true">
+              <span />
+            </div>
+            <div>
+              <strong>Support a cause</strong>
+              <small>Flexible giving, one calm flow</small>
+            </div>
+            <span class="prototype-pill">Prototype</span>
+          </div>
+          <div class="giving-progress" aria-hidden="true">
+            <>
+              <span class="is-active">Cause</span>
+              <i />
+            </>{" "}
+            <>
+              <span>Amount</span>
+              <i />
+            </>{" "}
+            <span>Confirm</span>
+          </div>
+          <div class="giving-selection">
+            <span>Selected cause</span>
+            <strong>Choose where your support goes</strong>
+            <small>One cause or a thoughtful split between several.</small>
+          </div>
+          <div class="giving-options">
+            <>
+              <span>Local supporter</span>
+              <span>Diaspora supporter</span>
+            </>
+          </div>
+          <div class="giving-toggle">
+            <span>
+              <>
+                <strong>Give anonymously</strong>
+                <small>Keep your identity private</small>
+              </>
+            </span>
+            <i aria-hidden="true" />
+          </div>
+          <div class="giving-action">
+            Continue securely <span aria-hidden="true">→</span>
+          </div>
         </div>
-        <div class="donation-core">
-          <span class="donation-pulse" />
-          <span>BERHAN</span>
-          <small>giving flow</small>
+        <div class="donation-product__features">
+          <div>
+            <>
+              <span>Recurring support</span>
+              <small>Designed for continued participation</small>
+            </>
+          </div>
+          <div>
+            <>
+              <span>Donor choice</span>
+              <small>Split, private, or direct giving</small>
+            </>
+          </div>
+          <div>
+            <>
+              <span>Two contexts</span>
+              <small>Local and diaspora paths</small>
+            </>
+          </div>
         </div>
-        <div class="allocation allocation--one">
-          Cause A <span>54%</span>
-        </div>
-        <div class="allocation allocation--two">
-          Cause B <span>31%</span>
-        </div>
-        <div class="allocation allocation--three">
-          Cause C <span>15%</span>
-        </div>
-        <span class="visual-label">donation routing / 03</span>
       </div>
     )
   }
@@ -119,7 +169,7 @@ const { type, compact = false } = Astro.props;
         <span class="learning-tag learning-tag--a">derive</span>
         <span class="learning-tag learning-tag--b">implement</span>
         <span class="learning-tag learning-tag--c">evaluate</span>
-        <span class="visual-label">learning loop / 04</span>
+        <span class="visual-label">FROM-SCRATCH MODEL STUDY</span>
       </div>
     )
   }

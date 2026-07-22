@@ -1,72 +1,86 @@
 <section class="proof-graph" aria-labelledby="graph-title" data-proof-graph data-reveal>
   <div class="proof-graph__canvas">
-    <div class="graph-rings" aria-hidden="true"><span></span><span></span><span></span></div>
-    <svg class="graph-lines" viewBox="0 0 760 540" aria-hidden="true">
-      <path d="M382 268 176 112M382 268 600 108M382 268 628 410M382 268 162 418"></path>
-      <path
-        class="graph-line--soft"
-        d="M176 112 600 108M600 108 628 410M628 410 162 418M162 418 176 112"></path>
-    </svg>
-
-    <div class="graph-core" aria-hidden="true">
-      <span>Y</span>
-      <small>build system</small>
+    <div class="proof-graph__intro">
+      <span class="mono">Capabilities, grounded in work</span>
+      <p>Select a practice to see the project evidence behind it.</p>
     </div>
 
-    <button
-      class="graph-node graph-node--reasoning"
-      type="button"
-      data-graph-node="reasoning"
-      aria-pressed="true"
-    >
-      <span>01</span>
-      <strong>Reasoning</strong>
-      <small>Symbolic AI</small>
-    </button>
-    <button
-      class="graph-node graph-node--learning"
-      type="button"
-      data-graph-node="learning"
-      aria-pressed="false"
-    >
-      <span>02</span>
-      <strong>Learning</strong>
-      <small>Machine learning</small>
-    </button>
-    <button
-      class="graph-node graph-node--product"
-      type="button"
-      data-graph-node="product"
-      aria-pressed="false"
-    >
-      <span>03</span>
-      <strong>Product</strong>
-      <small>Full-stack systems</small>
-    </button>
-    <button
-      class="graph-node graph-node--shipping"
-      type="button"
-      data-graph-node="shipping"
-      aria-pressed="false"
-    >
-      <span>04</span>
-      <strong>Shipping</strong>
-      <small>Production delivery</small>
-    </button>
+    <div class="proof-tabs" role="tablist" aria-label="Capability evidence">
+      <button
+        class="proof-tab"
+        type="button"
+        role="tab"
+        data-graph-node="reasoning"
+        aria-selected="true"
+        aria-controls="capability-evidence"
+      >
+        <span>Reasoning systems</span>
+        <strong>Symbolic structures and pattern search</strong>
+        <small>Demonstrated in MM2 Pattern Miner</small>
+        <i aria-hidden="true">↗</i>
+      </button>
+      <button
+        class="proof-tab"
+        type="button"
+        role="tab"
+        data-graph-node="learning"
+        aria-selected="false"
+        aria-controls="capability-evidence"
+      >
+        <span>Learning systems</span>
+        <strong>Models rebuilt from their foundations</strong>
+        <small>Demonstrated in ML Engineering Dojo</small>
+        <i aria-hidden="true">↗</i>
+      </button>
+      <button
+        class="proof-tab"
+        type="button"
+        role="tab"
+        data-graph-node="product"
+        aria-selected="false"
+        aria-controls="capability-evidence"
+      >
+        <span>Product systems</span>
+        <strong>Complex flows made understandable</strong>
+        <small>Demonstrated in Nexora IMS and Berhan</small>
+        <i aria-hidden="true">↗</i>
+      </button>
+      <button
+        class="proof-tab"
+        type="button"
+        role="tab"
+        data-graph-node="shipping"
+        aria-selected="false"
+        aria-controls="capability-evidence"
+      >
+        <span>Production engineering</span>
+        <strong>Applications carried into real environments</strong>
+        <small>Demonstrated in Nexora IMS</small>
+        <i aria-hidden="true">↗</i>
+      </button>
+    </div>
   </div>
 
-  <div class="proof-graph__readout" aria-live="polite">
-    <div>
-      <span class="mono" data-graph-index>/01</span>
-      <span class="signal"><i></i> Evidence channel active</span>
+  <div class="proof-graph__readout" id="capability-evidence" role="tabpanel" tabindex="0">
+    <div class="proof-graph__evidence-head">
+      <span class="signal"><i></i> Evidence from active work</span>
+      <span class="mono" data-graph-project>MM2 Pattern Miner</span>
     </div>
-    <h3 id="graph-title" data-graph-title>Reasoning systems</h3>
-    <p data-graph-copy>
-      Pattern mining inside Hyperon connects symbolic representation, conjunction expansion, support
-      filtering, and surprisingness scoring.
-    </p>
+    <div class="proof-graph__statement">
+      <p class="eyebrow" data-graph-signal>Represent → connect → infer</p>
+      <h3 id="graph-title" data-graph-title>Reasoning systems</h3>
+      <p data-graph-copy>
+        Pattern mining inside Hyperon connects symbolic representation, conjunction expansion,
+        support filtering, and surprisingness scoring.
+      </p>
+    </div>
+    <div class="proof-graph__methods" data-graph-methods>
+      <span>Support filtering</span><span>Conjunction expansion</span><span
+        >Surprisingness scoring</span
+      >
+    </div>
     <a class="text-link" href="#capabilities" data-graph-link
-      >Inspect capability <span aria-hidden="true">↓</span></a
+      >See the complete capability map <span aria-hidden="true">↓</span></a
     >
   </div>
 </section>
@@ -74,24 +88,32 @@
 <script>
   const graphData = {
     reasoning: {
-      index: "/01",
+      project: "MM2 Pattern Miner",
+      signal: "Represent → connect → infer",
       title: "Reasoning systems",
       copy: "Pattern mining inside Hyperon connects symbolic representation, conjunction expansion, support filtering, and surprisingness scoring.",
+      methods: ["Support filtering", "Conjunction expansion", "Surprisingness scoring"],
     },
     learning: {
-      index: "/02",
+      project: "ML Engineering Dojo",
+      signal: "Derive → implement → evaluate",
       title: "Learning systems",
-      copy: "Classical machine learning is rebuilt from its mathematical core, then evaluated before higher-level abstractions take over.",
+      copy: "Classical machine-learning ideas are rebuilt from their mathematical core and evaluated before higher-level abstractions take over.",
+      methods: ["Mathematical derivation", "From-scratch builds", "Model evaluation"],
     },
     product: {
-      index: "/03",
+      project: "Nexora IMS · Berhan",
+      signal: "Shape → build → iterate",
       title: "Product systems",
-      copy: "Interfaces, permissions, data, and real user flows become coherent full-stack products instead of disconnected features.",
+      copy: "Interfaces, permissions, data, and consequential user flows become coherent products instead of disconnected features.",
+      methods: ["Role-aware workflows", "Product architecture", "Interface design"],
     },
     shipping: {
-      index: "/04",
-      title: "Shipping systems",
+      project: "Nexora IMS",
+      signal: "Package → deploy → observe",
+      title: "Production engineering",
       copy: "Containers, databases, web servers, routing, and network constraints are treated as part of the product experience.",
+      methods: ["Docker delivery", "PostgreSQL deployment", "VPS and LiteSpeed"],
     },
   } as const;
 
@@ -101,18 +123,30 @@
     graph.dataset.ready = "true";
 
     const nodes = graph.querySelectorAll<HTMLButtonElement>("[data-graph-node]");
-    const index = graph.querySelector<HTMLElement>("[data-graph-index]");
+    const project = graph.querySelector<HTMLElement>("[data-graph-project]");
+    const signal = graph.querySelector<HTMLElement>("[data-graph-signal]");
     const title = graph.querySelector<HTMLElement>("[data-graph-title]");
     const copy = graph.querySelector<HTMLElement>("[data-graph-copy]");
+    const methods = graph.querySelector<HTMLElement>("[data-graph-methods]");
 
     nodes.forEach((node) => {
       node.addEventListener("click", () => {
         const key = node.dataset.graphNode as keyof typeof graphData;
         const data = graphData[key];
-        nodes.forEach((item) => item.setAttribute("aria-pressed", String(item === node)));
-        if (index) index.textContent = data.index;
+        nodes.forEach((item) => item.setAttribute("aria-selected", String(item === node)));
+        if (project) project.textContent = data.project;
+        if (signal) signal.textContent = data.signal;
         if (title) title.textContent = data.title;
         if (copy) copy.textContent = data.copy;
+        if (methods) {
+          methods.replaceChildren(
+            ...data.methods.map((method) => {
+              const item = document.createElement("span");
+              item.textContent = method;
+              return item;
+            }),
+          );
+        }
       });
     });
   };

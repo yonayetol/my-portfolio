@@ -46,11 +46,8 @@ const sections = [
             decoding="async"
             fetchpriority="high"
           />
-          <span class="about-portrait__grid" aria-hidden="true"></span>
-          <span class="about-portrait__scan" aria-hidden="true"></span>
-          <span class="about-portrait__index" aria-hidden="true">IDENTITY / 001</span>
           <figcaption class="about-portrait__label">
-            YONAS<br />ADDIS ABABA · ET<br />09.03° N / 38.74° E
+            <strong>Yonas</strong><span>AI engineer · software builder</span>
           </figcaption>
         </figure>
       </div>
@@ -156,10 +153,8 @@ const sections = [
             capabilityClusters.map((cluster) => (
               <article data-reveal>
                 <div>
-                  <>
-                    <span>{cluster.index}</span>
-                    <p>{cluster.signal}</p>
-                  </>
+                  <span>Practice</span>
+                  <p>{cluster.signal}</p>
                 </div>
                 <h3>{cluster.title}</h3>
                 <p>{cluster.description}</p>
@@ -209,9 +204,9 @@ const sections = [
       <div class="shell about-location__grid" data-reveal>
         <div class="location-context" aria-label="Based in Addis Ababa, Ethiopia">
           <div class="location-context__head">
-            <span class="mono">BASE / ET</span>
+            <span class="mono">ADDIS ABABA, ETHIOPIA</span>
             <i aria-hidden="true"></i>
-            <span class="mono">UTC +03:00</span>
+            <span class="mono">EAST AFRICA TIME</span>
           </div>
           <strong>ADDIS<br />ABABA</strong>
           <div class="location-context__foot">

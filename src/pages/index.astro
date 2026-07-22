@@ -52,39 +52,41 @@ const sections = [
 
         <div class="hero-system" data-reveal data-visible="true" aria-label="Current system focus">
           <div class="hero-system__header">
-            <span>WORKING SET</span>
-            <span><i></i> ONLINE</span>
+            <span>WHAT I'M BUILDING</span>
+            <span><i></i> ACTIVE PRACTICE</span>
           </div>
-          <div class="hero-system__body" aria-hidden="true">
-            <svg viewBox="0 0 520 520">
-              <g class="hero-system__rings">
-                <circle cx="260" cy="260" r="199"></circle>
-                <circle cx="260" cy="260" r="146"></circle>
-                <circle cx="260" cy="260" r="83"></circle>
-              </g>
-              <g class="hero-system__axes">
-                <path d="M45 260h430M260 45v430"></path>
-                <path d="m108 108 304 304M412 108 108 412"></path>
-              </g>
-              <g class="hero-system__signal">
-                <path d="M260 260 163 112M260 260 421 194M260 260 340 420M260 260 115 354"></path>
-                <circle cx="163" cy="112" r="7"></circle>
-                <circle cx="421" cy="194" r="7"></circle>
-                <circle cx="340" cy="420" r="7"></circle>
-                <circle cx="115" cy="354" r="7"></circle>
-              </g>
-            </svg>
-            <div class="system-core">
-              <strong>Y</strong>
-              <span>INTELLIGENCE<br />WORKSHOP</span>
-            </div>
-            <span class="system-label system-label--a">SYMBOLIC / AI</span>
-            <span class="system-label system-label--b">PRODUCT / 03</span>
-            <span class="system-label system-label--c">DEPLOY / 04</span>
-            <span class="system-label system-label--d">LEARN / 02</span>
+          <div class="hero-system__body">
+            <article class="workbench-card workbench-card--primary">
+              <div class="workbench-card__meta">
+                <span>Nexora IMS</span><span class="workbench-state workbench-state--shipped"
+                  >Shipped</span
+                >
+              </div>
+              <h2>School operations, carried through deployment.</h2>
+              <p>Role-aware administration, PostgreSQL, SMS, Docker, and live hosting.</p>
+              <div class="workbench-stack" aria-label="Nexora IMS technologies">
+                <span>PostgreSQL</span><span>Docker</span><span>LiteSpeed</span>
+              </div>
+            </article>
+            <article class="workbench-card">
+              <div class="workbench-card__meta">
+                <span>MM2 Pattern Miner</span><span class="workbench-state">In progress</span>
+              </div>
+              <h2>Find symbolic patterns worth noticing.</h2>
+              <p class="workbench-sequence">support → expand → score</p>
+            </article>
+            <article class="workbench-card">
+              <div class="workbench-card__meta">
+                <span>Berhan</span><span class="workbench-state workbench-state--amber"
+                  >In progress</span
+                >
+              </div>
+              <h2>Calmer donation journeys across distance.</h2>
+              <p>Local and diaspora giving · recurring support · donor privacy</p>
+            </article>
           </div>
           <div class="hero-system__footer">
-            <span>Reason clearly</span><span>Build deeply</span><span>Ship usefully</span>
+            <span>Symbolic AI</span><span>Product systems</span><span>Production engineering</span>
           </div>
         </div>
       </div>
@@ -107,22 +109,18 @@ const sections = [
     <section class="proof-strip" aria-label="Current roles and focus">
       <div class="shell proof-strip__grid">
         <div>
-          <span class="proof-strip__index">01</span>
           <p>Co-founder & Deputy Manager</p>
           <strong>Nexora Technology PLC</strong>
         </div>
         <div>
-          <span class="proof-strip__index">02</span>
           <p>Programmer · Trainer · Evaluator</p>
           <strong>iCog Labs</strong>
         </div>
         <div>
-          <span class="proof-strip__index">03</span>
           <p>Research direction</p>
           <strong>Symbolic + learning systems</strong>
         </div>
         <div>
-          <span class="proof-strip__index">04</span>
           <p>Operating from</p>
           <strong>Addis Ababa, Ethiopia</strong>
         </div>
@@ -153,7 +151,7 @@ const sections = [
       <div class="shell">
         <SectionHeader
           index="02"
-          eyebrow="Proof graph"
+          eyebrow="Capabilities in practice"
           title="One practice. Four connected systems."
           description="I do not treat AI, product, and deployment as isolated skills. Each one changes the decisions made in the others."
         />
@@ -163,10 +161,8 @@ const sections = [
             capabilityClusters.map((cluster) => (
               <article class="capability-card" data-reveal>
                 <div class="capability-card__top">
-                  <>
-                    <span>{cluster.index}</span>
-                    <span>{cluster.signal}</span>
-                  </>
+                  <span>{cluster.signal}</span>
+                  <span>Demonstrated practice</span>
                 </div>
                 <h3>{cluster.title}</h3>
                 <p>{cluster.description}</p>
@@ -323,9 +319,7 @@ const sections = [
             loading="lazy"
             decoding="async"
           />
-          <span class="portrait-grid" aria-hidden="true"></span>
-          <span class="portrait-index" aria-hidden="true">ID / 01</span>
-          <figcaption>YONAS<br />ADDIS ABABA · ET</figcaption>
+          <figcaption><strong>Yonas</strong><span>Addis Ababa, Ethiopia</span></figcaption>
         </figure>
         <div class="about-bridge__copy">
           <p class="eyebrow">Based in Addis Ababa · Building beyond boundaries</p>

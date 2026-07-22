@@ -43,7 +43,7 @@ const sections = [
           <div class="case-hero__grid">
             <div data-reveal data-visible="true">
               <div class="case-meta">
-                <span class="mono">PROJECT /{project.index}</span>
+                <span class="mono">CASE STUDY</span>
                 <StatusBadge status={project.status} label={project.statusLabel} />
               </div>
               <p class="eyebrow">{project.eyebrow}</p>
@@ -86,7 +86,7 @@ const sections = [
             {
               project.decisions.map((decision, index) => (
                 <article class="decision-card" data-reveal>
-                  <span class="mono">D-{String(index + 1).padStart(2, "0")}</span>
+                  <span class="mono">Engineering choice {index + 1}</span>
                   <h3>{decision.title}</h3>
                   <p>{decision.detail}</p>
                 </article>
@@ -136,7 +136,7 @@ const sections = [
           <aside class="next-project">
             <a class="shell" href={withBase(`work/${nextProject.slug}/`)}>
               <div>
-                <span class="mono">NEXT SYSTEM /{nextProject.index}</span>
+                <span class="mono">NEXT PROJECT</span>
                 <p>{nextProject.eyebrow}</p>
               </div>
               <strong>{nextProject.title}</strong>
