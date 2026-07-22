@@ -1,20 +1,54 @@
 <div class="story-field" data-story-field aria-hidden="true">
+  <span class="story-field__wash"></span>
   <span class="story-field__mesh"></span>
   <span class="story-field__orbit story-field__orbit--outer"></span>
   <span class="story-field__orbit story-field__orbit--inner"></span>
+  <span class="story-field__beam" data-story-beam></span>
   <span class="story-field__thread"><i></i></span>
   <span class="story-field__signal"></span>
 </div>
 
 <script>
+  let disposeScrollChoreography = () => {};
+
   const initScrollChoreography = () => {
+    disposeScrollChoreography();
+
     const field = document.querySelector<HTMLElement>("[data-story-field]");
     const railLinks = [...document.querySelectorAll<HTMLAnchorElement>("[data-scroll-target]")];
-    if (!field || !railLinks.length || field.dataset.ready === "true") return;
-    field.dataset.ready = "true";
+    if (!field || !railLinks.length) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reducedMotion.matches) return;
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (motionPreference.matches) {
+      document.documentElement.removeAttribute("data-scroll-fx");
+      return;
+    }
+
+    const controller = new AbortController();
+    const { signal } = controller;
+    const beam = field.querySelector<HTMLElement>("[data-story-beam]");
+    const choreographyAnimations = new Set<Animation>();
+    const runPulse = (
+      target: HTMLElement,
+      keyframes: Keyframe[],
+      options: KeyframeAnimationOptions,
+    ) => {
+      const animation = target.animate(keyframes, options);
+      choreographyAnimations.add(animation);
+      void animation.finished
+        .catch(() => {})
+        .finally(() => {
+          animation.cancel();
+          choreographyAnimations.delete(animation);
+        });
+    };
+    const tones = [
+      "var(--blue-bright)",
+      "var(--violet)",
+      "var(--mint)",
+      "var(--amber)",
+      "var(--coral)",
+    ];
 
     const chapters = railLinks
       .map((link, position) => ({
@@ -26,7 +60,7 @@
       );
 
     let activeChapter = -1;
-    const activateChapter = (position: number) => {
+    const activateChapter = (position: number, pulse = true) => {
       if (position === activeChapter) return;
       activeChapter = position;
       field.dataset.chapter = String(position);
@@ -34,97 +68,168 @@
         "--chapter-progress",
         String(position / Math.max(chapters.length - 1, 1)),
       );
-      field.animate(
-        [
-          { opacity: 0.2, filter: "saturate(.7)" },
-          { opacity: 0.48, filter: "saturate(1.35)", offset: 0.42 },
-          { opacity: 0.28, filter: "saturate(1)" },
-        ],
-        { duration: 720, easing: "cubic-bezier(.16, 1, .3, 1)" },
+      document.documentElement.style.setProperty(
+        "--chapter-accent",
+        tones[position % tones.length] ?? "var(--blue-bright)",
       );
+
+      if (pulse) {
+        runPulse(
+          field,
+          [
+            { opacity: 0.2, transform: "scale(.985)" },
+            { opacity: 0.44, transform: "scale(1.015)", offset: 0.42 },
+            { opacity: 0.3, transform: "scale(1)" },
+          ],
+          { duration: 760, easing: "cubic-bezier(.16, 1, .3, 1)" },
+        );
+      }
+
+      if (beam && pulse) {
+        runPulse(
+          beam,
+          [
+            { opacity: 0, transform: "translate3d(-35vw, 24vh, 0) rotate(-8deg) scaleX(.2)" },
+            {
+              opacity: 0.62,
+              transform: "translate3d(0, 0, 0) rotate(-8deg) scaleX(1)",
+              offset: 0.38,
+            },
+            { opacity: 0, transform: "translate3d(32vw, -22vh, 0) rotate(-8deg) scaleX(.35)" },
+          ],
+          { duration: 980, easing: "cubic-bezier(.16, 1, .3, 1)" },
+        );
+      }
     };
 
     const chapterObserver = new IntersectionObserver(
       (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         const chapter = visible && chapters.find((item) => item.element === visible.target);
         if (chapter) activateChapter(chapter.position);
       },
-      { rootMargin: "-45% 0px -45%", threshold: 0 },
+      { rootMargin: "-38% 0px -46%", threshold: [0, 0.08, 0.24] },
     );
 
     const sceneSelectors = [
-      "main > header",
+      ".hero",
+      ".page-hero",
+      ".about-hero",
+      ".case-hero",
       "main > section",
-      ".case-study > header",
       ".case-study > section",
       ".case-visual",
       ".project-card--feature",
-      ".project-card--grid",
-      ".decision-card",
-      ".credential-group",
-      ".principles-grid article",
-      ".toolkit-table article",
     ];
     const scenes = [
       ...new Set(
         sceneSelectors.flatMap((selector) => [...document.querySelectorAll<HTMLElement>(selector)]),
       ),
     ];
+    const activeScenes = new Set<HTMLElement>();
+    const featureCards = [...document.querySelectorAll<HTMLElement>(".project-card--feature")];
+
+    const proximityObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const scene = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            activeScenes.add(scene);
+            scene.dataset.motionNear = "true";
+          } else {
+            activeScenes.delete(scene);
+            delete scene.dataset.motionNear;
+          }
+        });
+        scheduleRender();
+      },
+      { rootMargin: "45% 0px 45%", threshold: 0 },
+    );
+
+    const clamp = (value: number, minimum = 0, maximum = 1) =>
+      Math.max(minimum, Math.min(maximum, value));
+    const smoothstep = (minimum: number, maximum: number, value: number) => {
+      const position = clamp((value - minimum) / (maximum - minimum));
+      return position * position * (3 - 2 * position);
+    };
 
     let animationFrame = 0;
-
     const renderScenes = () => {
       animationFrame = 0;
       const viewportHeight = window.innerHeight;
       const maxScroll = Math.max(document.documentElement.scrollHeight - viewportHeight, 1);
-      const pageProgress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
-      const strength = window.innerWidth <= 800 ? 0.42 : 1;
+      const pageProgress = clamp(window.scrollY / maxScroll);
+      const strength = window.innerWidth <= 800 ? 0.4 : 1;
+      const measurements = [...activeScenes].map((scene) => ({
+        scene,
+        rect: scene.getBoundingClientRect(),
+      }));
+      const stackMeasurements = featureCards.map((card) => ({
+        card,
+        rect: card.getBoundingClientRect(),
+      }));
 
       document.documentElement.style.setProperty("--story-progress", String(pageProgress));
       document.documentElement.style.setProperty(
         "--story-x",
-        `${Math.sin(pageProgress * Math.PI * 2) * 7}vw`,
+        `${Math.sin(pageProgress * Math.PI * 2) * 5}vw`,
       );
-      document.documentElement.style.setProperty("--story-y", `${(pageProgress - 0.5) * 18}vh`);
-      document.documentElement.style.setProperty("--story-rotate", `${pageProgress * 150}deg`);
+      document.documentElement.style.setProperty("--story-y", `${(pageProgress - 0.5) * 12}vh`);
+      document.documentElement.style.setProperty("--story-rotate", `${pageProgress * 105}deg`);
       document.documentElement.style.setProperty(
         "--story-scale",
-        String(0.92 + pageProgress * 0.22),
+        String(0.96 + pageProgress * 0.12),
       );
       document.documentElement.style.setProperty("--story-thread", `${pageProgress * 100}%`);
       document.documentElement.style.setProperty("--story-signal", `${8 + pageProgress * 84}vh`);
+      document.documentElement.style.setProperty("--marquee-shift", `${pageProgress * -28}vw`);
 
-      scenes.forEach((scene) => {
-        const rect = scene.getBoundingClientRect();
-        if (rect.bottom < -viewportHeight * 0.3 || rect.top > viewportHeight * 1.3) return;
-
-        const progress = Math.max(
-          0,
-          Math.min(1, (viewportHeight - rect.top) / (viewportHeight + rect.height)),
-        );
-        const delta = progress - 0.5;
-        const focus = 1 - Math.min(1, Math.abs(delta) * 1.7);
+      measurements.forEach(({ scene, rect }) => {
+        const progress = clamp((viewportHeight - rect.top) / (viewportHeight + rect.height));
+        const enter = smoothstep(0.04, 0.32, progress);
+        const leave = smoothstep(0.72, 0.98, progress);
+        const presence = clamp(enter * (1 - leave * 0.62), 0.9, 1);
+        const direction = scene.matches(".project-card--feature:nth-child(even)") ? -1 : 1;
 
         scene.style.setProperty("--scene-progress", String(progress));
-        scene.style.setProperty("--scene-focus", String(focus));
-        scene.style.setProperty("--scene-sweep", `${progress * 100}%`);
-        scene.style.setProperty("--scene-clip", `${(1 - focus) * 5.5}%`);
-        scene.style.setProperty("--scene-content-y", `${delta * -28 * strength}px`);
-        scene.style.setProperty("--scene-y", `${delta * -96 * strength}px`);
-        scene.style.setProperty("--scene-y-soft", `${delta * -50 * strength}px`);
-        scene.style.setProperty("--scene-y-opposite", `${delta * 58 * strength}px`);
-        scene.style.setProperty("--scene-heading-x", `${delta * -74 * strength}px`);
-        scene.style.setProperty("--scene-media-y", `${delta * -44 * strength}px`);
-        scene.style.setProperty("--scene-tilt", `${delta * -1.9 * strength}deg`);
-        scene.style.setProperty("--scene-scale", String(1.005 + focus * 0.03));
-        scene.style.setProperty("--scene-media-scale", String(1.06 - focus * 0.045));
-        scene.style.setProperty("--scene-heading-scale", String(0.975 + focus * 0.025));
-        scene.style.setProperty("--scene-text-opacity", String(0.7 + focus * 0.3));
+        scene.style.setProperty("--scene-enter", String(enter));
+        scene.style.setProperty("--scene-exit", String(leave));
+        scene.style.setProperty("--scene-focus", String(1 - leave));
+        scene.style.setProperty("--scene-line", `${clamp(progress * 1.25) * 100}%`);
         scene.style.setProperty(
-          "--scene-opacity",
-          String(Math.max(0.5, 1 - Math.max(0, progress - 0.72) * 1.5)),
+          "--scene-heading-x",
+          `${((1 - enter) * -12 + leave * 10) * direction * strength}px`,
         );
+        scene.style.setProperty("--scene-y", `${((1 - enter) * 24 - leave * 20) * strength}px`);
+        scene.style.setProperty(
+          "--scene-y-opposite",
+          `${((1 - enter) * -16 + leave * 14) * strength}px`,
+        );
+        scene.style.setProperty(
+          "--scene-media-y",
+          `${((progress - 0.5) * -42 * strength).toFixed(2)}px`,
+        );
+        scene.style.setProperty(
+          "--scene-tilt",
+          `${((1 - enter) * -0.65 + leave * 0.45) * direction * strength}deg`,
+        );
+        scene.style.setProperty("--scene-scale", String(0.985 + enter * 0.015));
+        scene.style.setProperty("--scene-media-scale", String(1.035 - enter * 0.025));
+        scene.style.setProperty("--scene-opacity", String(presence));
+        scene.style.setProperty("--hero-word-x", `${leave * -5.5 * strength}vw`);
+      });
+
+      const stickyTop =
+        (document.querySelector<HTMLElement>(".site-header")?.getBoundingClientRect().height ??
+          72) + 16;
+      stackMeasurements.forEach(({ card }, index) => {
+        const next = stackMeasurements[index + 1];
+        const cover = next ? clamp(1 - (next.rect.top - stickyTop) / (viewportHeight * 0.72)) : 0;
+        card.style.setProperty("--stack-scale", String(1 - cover * 0.045));
+        card.style.setProperty("--stack-lift", `${cover * -12}px`);
+        card.style.setProperty("--stack-shadow", String(0.16 + cover * 0.18));
       });
     };
 
@@ -134,12 +239,39 @@
     };
 
     document.documentElement.dataset.scrollFx = "true";
-    scenes.forEach((scene) => scene.setAttribute("data-scroll-scene", ""));
+    scenes.forEach((scene) => {
+      scene.setAttribute("data-scroll-scene", "");
+      proximityObserver.observe(scene);
+    });
+    featureCards.forEach((card) => card.setAttribute("data-stack-card", ""));
     chapters.forEach((chapter) => chapterObserver.observe(chapter.element));
+    activateChapter(0, false);
     renderScenes();
 
-    window.addEventListener("scroll", scheduleRender, { passive: true });
-    window.addEventListener("resize", scheduleRender);
+    window.addEventListener("scroll", scheduleRender, { passive: true, signal });
+    window.addEventListener("resize", scheduleRender, { signal });
+    motionPreference.addEventListener("change", initScrollChoreography, { signal });
+
+    disposeScrollChoreography = () => {
+      controller.abort();
+      chapterObserver.disconnect();
+      proximityObserver.disconnect();
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      choreographyAnimations.forEach((animation) => animation.cancel());
+      choreographyAnimations.clear();
+      activeScenes.clear();
+      scenes.forEach((scene) => {
+        scene.removeAttribute("data-scroll-scene");
+        delete scene.dataset.motionNear;
+      });
+      featureCards.forEach((card) => {
+        card.removeAttribute("data-stack-card");
+        card.style.removeProperty("--stack-scale");
+        card.style.removeProperty("--stack-lift");
+        card.style.removeProperty("--stack-shadow");
+      });
+      document.documentElement.removeAttribute("data-scroll-fx");
+    };
   };
 
   document.addEventListener("astro:page-load", initScrollChoreography);

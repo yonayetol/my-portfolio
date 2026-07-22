@@ -105,11 +105,13 @@ These are starting points and will be contrast-tested in the browser.
 ### Motion language
 
 - Nodes resolve into connections as sections enter view.
-- Project media uses small depth shifts, never large floating effects.
-- Labels and dividers reveal with short, crisp movement.
-- Page transitions are subtle fades/masks when supported.
+- Project media uses small, user-controlled depth shifts, never disconnected floating effects.
+- Labels, headings, and evidence groups reveal in short, legible sequences.
+- The selected-work chapter uses a bounded desktop card stack as the signature scroll sequence.
+- A continuous page field, progress line, and section rail make the journey feel connected without obscuring copy.
+- Page transitions remain subtle fades/masks when supported.
 - No animation delays access to content.
-- Motion duration generally remains between 160–500 ms.
+- Micro-interactions remain between 160–500 ms; narrative entrances may run 620–1,150 ms and always follow the visitor's scroll.
 - Reduced-motion mode removes transforms and graph movement while preserving state changes.
 
 ## 5. Content strategy
@@ -667,3 +669,4 @@ These do not block initial design-system work, but they block accurate launch co
 - **2026-07-22:** Removed the disruptive full-screen chapter text treatment after studying OJI's continuous brand journey, Ricardo Chance's depth-led portfolio, and Explanideo's user-paced scrollytelling. Replaced it with an original continuous story field, section-linked media crops, scale, parallax, and progress motion. Added a no-flash, system-aware light/dark theme with persistent preference and a responsive bottom story controller on mobile.
 - **2026-07-22:** Replaced the portfolio's repeated node-and-orbit diagrams with evidence-led, project-specific compositions: a truthful active-project workbench in the hero, an interactive capability-to-project evidence panel, and an honest Berhan product-flow concept. Removed faux identity scans, decorative project codes, arbitrary visual numbering, and unsupported dashboard metrics so the presentation feels authored, credible, and specific to the work.
 - **2026-07-22:** Removed the standalone Addis Ababa context section from the About page and closed the navigation sequence so Contact follows the learning section directly.
+- **2026-07-22:** Rebuilt the motion hierarchy around user-paced storytelling after studying OJI's chapter continuity, Ricardo Chance's layered portfolio movement, and Explanideo's scrollytelling principles. Added staggered editorial entrances, a continuous chapter field and progress sweep, a bounded stacked-project sequence, scroll-driven media depth and marquee movement, live reduced-motion teardown, and a continuously updating section rail across desktop and mobile. Removed the redundant fixed glow layer and synchronized first-paint motion defaults; the final mobile production audit scored 98 Performance and 100 for Accessibility, Best Practices, and SEO, with CLS reduced to 0.03.

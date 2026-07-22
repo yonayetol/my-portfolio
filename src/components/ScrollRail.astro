@@ -84,10 +84,20 @@ const { sections } = Astro.props;
       currentNode &&
         (currentNode.textContent = links[activeIndex]?.querySelector("span")?.textContent ?? "00");
       labelNode && (labelNode.textContent = links[activeIndex]?.dataset.scrollLabel ?? "Section");
+    };
+
+    let progressFrame = 0;
+    const updateProgress = () => {
+      progressFrame = 0;
+      const available = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       rail.style.setProperty(
         "--rail-progress",
-        String(activeIndex / Math.max(links.length - 1, 1)),
+        String(Math.max(0, Math.min(1, scrollY / available))),
       );
+    };
+    const scheduleProgress = () => {
+      if (progressFrame) return;
+      progressFrame = requestAnimationFrame(updateProgress);
     };
 
     const jumpTo = (index: number) => {
@@ -119,12 +129,15 @@ const { sections } = Astro.props;
     );
 
     targets.forEach((section) => observer.observe(section));
+    window.addEventListener("scroll", scheduleProgress, { passive: true });
+    window.addEventListener("resize", scheduleProgress);
     const hashTarget = window.location.hash.slice(1);
     setActive(
       hashTarget && targets.some((section) => section.id === hashTarget)
         ? hashTarget
         : (targets[0]?.id ?? ""),
     );
+    updateProgress();
   };
 
   document.addEventListener("astro:page-load", initScrollRail);

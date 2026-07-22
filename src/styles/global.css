@@ -68,6 +68,15 @@
     --radius: 3px;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --shadow: 0 30px 80px rgb(0 0 0 / 25%);
+    --chapter-accent: var(--blue-bright);
+    --story-progress: 0;
+    --story-x: 0vw;
+    --story-y: -6vh;
+    --story-rotate: 0deg;
+    --story-scale: 0.96;
+    --story-thread: 0%;
+    --story-signal: 8vh;
+    --marquee-shift: 0vw;
   }
 
   :root[data-theme="light"] {
@@ -246,43 +255,21 @@
     }
   }
 
-  .ambient {
-    position: fixed;
-    z-index: -1;
-    width: 34rem;
-    aspect-ratio: 1;
-    border-radius: 999px;
-    filter: blur(120px);
-    opacity: 0.06;
-    pointer-events: none;
-  }
-
-  .ambient--one {
-    top: 10vh;
-    right: -15rem;
-    background: var(--blue);
-  }
-
-  .ambient--two {
-    bottom: -18rem;
-    left: -14rem;
-    background: var(--violet);
-  }
-
   html[data-js] [data-reveal] {
-    transform: translate3d(0, 42px, 0) scale(0.985);
-    filter: blur(7px);
+    transform: translate3d(0, 34px, 0) scale(0.992);
     opacity: 0;
     transition:
-      opacity 900ms var(--ease-out),
-      transform 1000ms var(--ease-out),
-      filter 850ms var(--ease-out);
+      opacity 560ms var(--ease-out),
+      transform 680ms var(--ease-out);
   }
 
   html[data-js] [data-reveal][data-visible="true"] {
     transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
     opacity: 1;
+  }
+
+  html[data-scroll-fx] [data-scroll-scene][data-reveal] {
+    transition: opacity 560ms var(--ease-out);
   }
 }
 
@@ -1150,7 +1137,6 @@
     transform-origin: top;
     background: linear-gradient(var(--blue-bright), var(--amber));
     box-shadow: 0 0 12px var(--blue);
-    transition: transform 500ms var(--ease-out);
   }
 
   .scroll-rail a {
@@ -1288,17 +1274,35 @@
 
   .story-field {
     position: fixed;
-    z-index: 0;
+    z-index: 2;
     inset: 0;
     overflow: hidden;
-    opacity: 0.28;
+    opacity: 0.3;
     pointer-events: none;
     mix-blend-mode: screen;
   }
 
   html[data-theme="light"] .story-field {
-    opacity: 0.16;
+    opacity: 0.18;
     mix-blend-mode: multiply;
+  }
+
+  .story-field__wash {
+    position: absolute;
+    top: 50%;
+    right: -18vw;
+    width: min(72vw, 70rem);
+    aspect-ratio: 1;
+    transform: translate3d(var(--story-x, 0), calc(-50% + var(--story-y, 0)), 0)
+      scale(var(--story-scale, 1));
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--chapter-accent, var(--blue-bright)) 22%, transparent),
+      transparent 64%
+    );
+    opacity: 0.42;
+    will-change: transform;
   }
 
   .story-field__mesh {
@@ -1313,7 +1317,7 @@
       linear-gradient(90deg, transparent calc(100% - 1px), rgb(121 160 255 / 12%) 0) 0 0 / 5rem 5rem,
       linear-gradient(transparent calc(100% - 1px), rgb(121 160 255 / 12%) 0) 0 0 / 5rem 5rem;
     mask-image: radial-gradient(circle, black 0 18%, transparent 68%);
-    transition: transform 180ms linear;
+    will-change: transform;
   }
 
   .story-field__orbit {
@@ -1324,7 +1328,7 @@
     border-radius: 50%;
     transform: translate3d(var(--story-x, 0), calc(-50% + var(--story-y, 0)), 0)
       rotate(var(--story-rotate, 0)) scale(var(--story-scale, 1));
-    transition: transform 180ms linear;
+    will-change: transform;
   }
 
   .story-field__orbit::before,
@@ -1374,6 +1378,24 @@
     box-shadow: 0 0 16px rgb(77 124 255 / 38%);
   }
 
+  .story-field__beam {
+    position: absolute;
+    top: 50%;
+    left: -12vw;
+    width: 124vw;
+    height: 1px;
+    transform: rotate(-8deg);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--chapter-accent, var(--blue-bright)) 88%, white 12%),
+      transparent
+    );
+    box-shadow: 0 0 24px
+      color-mix(in srgb, var(--chapter-accent, var(--blue-bright)) 56%, transparent);
+    opacity: 0;
+  }
+
   .story-field__signal {
     position: absolute;
     top: var(--story-signal, 8vh);
@@ -1384,37 +1406,33 @@
     border-radius: 50%;
     background: var(--canvas);
     box-shadow: 0 0 18px rgb(77 124 255 / 65%);
-    transition: top 100ms linear;
   }
 
   html[data-scroll-fx] .hero[data-scroll-scene] .hero-copy {
-    transform: translate3d(0, var(--scene-y-soft, 0), 0);
+    transform: translate3d(0, var(--scene-y, 0), 0);
     opacity: var(--scene-opacity, 1);
-    will-change: transform, opacity;
+  }
+
+  html[data-scroll-fx] .hero[data-scroll-scene] h1 em {
+    display: inline-block;
+    transform: translate3d(var(--hero-word-x, 0), 0, 0);
   }
 
   html[data-scroll-fx] .hero[data-scroll-scene] .hero-system {
     transform: translate3d(0, var(--scene-y-opposite, 0), 0) rotate(var(--scene-tilt, 0deg));
-    will-change: transform;
   }
 
   html[data-scroll-fx] .section[data-scroll-scene] .section-heading__copy {
-    transform: translate3d(var(--scene-heading-x, 0), 0, 0) scale(var(--scene-heading-scale, 1));
-    opacity: var(--scene-text-opacity, 1);
-    will-change: transform, opacity;
+    transform: translate3d(var(--scene-heading-x, 0), 0, 0);
   }
 
   html[data-scroll-fx] .project-card--feature[data-scroll-scene] .project-card__visual {
     transform: translate3d(0, var(--scene-y, 0), 0) rotate(var(--scene-tilt, 0deg))
       scale(var(--scene-scale, 1));
-    clip-path: inset(var(--scene-clip, 0));
-    will-change: transform, clip-path;
   }
 
   html[data-scroll-fx] .project-card--feature[data-scroll-scene] .project-card__body {
     transform: translate3d(0, var(--scene-y-opposite, 0), 0);
-    opacity: var(--scene-text-opacity, 1);
-    will-change: transform, opacity;
   }
 
   html[data-scroll-fx]
@@ -1422,8 +1440,8 @@
     .project-visual--infrastructure
     .ims-evidence
     > img {
-    transform: translate3d(0, var(--scene-media-y, 0), 0) scale(1.12);
-    will-change: transform;
+    transform: translate3d(0, var(--scene-media-y, 0), 0) scale(1.07);
+    transition: none;
   }
 
   html[data-scroll-fx] .learning-section[data-scroll-scene] .learning-copy,
@@ -1431,7 +1449,6 @@
   html[data-scroll-fx] .about-bridge[data-scroll-scene] .about-bridge__portrait,
   html[data-scroll-fx] .contact-section[data-scroll-scene] .contact-orbit {
     transform: translate3d(0, var(--scene-y, 0), 0) rotate(var(--scene-tilt, 0deg));
-    will-change: transform;
   }
 
   html[data-scroll-fx] .learning-section[data-scroll-scene] .learning-board,
@@ -1439,25 +1456,34 @@
   html[data-scroll-fx] .about-bridge[data-scroll-scene] .about-bridge__copy,
   html[data-scroll-fx] .contact-section[data-scroll-scene] .contact-copy {
     transform: translate3d(0, var(--scene-y-opposite, 0), 0);
-    will-change: transform;
   }
 
   html[data-scroll-fx] main > header[data-scroll-scene] .page-hero__grid,
   html[data-scroll-fx] .case-hero[data-scroll-scene] .case-hero__grid {
-    transform: translate3d(0, var(--scene-content-y, 0), 0);
-    will-change: transform;
+    transform: translate3d(0, var(--scene-y, 0), 0);
   }
 
   html[data-scroll-fx] .case-visual[data-scroll-scene] {
-    transform: translate3d(0, var(--scene-content-y, 0), 0) scale(var(--scene-heading-scale, 1));
-    clip-path: inset(var(--scene-clip, 0));
-    will-change: transform, clip-path;
+    transform: translate3d(0, var(--scene-y, 0), 0) scale(var(--scene-scale, 1));
   }
 
   html[data-scroll-fx] .case-visual[data-scroll-scene] .project-visual,
   html[data-scroll-fx] .about-hero[data-scroll-scene] .about-portrait img,
   html[data-scroll-fx] .about-bridge[data-scroll-scene] .about-bridge__portrait img {
     transform: scale(var(--scene-media-scale, 1));
+  }
+
+  html[data-scroll-fx] .hero-marquee > div {
+    transform: translate3d(var(--marquee-shift, 0), 0, 0);
+    animation: none;
+  }
+
+  html[data-scroll-fx] [data-motion-near="true"] .hero-copy,
+  html[data-scroll-fx] [data-motion-near="true"] .hero-system,
+  html[data-scroll-fx] [data-motion-near="true"] .section-heading__copy,
+  html[data-scroll-fx] .project-card--feature[data-motion-near="true"] .project-card__visual,
+  html[data-scroll-fx] .project-card--feature[data-motion-near="true"] .project-card__body,
+  html[data-scroll-fx] .case-visual[data-motion-near="true"] {
     will-change: transform;
   }
 
@@ -1470,24 +1496,56 @@
   html[data-scroll-fx] .case-study > section[data-scroll-scene]::after {
     position: absolute;
     z-index: 4;
-    top: 8%;
-    bottom: 8%;
-    left: var(--scene-sweep, 50%);
-    width: 1px;
-    background: linear-gradient(transparent, rgb(121 160 255 / 34%), transparent);
-    box-shadow: 0 0 22px rgb(77 124 255 / 24%);
+    top: 0;
+    left: 0;
+    width: var(--scene-line, 0%);
+    max-width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--chapter-accent, var(--blue-bright)), transparent);
+    box-shadow: 0 0 18px
+      color-mix(in srgb, var(--chapter-accent, var(--blue-bright)) 42%, transparent);
     content: "";
-    opacity: calc(var(--scene-focus, 0) * 0.42);
+    opacity: 0.55;
     pointer-events: none;
   }
 
-  html[data-scroll-fx] .project-card--grid[data-scroll-scene],
-  html[data-scroll-fx] .decision-card[data-scroll-scene],
-  html[data-scroll-fx] .credential-group[data-scroll-scene],
-  html[data-scroll-fx] .principles-grid article[data-scroll-scene],
-  html[data-scroll-fx] .toolkit-table article[data-scroll-scene] {
-    transform: translate3d(0, var(--scene-content-y, 0), 0);
-    will-change: transform;
+  @media (min-width: 1001px) and (min-height: 760px) {
+    html[data-scroll-fx] .featured-work {
+      padding-bottom: 10vh;
+    }
+
+    html[data-scroll-fx] .featured-work .project-card--feature {
+      position: sticky;
+      top: calc(var(--header-height) + 1rem);
+      z-index: 1;
+      margin-bottom: 13vh;
+      padding: clamp(2.2rem, 4.5vw, 4rem);
+      transform: translate3d(0, var(--stack-lift, 0), 0) scale(var(--stack-scale, 1));
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(
+          135deg,
+          color-mix(in srgb, var(--project-accent) 7%, transparent),
+          transparent 34%
+        ),
+        color-mix(in srgb, var(--canvas) 97%, transparent);
+      box-shadow: 0 36px 100px rgb(0 0 0 / var(--stack-shadow, 0.16));
+      backdrop-filter: blur(18px);
+      transform-origin: center top;
+      will-change: transform;
+    }
+
+    html[data-scroll-fx] .featured-work .project-card--feature:nth-child(2) {
+      z-index: 2;
+    }
+
+    html[data-scroll-fx] .featured-work .project-card--feature:nth-child(3) {
+      z-index: 3;
+    }
+
+    html[data-scroll-fx] .featured-work .project-card--feature:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -1747,6 +1805,15 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .scroll-line {
+      transform: scaleX(1);
+      animation: none;
+    }
+
+    .scroll-rail {
+      animation: none;
+    }
+
     .section-heading__copy,
     .project-card--feature .project-card__visual,
     .project-card--feature .project-card__body,
@@ -1762,6 +1829,15 @@
 
     .story-field {
       display: none;
+    }
+
+    .featured-work .project-card--feature {
+      position: relative !important;
+      top: auto !important;
+      margin-bottom: 0 !important;
+      transform: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
     }
   }
 }
