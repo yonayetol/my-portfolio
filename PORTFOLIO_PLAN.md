@@ -433,7 +433,7 @@ No content should be buried inside presentation components. Profile, experience,
 
 - [x] Professional portrait supplied at 900 × 1200 and integrated as an identity-record visual.
 - Optional workspace/candid photo.
-- Nexora IMS approved screenshots or anonymized UI captures.
+- [x] Nexora IMS / Abdi Adama School Life interface capture supplied and approved for portfolio use.
 - MM2 Pattern Miner public repository/PRs and technical output examples.
 - Berhan prototype screens when ready.
 - Company/project logos with publication permission.
@@ -657,5 +657,6 @@ These do not block initial design-system work, but they block accurate launch co
 
 - **2026-07-21:** Initial plan created from the three supplied profile/context documents and the current empty workspace audit.
 - **2026-07-21:** Implemented the complete static portfolio, four case studies, responsive visual system, Proof Graph, About and Credentials pages, validation/privacy tooling, SEO assets, and GitHub Pages workflow. Production build generated nine routes and the final mobile Lighthouse audit scored 100 in all four primary categories.
-- **2026-07-21:** Refined the hero for short laptop and mobile viewports, eliminating the perceived bottom clipping. Added accessible inertial scrolling, smooth anchors, active section rail, scroll progress, view-linked depth, direct-hash reveal handling, and reduced-motion fallbacks.
+- **2026-07-21:** Refined the hero for short laptop and mobile viewports, eliminating the perceived bottom clipping. Added accessible inertial scrolling, smooth anchors, active section rail, scroll progress, direct-hash reveal handling, and reduced-motion fallbacks.
 - **2026-07-21:** Integrated the supplied portrait as an identity-record visual and added a dated LeetCode proof module with an explicit link to the live profile.
+- **2026-07-22:** Replaced the Nexora IMS placeholder topology with an optimized approved School Life capture. Rebuilt the subtle view-linked motion as explicit JS-backed scroll choreography with full-screen chapter transitions, opposing project parallax, media depth, mobile tuning, and reduced-motion protection.

@@ -20,8 +20,9 @@
 | S3  | `/home/yonas/Downloads/portfolio_context-v2.md`                            | Everything in S2 plus contact and professional-profile links                                 |
 | S4  | `/home/yonas/Downloads/photo_2024-10-15_16-07-13.jpg`                      | User-supplied public portrait, 900 × 1200 JPEG                                               |
 | S5  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 19-22-26.png` | Dated LeetCode metrics for `japu_yonas`                                                      |
+| S6  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 10-12-10.png` | Approved Nexora IMS / Abdi Adama School Life interface capture                               |
 
-The three originals should remain the raw evidence. This file is the normalized working version for implementation.
+The original source documents and supplied assets should remain the raw evidence. This file is the normalized working version for implementation.
 
 ## Identity
 
@@ -166,8 +167,9 @@ Project statuses below are intentionally explicit so the site never presents pla
 | Supplied features       | Multi-role administration and permissions APIs; automated SMS notifications; PostgreSQL; Docker deployment; VPS deployment; cPanel; LiteSpeed optimization; custom `.htaccess` routing; idempotent SQL deployment system |
 | Supplied impact context | Live deployment troubleshooting and optimization for mobile-network performance                                                                                                                                          |
 | Role                    | Not fully specified                                                                                                                                                                                                      |
-| Links                   | Not supplied                                                                                                                                                                                                             |
-| Evidence needed         | Approved screenshots, anonymized metrics, supported user roles, deployment diagram, team/role details, institution permission, and outcome data                                                                          |
+| Public interface        | `https://abdi-adama.com/school-life` shown in the user-supplied capture                                                                                                                                                  |
+| Approved visual         | School Life interface screenshot supplied on 2026-07-22; optimized derivative stored as `public/images/projects/nexora-ims-school-life.webp`                                                                             |
+| Evidence needed         | Anonymized metrics, supported user roles, deployment diagram, team/role details, broader institution permission, and outcome data                                                                                        |
 
 ### 4. MM2 Pattern Miner
 
@@ -485,3 +487,4 @@ Before these become homepage claims, connect each one to a specific proof item. 
 
 - **2026-07-21:** Created consolidated data file from S1, S2, and S3; normalized overlaps; masked the phone number; documented verification status and content gaps.
 - **2026-07-21:** Added the supplied portrait and a dated LeetCode profile snapshot (S4 and S5) to the public evidence inventory.
+- **2026-07-22:** Added the user-approved Nexora IMS / Abdi Adama School Life capture (S6) as authentic project-interface evidence.

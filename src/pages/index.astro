@@ -6,6 +6,7 @@ import ProofGraph from "@/components/ProofGraph.astro";
 import ContactSection from "@/components/ContactSection.astro";
 import ScrollRail from "@/components/ScrollRail.astro";
 import AlgorithmProfile from "@/components/AlgorithmProfile.astro";
+import ScrollChoreography from "@/components/ScrollChoreography.astro";
 import { projects } from "@/data/projects";
 import { capabilityClusters, experience, learning, profile } from "@/data/profile";
 import { credentials } from "@/data/credentials";
@@ -17,6 +18,7 @@ const featuredProjects = projects.slice(0, 3);
 <BaseLayout>
   <main id="main-content">
     <ScrollRail />
+    <ScrollChoreography />
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-grid shell">
         <div class="hero-copy" data-reveal data-visible="true">

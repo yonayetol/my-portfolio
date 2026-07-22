@@ -1,5 +1,6 @@
 ---
 import type { ProjectVisual as VisualType } from "@/data/projects";
+import { withBase } from "@/utils/paths";
 
 interface Props {
   type: VisualType;
@@ -17,31 +18,27 @@ const { type, compact = false } = Astro.props;
 
   {
     type === "infrastructure" && (
-      <div class="infra-map">
-        <span class="infra-line infra-line--a" />
-        <span class="infra-line infra-line--b" />
-        <span class="infra-line infra-line--c" />
-        <span class="infra-node infra-node--users">
-          <i />
-          Roles
-        </span>
-        <span class="infra-node infra-node--core">
-          <i />
-          IMS core
-        </span>
-        <span class="infra-node infra-node--db">
-          <i />
-          PostgreSQL
-        </span>
-        <span class="infra-node infra-node--sms">
-          <i />
-          SMS
-        </span>
-        <span class="infra-node infra-node--edge">
-          <i />
-          LiteSpeed
-        </span>
-        <span class="visual-label">production topology / 01</span>
+      <div class="ims-evidence">
+        <img
+          src={withBase("images/projects/nexora-ims-school-life.webp")}
+          alt=""
+          width="1600"
+          height="900"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="ims-evidence__topline">
+          <span>
+            <i /> APPROVED PROJECT CAPTURE
+          </span>
+          <span>ABDI ADAMA SCHOOL / SCHOOL LIFE</span>
+        </div>
+        <div class="ims-evidence__readout">
+          <span>PUBLIC INTERFACE</span>
+          <strong>From system architecture to the screen people use.</strong>
+          <small>ROLES → DATA → NOTIFICATIONS → DEPLOYMENT</small>
+        </div>
+        <span class="ims-evidence__index">DEPLOYED / 01</span>
       </div>
     )
   }
