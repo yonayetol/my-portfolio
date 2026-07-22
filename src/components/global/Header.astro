@@ -42,6 +42,17 @@ const links = [
           ))
         }
       </div>
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-label="Switch to light theme"
+        aria-pressed="false"
+      >
+        <span class="theme-toggle__icon" aria-hidden="true"><i></i></span>
+        <span data-theme-label>Light</span>
+        <span class="sr-only" data-theme-action>Switch to light theme</span>
+      </button>
       <a class="button button--small" href={`${withBase()}#contact`} data-nav-contact>
         <span>Start a conversation</span>
         <span aria-hidden="true">↗</span>
@@ -54,6 +65,7 @@ const links = [
   const initNavigation = () => {
     const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
     const navigation = document.querySelector<HTMLElement>("[data-nav]");
+    const themeToggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
     if (!toggle || !navigation || toggle.dataset.ready === "true") return;
 
     toggle.dataset.ready = "true";
@@ -81,6 +93,35 @@ const links = [
       }
     });
     window.matchMedia("(min-width: 801px)").addEventListener("change", close);
+
+    const syncThemeControl = () => {
+      if (!themeToggle) return;
+      const light = document.documentElement.dataset.theme === "light";
+      const actionText = light ? "Switch to dark theme" : "Switch to light theme";
+      themeToggle.setAttribute("aria-pressed", String(light));
+      themeToggle.setAttribute("aria-label", actionText);
+      const label = themeToggle.querySelector<HTMLElement>("[data-theme-label]");
+      const action = themeToggle.querySelector<HTMLElement>("[data-theme-action]");
+      if (label) label.textContent = light ? "Dark" : "Light";
+      if (action) action.textContent = actionText;
+    };
+
+    themeToggle?.addEventListener("click", () => {
+      const nextTheme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+      document.documentElement.dataset.theme = nextTheme;
+      document.documentElement.style.colorScheme = nextTheme;
+      document
+        .querySelector<HTMLMetaElement>('meta[name="theme-color"]')
+        ?.setAttribute("content", nextTheme === "light" ? "#f4f2ec" : "#080a0f");
+      try {
+        localStorage.setItem("portfolio-theme", nextTheme);
+      } catch {
+        // The selected theme still applies for the current page when storage is unavailable.
+      }
+      syncThemeControl();
+    });
+
+    syncThemeControl();
   };
 
   document.addEventListener("astro:page-load", initNavigation);

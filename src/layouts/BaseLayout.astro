@@ -53,9 +53,26 @@ const jsonLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#080a0f" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
     <script is:inline>
       document.documentElement.dataset.js = "true";
+      (() => {
+        let preference = "";
+        try {
+          preference = localStorage.getItem("portfolio-theme") || "";
+        } catch {}
+        const theme =
+          preference === "light" || preference === "dark"
+            ? preference
+            : matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", theme === "light" ? "#f4f2ec" : "#080a0f");
+      })();
     </script>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
