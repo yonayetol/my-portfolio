@@ -7,6 +7,7 @@ import ContactSection from "@/components/ContactSection.astro";
 import ScrollRail from "@/components/ScrollRail.astro";
 import AlgorithmProfile from "@/components/AlgorithmProfile.astro";
 import ScrollChoreography from "@/components/ScrollChoreography.astro";
+import CredentialViewer from "@/components/CredentialViewer.astro";
 import { projects } from "@/data/projects";
 import { capabilityClusters, experience, learning, profile } from "@/data/profile";
 import { credentials } from "@/data/credentials";
@@ -269,7 +270,14 @@ const featuredProjects = projects.slice(0, 3);
         <div class="credential-rail" data-reveal>
           {
             credentials.slice(0, 6).map((credential, index) => (
-              <a href={credential.href} target="_blank" rel="noreferrer" class="credential-card">
+              <a
+                href={credential.href}
+                target="_blank"
+                rel="noreferrer"
+                class="credential-card"
+                data-credential-open={index}
+                aria-label={`Preview ${credential.title}`}
+              >
                 <div>
                   <>
                     <span>{String(index + 1).padStart(2, "0")}</span>
@@ -328,5 +336,6 @@ const featuredProjects = projects.slice(0, 3);
     </section>
 
     <ContactSection />
+    <CredentialViewer />
   </main>
 </BaseLayout>
