@@ -431,7 +431,7 @@ No content should be buried inside presentation components. Profile, experience,
 
 ### Required from Yonas
 
-- Professional portrait, ideally original high-resolution image.
+- [x] Professional portrait supplied at 900 × 1200 and integrated as an identity-record visual.
 - Optional workspace/candid photo.
 - Nexora IMS approved screenshots or anonymized UI captures.
 - MM2 Pattern Miner public repository/PRs and technical output examples.
@@ -450,6 +450,7 @@ No content should be buried inside presentation components. Profile, experience,
 - Favicon/monogram.
 - Open Graph/social-sharing card.
 - Subtle grid/noise textures in CSS or tiny optimized assets.
+- A dated LeetCode proof module derived from the supplied profile capture, linked to the live profile.
 
 AI-generated imagery will not substitute for proof of real projects. If used at all, it will be clearly decorative and visually subordinate to authentic screenshots and diagrams.
 
@@ -457,9 +458,9 @@ AI-generated imagery will not substitute for proof of real projects. If used at 
 
 ### Phase 0 — Repository and evidence foundation
 
-- [ ] Confirm whether to clone the supplied GitHub repository into this workspace or initialize/connect the existing folder.
-- [ ] Inspect the remote repository before any history-changing action.
-- [ ] Create a clean default branch and basic README after repository direction is confirmed.
+- [x] Inspect the supplied remote repository before any history-changing action; it was empty.
+- [x] Initialize the existing workspace, connect the supplied remote, and use `main` as the default branch.
+- [x] Create the first clean implementation commit and project README.
 - [x] Consolidate all supplied source data into `PORTFOLIO_DATA.md`.
 - [x] Record the complete product/design/build plan in `PORTFOLIO_PLAN.md`.
 - [ ] Confirm public name, contact/privacy settings, primary GitHub, role dates, education, and availability.
@@ -647,7 +648,7 @@ These do not block initial design-system work, but they block accurate launch co
 ## 15. Immediate next actions
 
 1. Review the implemented site locally and approve or revise the positioning, brand line, and visual direction.
-2. Resolve repository setup: the workspace contains an empty `.git` directory and is not currently a functional checkout.
+2. Authenticate this machine with GitHub and push the completed local `main` branch.
 3. Gather the launch-blocking dates, public profile confirmation, project evidence, and approved media listed in the data file.
 4. Manually validate every external profile and certificate URL in a logged-out browser.
 5. Push the implementation to the connected repository and enable GitHub Pages deployment.
@@ -657,3 +658,4 @@ These do not block initial design-system work, but they block accurate launch co
 - **2026-07-21:** Initial plan created from the three supplied profile/context documents and the current empty workspace audit.
 - **2026-07-21:** Implemented the complete static portfolio, four case studies, responsive visual system, Proof Graph, About and Credentials pages, validation/privacy tooling, SEO assets, and GitHub Pages workflow. Production build generated nine routes and the final mobile Lighthouse audit scored 100 in all four primary categories.
 - **2026-07-21:** Refined the hero for short laptop and mobile viewports, eliminating the perceived bottom clipping. Added accessible inertial scrolling, smooth anchors, active section rail, scroll progress, view-linked depth, direct-hash reveal handling, and reduced-motion fallbacks.
+- **2026-07-21:** Integrated the supplied portrait as an identity-record visual and added a dated LeetCode proof module with an explicit link to the live profile.

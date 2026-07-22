@@ -1,0 +1,76 @@
+---
+import { codingProfile } from "@/data/profile";
+
+const solvedMix = codingProfile.difficulty.map((item) => ({
+  ...item,
+  share: `${((item.solved / codingProfile.totalSolved) * 100).toFixed(1)}%`,
+}));
+---
+
+<section class="algorithm-section" id="algorithmic-proof" aria-labelledby="algorithm-title">
+  <div class="shell algorithm-panel" data-reveal>
+    <div class="algorithm-panel__intro">
+      <p class="section-kicker"><span>05</span><span>Algorithmic practice</span></p>
+      <h2 id="algorithm-title">Consistency, made visible.</h2>
+      <p>
+        Problem solving is where I keep implementation discipline sharp: translate the constraint,
+        choose the structure, prove the path, then make it fast.
+      </p>
+      <a class="text-link" href={codingProfile.href} target="_blank" rel="noreferrer">
+        Open live LeetCode profile <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <div class="algorithm-record">
+      <div class="algorithm-record__head">
+        <div>
+          <span class="signal-dot"></span>
+          <span>PUBLIC PROOF / {codingProfile.platform.toUpperCase()}</span>
+        </div>
+        <span>@{codingProfile.username}</span>
+      </div>
+
+      <div class="algorithm-record__body">
+        <div class="algorithm-score">
+          <div class="algorithm-score__dial" aria-hidden="true">
+            <span><i></i></span>
+            <strong>{codingProfile.totalSolved}</strong>
+          </div>
+          <div>
+            <p><strong>{codingProfile.totalSolved}</strong> / {codingProfile.totalAvailable}</p>
+            <span>problems solved</span>
+          </div>
+        </div>
+
+        <div class="algorithm-distribution" aria-label="Problems solved by difficulty">
+          {
+            solvedMix.map((item) => (
+              <div class={`algorithm-level algorithm-level--${item.tone}`}>
+                <div>
+                  <span>{item.label}</span>
+                  <p>
+                    <strong>{item.solved}</strong> / {item.available}
+                  </p>
+                </div>
+                <span class="algorithm-level__track" aria-hidden="true">
+                  <i style={`--level-share: ${item.share}`} />
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="algorithm-record__stats">
+        <div><span>RANK</span><strong>{codingProfile.rank}</strong></div>
+        <div><span>BADGES</span><strong>{codingProfile.badges}</strong></div>
+        <div><span>LATEST SIGNAL</span><strong>{codingProfile.latestBadge}</strong></div>
+      </div>
+
+      <div class="algorithm-record__foot">
+        <span>CAPTURED {codingProfile.capturedAt.toUpperCase()}</span>
+        <span>LIVE PROFILE MAY HAVE ADVANCED</span>
+      </div>
+    </div>
+  </div>
+</section>

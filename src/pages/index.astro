@@ -5,6 +5,7 @@ import ProjectCard from "@/components/ProjectCard.astro";
 import ProofGraph from "@/components/ProofGraph.astro";
 import ContactSection from "@/components/ContactSection.astro";
 import ScrollRail from "@/components/ScrollRail.astro";
+import AlgorithmProfile from "@/components/AlgorithmProfile.astro";
 import { projects } from "@/data/projects";
 import { capabilityClusters, experience, learning, profile } from "@/data/profile";
 import { credentials } from "@/data/credentials";
@@ -253,10 +254,12 @@ const featuredProjects = projects.slice(0, 3);
       </div>
     </section>
 
+    <AlgorithmProfile />
+
     <section class="section credentials-preview">
       <div class="shell">
         <SectionHeader
-          index="05"
+          index="06"
           eyebrow="Credentials"
           title="Formal checkpoints along a self-directed path."
           description="Mathematics, machine learning, deep learning, NLP, and AI-assisted software engineering."
@@ -291,9 +294,22 @@ const featuredProjects = projects.slice(0, 3);
 
     <section class="about-bridge">
       <div class="shell about-bridge__grid" data-reveal>
-        <div class="about-bridge__mark" aria-hidden="true">
-          <span>AA</span><small>09.03° N<br />38.74° E</small>
-        </div>
+        <figure
+          class="about-bridge__portrait"
+          style={`--portrait-image: url(${withBase("images/yonas-portrait.jpg")})`}
+        >
+          <img
+            src={withBase("images/yonas-portrait.jpg")}
+            alt="Portrait of Yonas"
+            width="900"
+            height="1200"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="portrait-grid" aria-hidden="true"></span>
+          <span class="portrait-index" aria-hidden="true">ID / 01</span>
+          <figcaption>YONAS<br />ADDIS ABABA · ET</figcaption>
+        </figure>
         <div class="about-bridge__copy">
           <p class="eyebrow">Based in Addis Ababa · Building beyond boundaries</p>
           <h2>First principles are not an aesthetic. They are how I get unstuck.</h2>

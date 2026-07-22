@@ -19,18 +19,28 @@ import { withBase } from "@/utils/paths";
             I learn by taking systems <em>apart.</em> I build by putting them back together—better.
           </h1>
         </div>
-        <div
+        <figure
           class="about-portrait"
-          aria-label="Abstract Yonas monogram portrait"
+          style={`--portrait-image: url(${withBase("images/yonas-portrait.jpg")})`}
           data-reveal
           data-visible="true"
         >
-          <div class="about-portrait__grid"></div>
-          <span class="about-portrait__letter">Y</span>
-          <span class="about-portrait__orbit"></span>
-          <span class="about-portrait__orbit about-portrait__orbit--two"></span>
-          <span class="about-portrait__label">ADDIS ABABA<br />09.03° N / 38.74° E</span>
-        </div>
+          <img
+            src={withBase("images/yonas-portrait.jpg")}
+            alt="Portrait of Yonas"
+            width="900"
+            height="1200"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <span class="about-portrait__grid" aria-hidden="true"></span>
+          <span class="about-portrait__scan" aria-hidden="true"></span>
+          <span class="about-portrait__index" aria-hidden="true">IDENTITY / 001</span>
+          <figcaption class="about-portrait__label">
+            YONAS<br />ADDIS ABABA · ET<br />09.03° N / 38.74° E
+          </figcaption>
+        </figure>
       </div>
     </header>
 

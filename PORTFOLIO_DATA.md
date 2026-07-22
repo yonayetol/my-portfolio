@@ -13,11 +13,13 @@
 
 ## Source provenance
 
-| ID  | Supplied file                                             | Main contribution                                                                            |
-| --- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| S1  | `/home/yonas/Downloads/Yonas_Portfolio_Master_Profile.md` | Biography, roles, skills, projects, learning, preferences, working style, and brand keywords |
-| S2  | `/home/yonas/Downloads/portfolio_context.md`              | Project details, training details, workflow note, and nine certification links               |
-| S3  | `/home/yonas/Downloads/portfolio_context-v2.md`           | Everything in S2 plus contact and professional-profile links                                 |
+| ID  | Supplied file                                                              | Main contribution                                                                            |
+| --- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| S1  | `/home/yonas/Downloads/Yonas_Portfolio_Master_Profile.md`                  | Biography, roles, skills, projects, learning, preferences, working style, and brand keywords |
+| S2  | `/home/yonas/Downloads/portfolio_context.md`                               | Project details, training details, workflow note, and nine certification links               |
+| S3  | `/home/yonas/Downloads/portfolio_context-v2.md`                            | Everything in S2 plus contact and professional-profile links                                 |
+| S4  | `/home/yonas/Downloads/photo_2024-10-15_16-07-13.jpg`                      | User-supplied public portrait, 900 × 1200 JPEG                                               |
+| S5  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 19-22-26.png` | Dated LeetCode metrics for `japu_yonas`                                                      |
 
 The three originals should remain the raw evidence. This file is the normalized working version for implementation.
 
@@ -69,19 +71,39 @@ Yonas is a software developer and AI engineer focused on building intelligent so
 
 ## Contact and public profiles
 
-| Channel                              | Supplied value                                        | Publication default                     | Validation status                                                               |
-| ------------------------------------ | ----------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------- |
-| Email                                | `yonasayeletola62@gmail.com`                          | Public contact                          | Pending browser/email confirmation                                              |
-| Phone                                | `0900••••67`                                          | Private; do not publish by default      | Exact value exists in S3; country-code format needs confirmation                |
-| Telegram                             | `@JYAT6200`                                           | Public only after approval              | Pending browser verification                                                    |
-| LinkedIn                             | `https://www.linkedin.com/in/yonas-ayele-9b9123288/`  | Public                                  | Pending browser verification                                                    |
-| GitHub — primary supplied            | `https://github.com/japuyon`                          | Public after confirming primary account | Pending browser verification                                                    |
-| GitHub — previous/alternate supplied | `https://github.com/yonayetol`                        | Public only if useful                   | Pending browser verification                                                    |
-| Portfolio repository                 | `https://github.com/yonayetol/my-portfolio.git`       | Public project repository               | URL supplied; local workspace is not initialized as a functional Git repository |
-| LeetCode                             | `https://leetcode.com/u/japu_yonas/`                  | Public                                  | Pending browser verification                                                    |
-| HackerRank                           | `https://www.hackerrank.com/profile/yonasayeletola62` | Public                                  | Pending browser verification                                                    |
-| Codeforces                           | `https://codeforces.com/profile/japu`                 | Public                                  | Pending browser verification                                                    |
-| Existing portfolio URL               | Not supplied                                          | Add after deployment                    | Missing                                                                         |
+| Channel                              | Supplied value                                        | Publication default                     | Validation status                                                          |
+| ------------------------------------ | ----------------------------------------------------- | --------------------------------------- | -------------------------------------------------------------------------- |
+| Email                                | `yonasayeletola62@gmail.com`                          | Public contact                          | Pending browser/email confirmation                                         |
+| Phone                                | `0900••••67`                                          | Private; do not publish by default      | Exact value exists in S3; country-code format needs confirmation           |
+| Telegram                             | `@JYAT6200`                                           | Public only after approval              | Pending browser verification                                               |
+| LinkedIn                             | `https://www.linkedin.com/in/yonas-ayele-9b9123288/`  | Public                                  | Pending browser verification                                               |
+| GitHub — primary supplied            | `https://github.com/japuyon`                          | Public after confirming primary account | Pending browser verification                                               |
+| GitHub — previous/alternate supplied | `https://github.com/yonayetol`                        | Public only if useful                   | Pending browser verification                                               |
+| Portfolio repository                 | `https://github.com/yonayetol/my-portfolio.git`       | Public project repository               | Local `main` initialized and committed; push pending GitHub authentication |
+| LeetCode                             | `https://leetcode.com/u/japu_yonas/`                  | Public                                  | Username and dated metrics confirmed by user-supplied screenshot           |
+| HackerRank                           | `https://www.hackerrank.com/profile/yonasayeletola62` | Public                                  | Pending browser verification                                               |
+| Codeforces                           | `https://codeforces.com/profile/japu`                 | Public                                  | Pending browser verification                                               |
+| Existing portfolio URL               | Not supplied                                          | Add after deployment                    | Missing                                                                    |
+
+## Algorithmic practice — supplied snapshot
+
+The user-supplied LeetCode profile screenshot dated 2026-07-21 shows the following metrics. These are a dated snapshot, not permanent live claims:
+
+| Metric                 | Captured value     |
+| ---------------------- | ------------------ |
+| Username               | `japu_yonas`       |
+| Problems solved        | 420 / 3,999        |
+| Easy                   | 187 / 956          |
+| Medium                 | 205 / 2,088        |
+| Hard                   | 28 / 955           |
+| Rank                   | 279,676            |
+| Badges                 | 3                  |
+| Most recent badge      | 50 Days Badge 2025 |
+| Past-year submissions  | 72                 |
+| Past-year active days  | 23                 |
+| Maximum visible streak | 4 days             |
+
+The public interface uses the strongest proof points and labels the capture date. Visitors are directed to the live profile for current values.
 
 ## Experience and leadership
 
@@ -429,7 +451,7 @@ Before these become homepage claims, connect each one to a specific proof item. 
 ### High-value improvements
 
 - Measurable outcomes: user counts, institutions served, latency/performance gains, training audience sizes, deployment reliability, or algorithms implemented.
-- One professional portrait and one casual/workspace photo.
+- Optional casual/workspace photo; the professional portrait was supplied on 2026-07-21.
 - Product screenshots in desktop and mobile formats.
 - Architecture diagrams or sketches for the three strongest projects.
 - Resume PDF.
@@ -462,3 +484,4 @@ Before these become homepage claims, connect each one to a specific proof item. 
 ## Change log
 
 - **2026-07-21:** Created consolidated data file from S1, S2, and S3; normalized overlaps; masked the phone number; documented verification status and content gaps.
+- **2026-07-21:** Added the supplied portrait and a dated LeetCode profile snapshot (S4 and S5) to the public evidence inventory.

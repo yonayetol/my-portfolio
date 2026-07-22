@@ -39,6 +39,23 @@ export const socialLinks = [
   },
 ] as const;
 
+export const codingProfile = {
+  platform: "LeetCode",
+  username: "japu_yonas",
+  href: "https://leetcode.com/u/japu_yonas/",
+  capturedAt: "21 Jul 2026",
+  totalSolved: 420,
+  totalAvailable: 3999,
+  rank: "279,676",
+  badges: 3,
+  latestBadge: "50 Days Badge 2025",
+  difficulty: [
+    { label: "Easy", solved: 187, available: 956, tone: "mint" },
+    { label: "Medium", solved: 205, available: 2088, tone: "amber" },
+    { label: "Hard", solved: 28, available: 955, tone: "coral" },
+  ],
+} as const;
+
 export const experience = [
   {
     organization: "Nexora Technology PLC",
