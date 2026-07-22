@@ -4,9 +4,7 @@ import SectionHeader from "@/components/SectionHeader.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import ProofGraph from "@/components/ProofGraph.astro";
 import ContactSection from "@/components/ContactSection.astro";
-import ScrollRail from "@/components/ScrollRail.astro";
 import AlgorithmProfile from "@/components/AlgorithmProfile.astro";
-import ScrollChoreography from "@/components/ScrollChoreography.astro";
 import CredentialViewer from "@/components/CredentialViewer.astro";
 import { projects } from "@/data/projects";
 import { capabilityClusters, experience, learning, profile } from "@/data/profile";
@@ -14,12 +12,21 @@ import { credentials } from "@/data/credentials";
 import { withBase } from "@/utils/paths";
 
 const featuredProjects = projects.slice(0, 3);
+const sections = [
+  { id: "top", index: "00", label: "Intro" },
+  { id: "selected-work", index: "01", label: "Work" },
+  { id: "capabilities", index: "02", label: "Systems" },
+  { id: "experience", index: "03", label: "Trajectory" },
+  { id: "learning", index: "04", label: "Learning" },
+  { id: "algorithmic-proof", index: "05", label: "Proof" },
+  { id: "credentials", index: "06", label: "Credentials" },
+  { id: "operating-manual", index: "07", label: "About" },
+  { id: "contact", index: "08", label: "Contact" },
+];
 ---
 
-<BaseLayout>
+<BaseLayout sections={sections}>
   <main id="main-content">
-    <ScrollRail />
-    <ScrollChoreography />
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-grid shell">
         <div class="hero-copy" data-reveal data-visible="true">
@@ -175,7 +182,7 @@ const featuredProjects = projects.slice(0, 3);
       </div>
     </section>
 
-    <section class="section experience-section">
+    <section class="section experience-section" id="experience">
       <div class="shell">
         <SectionHeader
           index="03"
@@ -206,7 +213,7 @@ const featuredProjects = projects.slice(0, 3);
       </div>
     </section>
 
-    <section class="section learning-section">
+    <section class="section learning-section" id="learning">
       <div class="shell learning-layout">
         <div class="learning-copy" data-reveal>
           <p class="section-kicker"><span>04</span><span>Learning system</span></p>
@@ -259,7 +266,7 @@ const featuredProjects = projects.slice(0, 3);
 
     <AlgorithmProfile />
 
-    <section class="section credentials-preview">
+    <section class="section credentials-preview" id="credentials">
       <div class="shell">
         <SectionHeader
           index="06"
@@ -302,7 +309,7 @@ const featuredProjects = projects.slice(0, 3);
       </div>
     </section>
 
-    <section class="about-bridge">
+    <section class="about-bridge" id="operating-manual">
       <div class="shell about-bridge__grid" data-reveal>
         <figure
           class="about-bridge__portrait"

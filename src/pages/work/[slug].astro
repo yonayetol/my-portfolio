@@ -20,12 +20,20 @@ interface Props {
 const { project } = Astro.props;
 const projectIndex = projects.findIndex((item) => item.slug === project.slug);
 const nextProject = projects[(projectIndex + 1) % projects.length] ?? projects[0];
+const sections = [
+  { id: "top", index: "00", label: "Overview" },
+  { id: "system-context", index: "01", label: "Context" },
+  { id: "engineering-decisions", index: "02", label: "Decisions" },
+  { id: "evidence-record", index: "03", label: "Evidence" },
+  { id: "reflection", index: "04", label: "Reflection" },
+  { id: "contact", index: "05", label: "Contact" },
+];
 ---
 
-<BaseLayout title={`${project.title} — Yonas`} description={project.summary}>
+<BaseLayout title={`${project.title} — Yonas`} description={project.summary} sections={sections}>
   <main id="main-content">
-    <article class:list={["case-study", `accent--${project.accent}`]} id="top">
-      <header class="case-hero">
+    <article class:list={["case-study", `accent--${project.accent}`]}>
+      <header class="case-hero" id="top">
         <div class="shell">
           <nav class="breadcrumb" aria-label="Breadcrumb" data-reveal data-visible="true">
             <a href={withBase("work/")}>Work</a><span aria-hidden="true">/</span><span
@@ -56,7 +64,7 @@ const nextProject = projects[(projectIndex + 1) % projects.length] ?? projects[0
         <ProjectVisual type={project.visual} />
       </div>
 
-      <section class="case-section">
+      <section class="case-section" id="system-context">
         <div class="shell case-two-column">
           <div class="case-section__label" data-reveal>
             <span>01</span><p>Context</p>
@@ -69,7 +77,7 @@ const nextProject = projects[(projectIndex + 1) % projects.length] ?? projects[0
         </div>
       </section>
 
-      <section class="case-section case-section--surface">
+      <section class="case-section case-section--surface" id="engineering-decisions">
         <div class="shell">
           <div class="case-section__label" data-reveal>
             <span>02</span><p>Engineering decisions</p>
@@ -88,7 +96,7 @@ const nextProject = projects[(projectIndex + 1) % projects.length] ?? projects[0
         </div>
       </section>
 
-      <section class="case-section">
+      <section class="case-section" id="evidence-record">
         <div class="shell evidence-layout">
           <div class="case-section__label" data-reveal>
             <span>03</span><p>Evidence record</p>
@@ -116,7 +124,7 @@ const nextProject = projects[(projectIndex + 1) % projects.length] ?? projects[0
         </div>
       </section>
 
-      <section class="case-reflection">
+      <section class="case-reflection" id="reflection">
         <div class="shell case-reflection__grid" data-reveal>
           <p class="eyebrow">Reflection / what this work makes visible</p>
           <blockquote>{project.reflection}</blockquote>

@@ -3,11 +3,18 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import ContactSection from "@/components/ContactSection.astro";
 import { projects } from "@/data/projects";
+
+const sections = [
+  { id: "top", index: "00", label: "Overview" },
+  { id: "project-archive", index: "01", label: "Project archive" },
+  { id: "contact", index: "02", label: "Contact" },
+];
 ---
 
 <BaseLayout
   title="Selected Work — Yonas"
   description="Production systems, symbolic AI, donation infrastructure, and from-scratch machine-learning work by Yonas."
+  sections={sections}
 >
   <main id="main-content">
     <header class="page-hero page-hero--work" id="top">
@@ -26,7 +33,7 @@ import { projects } from "@/data/projects";
       </div>
     </header>
 
-    <section class="work-archive section">
+    <section class="work-archive section" id="project-archive">
       <div class="shell">
         <div class="work-filter" data-work-filter data-reveal>
           <span class="mono">FILTER /</span>

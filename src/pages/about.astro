@@ -4,11 +4,23 @@ import SectionHeader from "@/components/SectionHeader.astro";
 import ContactSection from "@/components/ContactSection.astro";
 import { capabilityClusters, experience } from "@/data/profile";
 import { withBase } from "@/utils/paths";
+
+const sections = [
+  { id: "top", index: "00", label: "Introduction" },
+  { id: "practice", index: "01", label: "Practice" },
+  { id: "principles", index: "02", label: "Principles" },
+  { id: "trajectory", index: "03", label: "Trajectory" },
+  { id: "technical-map", index: "04", label: "Technical map" },
+  { id: "learning-loop", index: "05", label: "Learning loop" },
+  { id: "addis-context", index: "06", label: "Addis context" },
+  { id: "contact", index: "07", label: "Contact" },
+];
 ---
 
 <BaseLayout
   title="About — Yonas"
   description="How Yonas connects first-principles learning, intelligent systems, production engineering, and technical teaching."
+  sections={sections}
 >
   <main id="main-content">
     <header class="page-hero about-hero" id="top">
@@ -44,7 +56,7 @@ import { withBase } from "@/utils/paths";
       </div>
     </header>
 
-    <section class="section about-intro">
+    <section class="section about-intro" id="practice">
       <div class="shell about-intro__grid">
         <p class="eyebrow" data-reveal>AI engineer · Software builder · Technical trainer</p>
         <div data-reveal>
@@ -68,7 +80,7 @@ import { withBase } from "@/utils/paths";
       </div>
     </section>
 
-    <section class="section principles-section">
+    <section class="section principles-section" id="principles">
       <div class="shell">
         <SectionHeader
           index="01"
@@ -104,7 +116,7 @@ import { withBase } from "@/utils/paths";
       </div>
     </section>
 
-    <section class="section about-experience">
+    <section class="section about-experience" id="trajectory">
       <div class="shell">
         <SectionHeader
           index="02"
@@ -132,7 +144,7 @@ import { withBase } from "@/utils/paths";
       </div>
     </section>
 
-    <section class="section toolkit-section">
+    <section class="section toolkit-section" id="technical-map">
       <div class="shell">
         <SectionHeader
           index="03"
@@ -163,7 +175,7 @@ import { withBase } from "@/utils/paths";
       </div>
     </section>
 
-    <section class="section learning-manifesto">
+    <section class="section learning-manifesto" id="learning-loop">
       <div class="shell learning-manifesto__grid">
         <div data-reveal>
           <p class="section-kicker"><span>04</span><span>Continuous learning</span></p>
@@ -193,7 +205,7 @@ import { withBase } from "@/utils/paths";
       </div>
     </section>
 
-    <section class="about-location">
+    <section class="about-location" id="addis-context">
       <div class="shell about-location__grid" data-reveal>
         <div class="location-context" aria-label="Based in Addis Ababa, Ethiopia">
           <div class="location-context__head">

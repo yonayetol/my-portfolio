@@ -6,6 +6,8 @@ import "lenis/dist/lenis.css";
 import "@/styles/global.css";
 import Header from "@/components/global/Header.astro";
 import Footer from "@/components/global/Footer.astro";
+import ScrollRail from "@/components/ScrollRail.astro";
+import ScrollChoreography from "@/components/ScrollChoreography.astro";
 import { profile, socialLinks } from "@/data/profile";
 import { withBase } from "@/utils/paths";
 
@@ -14,6 +16,7 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  sections?: Array<{ id: string; index: string; label: string }>;
 }
 
 const {
@@ -21,6 +24,7 @@ const {
   description = profile.support,
   image = withBase("social-card.png"),
   noindex = false,
+  sections = [],
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
@@ -75,6 +79,8 @@ const jsonLd = {
     <div class="scroll-line" aria-hidden="true"></div>
     <div class="ambient ambient--one" aria-hidden="true"></div>
     <div class="ambient ambient--two" aria-hidden="true"></div>
+    {sections.length > 0 && <ScrollRail sections={sections} />}
+    {sections.length > 0 && <ScrollChoreography />}
     <Header />
     <slot />
     <Footer />

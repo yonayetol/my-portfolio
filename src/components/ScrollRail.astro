@@ -1,28 +1,59 @@
 ---
-const sections = [
-  { id: "top", index: "00", label: "Intro" },
-  { id: "selected-work", index: "01", label: "Work" },
-  { id: "capabilities", index: "02", label: "Systems" },
-  { id: "algorithmic-proof", index: "03", label: "Proof" },
-  { id: "contact", index: "04", label: "Contact" },
-];
+interface SectionLink {
+  id: string;
+  index: string;
+  label: string;
+}
+
+interface Props {
+  sections: SectionLink[];
+}
+
+const { sections } = Astro.props;
 ---
 
-<nav class="scroll-rail" aria-label="On this page" data-scroll-rail>
-  <span class="scroll-rail__track" aria-hidden="true"><i></i></span>
-  {
-    sections.map((section, index) => (
-      <a
-        href={`#${section.id}`}
-        data-scroll-target={section.id}
-        aria-current={index === 0 ? "location" : undefined}
-      >
-        <span>{section.index}</span>
-        <i aria-hidden="true" />
-        <small>{section.label}</small>
-      </a>
-    ))
-  }
+<nav class="scroll-rail" aria-label="Jump between page sections" data-scroll-rail>
+  <div class="scroll-rail__readout" aria-hidden="true">
+    <span data-rail-current>{sections[0]?.index ?? "00"}</span>
+    <i></i>
+    <span>{sections.at(-1)?.index ?? "00"}</span>
+  </div>
+
+  <button
+    type="button"
+    class="scroll-rail__step"
+    data-rail-step="previous"
+    aria-label="Previous section"
+  >
+    <span aria-hidden="true">↑</span>
+  </button>
+
+  <div class="scroll-rail__routes">
+    <span class="scroll-rail__track" aria-hidden="true"><i></i></span>
+    {
+      sections.map((section, index) => (
+        <a
+          href={`#${section.id}`}
+          data-scroll-target={section.id}
+          data-scroll-label={section.label}
+          aria-label={`Jump to ${section.label}`}
+          aria-current={index === 0 ? "location" : undefined}
+        >
+          <span>{section.index}</span>
+          <i aria-hidden="true" />
+          <small>{section.label}</small>
+        </a>
+      ))
+    }
+  </div>
+
+  <button type="button" class="scroll-rail__step" data-rail-step="next" aria-label="Next section">
+    <span aria-hidden="true">↓</span>
+  </button>
+
+  <span class="scroll-rail__active-label" data-rail-label aria-hidden="true">
+    {sections[0]?.label ?? "Top"}
+  </span>
 </nav>
 
 <script>
@@ -32,16 +63,50 @@ const sections = [
     rail.dataset.ready = "true";
 
     const links = [...rail.querySelectorAll<HTMLAnchorElement>("[data-scroll-target]")];
-    const sections = links
+    const currentNode = rail.querySelector<HTMLElement>("[data-rail-current]");
+    const labelNode = rail.querySelector<HTMLElement>("[data-rail-label]");
+    const targets = links
       .map((link) => document.getElementById(link.dataset.scrollTarget ?? ""))
       .filter((section): section is HTMLElement => Boolean(section));
 
+    let activeIndex = 0;
+
     const setActive = (id: string) => {
-      links.forEach((link) => {
-        if (link.dataset.scrollTarget === id) link.setAttribute("aria-current", "location");
+      const nextIndex = links.findIndex((link) => link.dataset.scrollTarget === id);
+      if (nextIndex < 0) return;
+      activeIndex = nextIndex;
+
+      links.forEach((link, index) => {
+        if (index === activeIndex) link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
       });
+
+      currentNode &&
+        (currentNode.textContent = links[activeIndex]?.querySelector("span")?.textContent ?? "00");
+      labelNode && (labelNode.textContent = links[activeIndex]?.dataset.scrollLabel ?? "Section");
+      rail.style.setProperty(
+        "--rail-progress",
+        String(activeIndex / Math.max(links.length - 1, 1)),
+      );
     };
+
+    const jumpTo = (index: number) => {
+      const boundedIndex = Math.max(0, Math.min(links.length - 1, index));
+      const link = links[boundedIndex];
+      if (!link) return;
+      setActive(link.dataset.scrollTarget ?? "");
+      link.click();
+    };
+
+    rail.querySelectorAll<HTMLButtonElement>("[data-rail-step]").forEach((button) => {
+      button.addEventListener("click", () => {
+        jumpTo(activeIndex + (button.dataset.railStep === "next" ? 1 : -1));
+      });
+    });
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => setActive(link.dataset.scrollTarget ?? ""));
+    });
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -50,10 +115,16 @@ const sections = [
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible?.target.id) setActive(visible.target.id);
       },
-      { rootMargin: "-28% 0px -55%", threshold: [0, 0.15, 0.45, 0.75] },
+      { rootMargin: "-32% 0px -54%", threshold: [0, 0.1, 0.3, 0.6] },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    targets.forEach((section) => observer.observe(section));
+    const hashTarget = window.location.hash.slice(1);
+    setActive(
+      hashTarget && targets.some((section) => section.id === hashTarget)
+        ? hashTarget
+        : (targets[0]?.id ?? ""),
+    );
   };
 
   document.addEventListener("astro:page-load", initScrollRail);
