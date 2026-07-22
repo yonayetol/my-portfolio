@@ -8,6 +8,9 @@ export default defineConfig({
   site,
   base,
   output: "static",
+  devToolbar: {
+    enabled: false,
+  },
   build: {
     format: "directory",
   },
