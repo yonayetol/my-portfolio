@@ -13,14 +13,15 @@
 
 ## Source provenance
 
-| ID  | Supplied file                                                              | Main contribution                                                                            |
-| --- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| S1  | `/home/yonas/Downloads/Yonas_Portfolio_Master_Profile.md`                  | Biography, roles, skills, projects, learning, preferences, working style, and brand keywords |
-| S2  | `/home/yonas/Downloads/portfolio_context.md`                               | Project details, training details, workflow note, and nine certification links               |
-| S3  | `/home/yonas/Downloads/portfolio_context-v2.md`                            | Everything in S2 plus contact and professional-profile links                                 |
-| S4  | `/home/yonas/Downloads/photo_2024-10-15_16-07-13.jpg`                      | User-supplied public portrait, 900 × 1200 JPEG                                               |
-| S5  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 19-22-26.png` | Dated LeetCode metrics for `japu_yonas`                                                      |
-| S6  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 10-12-10.png` | Approved Nexora IMS / Abdi Adama School Life interface capture                               |
+| ID  | Supplied file                                                              | Main contribution                                                                                             |
+| --- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| S1  | `/home/yonas/Downloads/Yonas_Portfolio_Master_Profile.md`                  | Biography, roles, skills, projects, learning, preferences, working style, and brand keywords                  |
+| S2  | `/home/yonas/Downloads/portfolio_context.md`                               | Project details, training details, workflow note, and nine certification links                                |
+| S3  | `/home/yonas/Downloads/portfolio_context-v2.md`                            | Everything in S2 plus contact and professional-profile links                                                  |
+| S4  | `/home/yonas/Downloads/photo_2024-10-15_16-07-13.jpg`                      | User-supplied public portrait, 900 × 1200 JPEG                                                                |
+| S5  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 19-22-26.png` | Dated LeetCode metrics for `japu_yonas`                                                                       |
+| S6  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 10-12-10.png` | Approved Nexora IMS / Abdi Adama School Life interface capture                                                |
+| S7  | `/tmp/codex-clipboard-SXktFv.png`                                          | User-supplied Ziquala Abo School public homepage screenshot, 1900 × 883 PNG, approved for the Zikuala project |
 
 The latest user correction confirms fourth-year Computer Science at Addis Ababa University (AAU), Zikuala Management System as portfolio work, and ongoing digital examination and post-exam analysis. These corrections supersede earlier conflicting identity and project records.
 
@@ -173,14 +174,15 @@ Project statuses below are intentionally explicit so the site never presents pla
 
 ### 3. Zikuala Management System
 
-| Field                    | Data                                                                                                                                                                         |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Type                     | School management system connecting public information, eLearning, and academic/administrative work                                                                          |
-| Status                   | In progress; frontend foundations and demos are documented, with backend integration still a separate stage                                                                  |
-| Confirmed frontend scope | Separate school and monastery routes; searchable eLearning catalogue; document reader; academic and administrative role views; Academic Manager workspace and demo gradebook |
-| API foundation           | TypeScript, Express, PostgreSQL                                                                                                                                              |
-| Boundaries               | Finance, clinic, auditor, and driver modules are explicitly outside scope; no public deployment or adoption claim                                                            |
-| Evidence sources         | Frontend README and ZIQUALA_FRONTEND_PLAN; backend README in the local zikuala workspace                                                                                     |
+| Field                    | Data                                                                                                                                                                                                                                          |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type                     | School management system connecting public information, eLearning, and academic/administrative work                                                                                                                                           |
+| Status                   | In progress; frontend foundations and demos are documented, with backend integration still a separate stage                                                                                                                                   |
+| Confirmed frontend scope | Separate school and monastery routes; searchable eLearning catalogue; document reader; academic and administrative role views; Academic Manager workspace and demo gradebook                                                                  |
+| API foundation           | TypeScript, Express, PostgreSQL                                                                                                                                                                                                               |
+| Boundaries               | Finance, clinic, auditor, and driver modules are explicitly outside scope; no public deployment or adoption claim                                                                                                                             |
+| Evidence sources         | Frontend README and ZIQUALA_FRONTEND_PLAN; backend README in the local zikuala workspace                                                                                                                                                      |
+| Approved visual          | S7 public homepage screenshot; responsive derivatives at `public/images/projects/zikuala-school-home.webp` and `zikuala-school-home-small.webp`, preserving the full composition. The image does not change the project’s in-progress status. |
 
 ### 4. Digital Examination and Post Exam Analysis
 
@@ -489,3 +491,9 @@ Before these become homepage claims, connect each one to a specific proof item. 
 - **2026-07-21:** Created consolidated data file from S1, S2, and S3; normalized overlaps; masked the phone number; documented verification status and content gaps.
 - **2026-07-21:** Added the supplied portrait and a dated LeetCode profile snapshot (S4 and S5) to the public evidence inventory.
 - **2026-07-22:** Added the user-approved Nexora IMS / Abdi Adama School Life capture (S6) as authentic project-interface evidence.
+
+## Project imagery update — 4 November 2026
+
+- **Zikuala:** S7 is the user-supplied Ziquala Abo School homepage capture. It appears in the project collection, case study, and house story. The full image is preserved in responsive WebP versions (1600 × 744 and 640 × 297).
+- **Digital Examination & Analysis:** The project image is an actual capture of the local examination frontend’s results page (`/admin/results/demo-recovery-sitting`), using its documented synthetic recovery fixture. It shows the marks table, score distribution, and topic-performance bars. The interface explicitly identifies the example as synthetic; the portfolio caption identifies demonstration data. This is interface evidence, not evidence of production use or real school results.
+- The examination capture was made in a temporary copy of `nexora/digital-exam/Nexora-Online-Examination` in demo mode. No original project source or production data was changed. Responsive assets are `public/images/projects/digital-examination-analysis.webp` (1600 × 1000) and `digital-examination-analysis-small.webp` (640 × 400).

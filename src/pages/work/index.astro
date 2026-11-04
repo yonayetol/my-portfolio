@@ -55,7 +55,19 @@ const statusLabels = { shipped: "Shipped", "in-progress": "In progress", researc
                 class="interior-project-art"
                 aria-label={`Read about ${project.title}`}
               >
-                {project.visual === "infrastructure" ? (
+                {project.image ? (
+                  <img
+                    class="interior-project-evidence"
+                    src={withBase(project.image.smallSrc)}
+                    srcset={`${withBase(project.image.smallSrc)} 640w, ${withBase(project.image.src)} 1600w`}
+                    sizes="(max-width: 640px) 85vw, (max-width: 1100px) 42vw, 520px"
+                    alt={project.image.alt}
+                    width={project.image.width}
+                    height={project.image.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : project.visual === "infrastructure" ? (
                   <img
                     src={withBase("images/projects/nexora-ims-school-life.webp")}
                     alt="Nexora IMS school life interface"
@@ -154,20 +166,8 @@ const statusLabels = { shipped: "Shipped", "in-progress": "In progress", researc
     inset: 0;
     min-height: 0;
   }
-  .interior-project-art :global(.systems-exhibit) {
-    padding: 20px 15px;
-  }
-  .interior-project-art :global(.systems-exhibit svg) {
-    max-height: 70%;
-  }
-  .interior-project-art :global(.systems-exhibit__caption) {
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
-  .interior-project-art :global(.systems-exhibit small) {
-    display: none;
-  }
-  .interior-project-art :global(.systems-exhibit__eyebrow) {
-    font-size: 7px;
+  .interior-project-art .interior-project-evidence {
+    height: auto;
+    object-fit: contain;
   }
 </style>

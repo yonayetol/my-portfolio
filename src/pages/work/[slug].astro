@@ -46,9 +46,10 @@ const scope = project.proof.filter(
     <figure class="home-shell interior-case-visual">
       <ProjectVisual type={project.visual} /><figcaption>
         {
-          project.visual === "infrastructure"
-            ? "A view of the school’s public interface."
-            : "An illustration of the project’s technical direction."
+          project.image?.caption ??
+            (project.visual === "infrastructure"
+              ? "A view of the school’s public interface."
+              : "An illustration of the project’s technical direction.")
         }
       </figcaption>
     </figure>

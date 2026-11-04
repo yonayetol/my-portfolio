@@ -11,6 +11,14 @@ export interface Project {
   summary: string;
   statement: string;
   visual: ProjectVisual;
+  image?: {
+    src: string;
+    smallSrc: string;
+    width: number;
+    height: number;
+    alt: string;
+    caption: string;
+  };
   accent: "blue" | "amber" | "violet" | "mint";
   disciplines: string[];
   facts: string[];
@@ -131,6 +139,15 @@ export const projects: Project[] = [
       "A school management system connecting public information, an eLearning catalogue, and role-aware academic and administrative work.",
     statement: "A clearer home for a school's information and everyday work.",
     visual: "management",
+    image: {
+      src: "images/projects/zikuala-school-home.webp",
+      smallSrc: "images/projects/zikuala-school-home-small.webp",
+      width: 1600,
+      height: 744,
+      alt: "Ziquala Abo School homepage with its school building, school and monastery navigation, eLearning, and portal login.",
+      caption:
+        "The public homepage for Ziquala Abo School, with school information, eLearning, and portal access.",
+    },
     accent: "mint",
     disciplines: ["React", "TypeScript", "Express", "PostgreSQL", "Academic workflows"],
     facts: [
@@ -181,6 +198,15 @@ export const projects: Project[] = [
     statement:
       "Follow the whole examination journey, from preparation to understanding the results.",
     visual: "examination",
+    image: {
+      src: "images/projects/digital-examination-analysis.webp",
+      smallSrc: "images/projects/digital-examination-analysis-small.webp",
+      width: 1600,
+      height: 1000,
+      alt: "Digital examination results interface showing a sample marks table, score-distribution chart, and topic-performance bars.",
+      caption:
+        "Results, score distribution, and topic analysis in the examination interface, shown with demonstration data.",
+    },
     accent: "amber",
     disciplines: ["React", "TypeScript", "IndexedDB", "Exam delivery", "Results analysis"],
     facts: [
