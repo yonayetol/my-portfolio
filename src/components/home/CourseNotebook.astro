@@ -1,0 +1,917 @@
+---
+import type { Course } from "@/data/courses";
+
+interface Props {
+  course: Course;
+}
+const { course } = Astro.props;
+const fieldId = `${course.id}-input`;
+const outputId = `${course.id}-output`;
+const demoTitles = {
+  vectors: "Give a vector room to grow",
+  activation: "Inside a single activation",
+  tokens: "A sentence becomes a sequence",
+  bayes: "Evidence changes with the prior",
+  regression: "Find a line that fits",
+  outliers: "One value changes the picture",
+  descent: "The size of a learning step",
+};
+const sigmoidPath = Array.from({ length: 61 }, (_, i) => {
+  const z = -6 + i / 5;
+  return `${i ? "L" : "M"}${40 + i * 4},${170 - 140 / (1 + Math.exp(-z))}`;
+}).join(" ");
+const initialWeights = Array.from({ length: 7 }, (_, i) => 4 * 0.6 ** i);
+const descentPath = initialWeights
+  .map((w, i) => `${i ? "L" : "M"}${40 + i * 40},${170 - ((w * w) / 16) * 130}`)
+  .join(" ");
+---
+
+<div class="course-notebook" style={`--course-pigment: ${course.color}`}>
+  <p class="course-notebook__summary">{course.summary}</p>
+
+  <section
+    class="course-demo"
+    data-course-demo={course.demo}
+    aria-labelledby={`${course.id}-demo-title`}
+  >
+    <div class="course-demo__heading">
+      <span>Try a little idea</span><span aria-hidden="true">↗</span>
+    </div>
+    <h3 id={`${course.id}-demo-title`}>{demoTitles[course.demo]}</h3>
+
+    {
+      course.demo === "vectors" && (
+        <>
+          <svg
+            viewBox="0 0 320 200"
+            role="img"
+            aria-label="A vector from the origin. Changing the scale changes its length and, for negative scales, its direction."
+          >
+            <defs>
+              <marker
+                id={`${course.id}-arrow`}
+                viewBox="0 0 10 10"
+                refX="8"
+                refY="5"
+                markerWidth="5"
+                markerHeight="5"
+                orient="auto-start-reverse"
+              >
+                <path d="M0 0 10 5 0 10Z" fill="currentColor" />
+              </marker>
+            </defs>
+            <g class="course-grid">
+              <path d="M40 40H280M40 70H280M40 130H280M40 160H280M70 30V170M100 30V170M130 30V170M190 30V170M220 30V170M250 30V170" />
+            </g>
+            <path class="course-axis" d="M30 100H290M160 20V180" />
+            <path d="M160 100 200 80" class="course-reference" />
+            <path
+              data-vector
+              d="M160 100 220 70"
+              class="course-active-line"
+              marker-end={`url(#${course.id}-arrow)`}
+            />
+            <circle cx="160" cy="100" r="3" fill="currentColor" />
+            <>
+              <text x="288" y="114">
+                x
+              </text>
+              <text x="169" y="25">
+                y
+              </text>
+              <text x="168" y="116">
+                0
+              </text>
+            </>
+            <text x="205" y="86" class="course-muted-label">
+              v = (2, 1)
+            </text>
+          </svg>
+          <div class="course-demo__control">
+            <>
+              <label for={fieldId}>Scale k</label>
+              <output for={fieldId} id={outputId} data-value>
+                1.5
+              </output>
+            </>
+          </div>
+          <input
+            id={fieldId}
+            type="range"
+            min="-2"
+            max="2"
+            step="0.1"
+            value="1.5"
+            aria-describedby={`${course.id}-explanation`}
+          />
+          <p class="course-demo__result" data-result>
+            1.5 × (2, 1) = (3, 1.5)
+          </p>
+          <p id={`${course.id}-explanation`} class="course-demo__explanation">
+            Scale changes length. A negative scale reverses direction; zero collapses the vector to
+            the origin.
+          </p>
+        </>
+      )
+    }
+
+    {
+      course.demo === "activation" && (
+        <>
+          <svg
+            viewBox="0 0 320 200"
+            role="img"
+            aria-label="The sigmoid curve maps a weighted input to a value between zero and one."
+          >
+            <path class="course-grid" d="M40 30H280M40 100H280M40 170H280" />
+            <path class="course-axis" d="M40 20V170H287M160 25V170" />
+            <path d={sigmoidPath} class="course-active-line" />
+            <path data-activation-guide d="M160 170V100H40" class="course-reference" />
+            <circle data-activation-dot cx="160" cy="100" r="5" fill="currentColor" />
+            <>
+              <text x="22" y="34">
+                1
+              </text>
+              <text x="11" y="104">
+                .5
+              </text>
+              <text x="22" y="174">
+                0
+              </text>
+              <text x="35" y="190">
+                −6
+              </text>
+              <text x="155" y="190">
+                0
+              </text>
+              <text x="275" y="190">
+                6
+              </text>
+            </>
+          </svg>
+          <div class="course-demo__control">
+            <>
+              <label for={fieldId}>Weighted input z</label>
+              <output for={fieldId} id={outputId} data-value>
+                0.0
+              </output>
+            </>
+          </div>
+          <input id={fieldId} type="range" min="-6" max="6" step="0.1" value="0" />
+          <p class="course-demo__result" data-result>
+            σ(0.0) = 0.500
+          </p>
+          <p class="course-demo__explanation">
+            σ(z) = 1 / (1 + e⁻ᶻ). This activation is smooth and bounded; its value alone does not
+            guarantee a calibrated probability.
+          </p>
+        </>
+      )
+    }
+
+    {
+      course.demo === "tokens" && (
+        <>
+          <label class="course-demo__text-label" for={fieldId}>
+            Write a short sentence
+          </label>
+          <textarea id={fieldId} rows="2" maxlength="160" spellcheck="false">
+            Small ideas grow into useful systems.
+          </textarea>
+          <div class="course-token-stream" data-tokens aria-label="Tokenized sentence">
+            {["small", "ideas", "grow", "into", "useful", "systems", "."].map((token, i) => (
+              <span>
+                <small>{String(i + 1).padStart(2, "0")}</small>
+                {token}
+              </span>
+            ))}
+          </div>
+          <p class="course-demo__result" data-result>
+            7 tokens · lowercase + punctuation split
+          </p>
+          <p class="course-demo__explanation">
+            An illustrative word-and-punctuation tokenizer. It keeps punctuation and normalizes
+            case. Production models may use subword or other tokenization methods.
+          </p>
+        </>
+      )
+    }
+
+    {
+      course.demo === "bayes" && (
+        <>
+          <p class="course-demo__premise">
+            A fictional detector catches 90% of faulty parts and flags 5% of working parts. What
+            does a positive flag mean?
+          </p>
+          <div class="course-demo__control">
+            <>
+              <label for={fieldId}>Prior fault rate</label>
+              <output for={fieldId} id={outputId} data-value>
+                10%
+              </output>
+            </>
+          </div>
+          <input id={fieldId} type="range" min="1" max="50" step="1" value="10" />
+          <div
+            class="course-bayes-bar"
+            role="img"
+            aria-label="Share of positively flagged parts that are truly faulty versus false alarms"
+          >
+            <>
+              <span data-bayes-true style="width:66.6667%" />
+              <span data-bayes-false style="width:33.3333%" />
+            </>
+          </div>
+          <div class="course-bayes-legend">
+            <>
+              <span>
+                <i />
+                True positives
+              </span>
+              <span>
+                <i />
+                False positives
+              </span>
+            </>
+          </div>
+          <p class="course-demo__result" data-result>
+            P(faulty | flagged) = 66.7%
+          </p>
+          <p class="course-demo__explanation" data-bayes-counts>
+            Per 1,000 parts: 90 true positives and 45 false positives.
+          </p>
+          <p class="course-demo__formula">0.9p / [0.9p + 0.05(1 − p)]</p>
+          <p class="course-demo__explanation">
+            The detector stays the same. Changing the prior changes how convincing a positive flag
+            is.
+          </p>
+        </>
+      )
+    }
+
+    {
+      course.demo === "regression" && (
+        <>
+          <svg
+            viewBox="0 0 320 200"
+            role="img"
+            aria-label="Five example points lie on y equals 2x plus 1. Adjust a prediction line’s slope to reduce mean squared error."
+          >
+            <path class="course-grid" d="M60 130H280M60 90H280M60 50H280" />
+            <path class="course-axis" d="M60 25V170H285" />
+            {[0, 1, 2, 3, 4].map((x) => (
+              <path
+                data-residual={x}
+                d={`M${60 + x * 48} ${170 - (1.2 * x + 1) * 10}V${170 - (2 * x + 1) * 10}`}
+                class="course-reference"
+              />
+            ))}
+            <path data-regression-line d="M60 160 252 112" class="course-active-line" />
+            {[0, 1, 2, 3, 4].map((x) => (
+              <circle cx={60 + x * 48} cy={170 - (2 * x + 1) * 10} r="4" fill="#b08236" />
+            ))}
+            <>
+              <text x="53" y="188">
+                0
+              </text>
+              <text x="248" y="188">
+                4
+              </text>
+              <text x="287" y="174">
+                x
+              </text>
+              <text x="43" y="29">
+                y
+              </text>
+              <text x="72" y="40">
+                points: y = 2x + 1
+              </text>
+            </>
+          </svg>
+          <div class="course-demo__control">
+            <>
+              <label for={fieldId}>Prediction slope m</label>
+              <output for={fieldId} id={outputId} data-value>
+                1.2
+              </output>
+            </>
+          </div>
+          <input id={fieldId} type="range" min="0" max="3" step="0.1" value="1.2" />
+          <p class="course-demo__result" data-result>
+            ŷ = 1.2x + 1 · MSE = 3.84
+          </p>
+          <p class="course-demo__explanation">
+            The intercept stays at 1. The dashed gaps are prediction errors for five illustrative
+            points. Squaring and averaging them gives MSE.
+          </p>
+        </>
+      )
+    }
+
+    {
+      course.demo === "outliers" && (
+        <>
+          <svg
+            viewBox="0 0 320 200"
+            role="img"
+            aria-label="Seven sample values shown as bars. Toggling an outlier changes the last value from seven to twenty-eight."
+          >
+            <path class="course-axis" d="M30 30V170H290" />
+            {[2, 3, 3, 4, 5, 6, 7].map((value, i) => (
+              <rect
+                data-sample-bar={i}
+                x={42 + i * 34}
+                y={170 - value * 4}
+                width="20"
+                height={value * 4}
+                rx="2"
+                fill="currentColor"
+                opacity={i === 6 ? "1" : ".45"}
+              />
+            ))}
+            <path
+              data-mean-line
+              d={`M32 ${170 - (30 / 7) * 4}H288`}
+              stroke="#b08236"
+              stroke-width="2"
+              stroke-dasharray="4 3"
+            />
+            <path d="M32 154H288" stroke="#536787" stroke-width="1.5" stroke-dasharray="2 4" />
+            <>
+              <text x="11" y="174">
+                0
+              </text>
+              <text x="5" y="54">
+                30
+              </text>
+              <text x="42" y="190">
+                seven observations
+              </text>
+            </>
+          </svg>
+          <label class="course-demo__toggle" for={fieldId}>
+            <>
+              <input id={fieldId} type="checkbox" />
+              <span>Replace 7 with an outlier of 28</span>
+            </>
+          </label>
+          <p class="course-demo__result" data-result>
+            Mean 4.29 · Median 4.00
+          </p>
+          <p class="course-demo__formula" data-sample-values>
+            Sample: 2, 3, 3, 4, 5, 6, 7
+          </p>
+          <p class="course-demo__explanation">
+            The amber line marks the mean; the blue line marks the median. One extreme value pulls
+            the mean while this sample’s middle value stays unchanged.
+          </p>
+        </>
+      )
+    }
+
+    {
+      course.demo === "descent" && (
+        <>
+          <svg
+            viewBox="0 0 320 200"
+            role="img"
+            aria-label="Loss over six gradient descent updates for the function w squared, starting at w equals four. The vertical scale adjusts to fit the loss."
+          >
+            <path class="course-grid" d="M40 40H280M40 105H280" />
+            <path class="course-axis" d="M40 25V170H288" />
+            <path data-descent-line d={descentPath} class="course-active-line" />
+            {initialWeights.map((w, i) => (
+              <circle
+                data-descent-dot={i}
+                cx={40 + i * 40}
+                cy={170 - ((w * w) / 16) * 130}
+                r="3"
+                fill="currentColor"
+              />
+            ))}
+            <>
+              <text data-loss-max x="14" y="44">
+                16
+              </text>
+              <text x="23" y="174">
+                0
+              </text>
+              <text x="37" y="188">
+                0
+              </text>
+              <text x="277" y="188">
+                6
+              </text>
+              <text x="110" y="190">
+                update number
+              </text>
+            </>
+          </svg>
+          <div class="course-demo__control">
+            <>
+              <label for={fieldId}>Learning rate α</label>
+              <output for={fieldId} id={outputId} data-value>
+                0.20
+              </output>
+            </>
+          </div>
+          <input id={fieldId} type="range" min="0.05" max="1.1" step="0.05" value="0.2" />
+          <p class="course-demo__result" data-result>
+            After 6 steps: w = 0.187 · loss = 0.035
+          </p>
+          <p class="course-demo__formula">L(w) = w² · w ← w − α(2w)</p>
+          <p class="course-demo__explanation" data-descent-status>
+            Converges toward zero. The chart rescales vertically to fit the loss.
+          </p>
+        </>
+      )
+    }
+
+    <p class="course-demo__footnote">Illustrative example · explore the concept</p>
+    <p class="course-demo__sr" data-announcement aria-live="polite" aria-atomic="true"></p>
+    <noscript
+      ><p class="course-demo__explanation">
+        This is the example’s starting state. Enable JavaScript to explore the controls.
+      </p></noscript
+    >
+  </section>
+
+  <section class="course-notebook__topics" aria-labelledby={`${course.id}-topics-title`}>
+    <h3 id={`${course.id}-topics-title`}>Inside this notebook</h3>
+    <ol>
+      {
+        course.topics.map((topic, i) => (
+          <li>
+            <>
+              <span aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+              <p>{topic}</p>
+            </>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+  {
+    course.certificateHref && (
+      <a
+        class="course-notebook__certificate"
+        href={course.certificateHref}
+        target="_blank"
+        rel="noreferrer"
+      >
+        View course credential <span aria-hidden="true">↗</span>
+      </a>
+    )
+  }
+</div>
+
+<script>
+  const initializeCourseDemos = () => {
+    document.querySelectorAll<HTMLElement>("[data-course-demo]").forEach((demo) => {
+      if (demo.dataset.ready === "true") return;
+      demo.dataset.ready = "true";
+      const input = demo.querySelector<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
+      if (!input) return;
+      const result = demo.querySelector<HTMLElement>("[data-result]");
+      const value = demo.querySelector<HTMLOutputElement>("[data-value]");
+      const announcement = demo.querySelector<HTMLElement>("[data-announcement]");
+      const write = (selector: string, text: string) => {
+        const node = demo.querySelector<HTMLElement>(selector);
+        if (node) node.textContent = text;
+      };
+      const attribute = (selector: string, name: string, text: string) =>
+        demo.querySelector(selector)?.setAttribute(name, text);
+      const numeric = (n: number, places = 2) => Number(n.toFixed(places)).toString();
+
+      const update = () => {
+        const n = Number(input.value);
+        switch (demo.dataset.courseDemo) {
+          case "vectors": {
+            if (value) value.value = n.toFixed(1);
+            attribute("[data-vector]", "d", `M160 100 ${160 + n * 40} ${100 - n * 20}`);
+            attribute(
+              "[data-vector]",
+              "marker-end",
+              n === 0 ? "none" : `url(#${input.id.replace(/-input$/, "-arrow")})`,
+            );
+            if (result)
+              result.textContent = `${numeric(n)} × (2, 1) = (${numeric(n * 2)}, ${numeric(n)})`;
+            break;
+          }
+          case "activation": {
+            const activation = 1 / (1 + Math.exp(-n));
+            const x = 40 + (n + 6) * 20;
+            const y = 170 - activation * 140;
+            if (value) value.value = n.toFixed(1);
+            attribute("[data-activation-dot]", "cx", String(x));
+            attribute("[data-activation-dot]", "cy", String(y));
+            attribute("[data-activation-guide]", "d", `M${x} 170V${y}H40`);
+            if (result) result.textContent = `σ(${n.toFixed(1)}) = ${activation.toFixed(3)}`;
+            break;
+          }
+          case "tokens": {
+            const tokens =
+              input.value
+                .toLocaleLowerCase("en-US")
+                .match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)?|[^\s\p{L}\p{N}]/gu) ?? [];
+            const stream = demo.querySelector<HTMLElement>("[data-tokens]");
+            if (stream) {
+              const fragment = document.createDocumentFragment();
+              tokens.forEach((token, index) => {
+                const chip = document.createElement("span");
+                const number = document.createElement("small");
+                number.textContent = String(index + 1).padStart(2, "0");
+                chip.append(number, document.createTextNode(token));
+                fragment.append(chip);
+              });
+              stream.replaceChildren(fragment);
+            }
+            if (result)
+              result.textContent = `${tokens.length} ${tokens.length === 1 ? "token" : "tokens"} · lowercase + punctuation split`;
+            break;
+          }
+          case "bayes": {
+            const p = n / 100;
+            const truePositive = 0.9 * p;
+            const falsePositive = 0.05 * (1 - p);
+            const posterior = truePositive / (truePositive + falsePositive);
+            if (value) value.value = `${n}%`;
+            const trueBar = demo.querySelector<HTMLElement>("[data-bayes-true]");
+            const falseBar = demo.querySelector<HTMLElement>("[data-bayes-false]");
+            if (trueBar) trueBar.style.width = `${posterior * 100}%`;
+            if (falseBar) falseBar.style.width = `${(1 - posterior) * 100}%`;
+            if (result)
+              result.textContent = `P(faulty | flagged) = ${(posterior * 100).toFixed(1)}%`;
+            write(
+              "[data-bayes-counts]",
+              `Per 1,000 parts: ${numeric(truePositive * 1000, 1)} expected true positives and ${numeric(falsePositive * 1000, 1)} expected false positives.`,
+            );
+            break;
+          }
+          case "regression": {
+            if (value) value.value = n.toFixed(1);
+            attribute("[data-regression-line]", "d", `M60 160 252 ${170 - (n * 4 + 1) * 10}`);
+            demo.querySelectorAll<SVGPathElement>("[data-residual]").forEach((line) => {
+              const x = Number(line.dataset.residual);
+              line.setAttribute(
+                "d",
+                `M${60 + x * 48} ${170 - (n * x + 1) * 10}V${170 - (2 * x + 1) * 10}`,
+              );
+            });
+            if (result)
+              result.textContent = `ŷ = ${n.toFixed(1)}x + 1 · MSE = ${(6 * (n - 2) ** 2).toFixed(2)}`;
+            break;
+          }
+          case "outliers": {
+            const last = (input as HTMLInputElement).checked ? 28 : 7;
+            const mean = (23 + last) / 7;
+            attribute('[data-sample-bar="6"]', "y", String(170 - last * 4));
+            attribute('[data-sample-bar="6"]', "height", String(last * 4));
+            attribute("[data-mean-line]", "d", `M32 ${170 - mean * 4}H288`);
+            if (result) result.textContent = `Mean ${mean.toFixed(2)} · Median 4.00`;
+            write("[data-sample-values]", `Sample: 2, 3, 3, 4, 5, 6, ${last}`);
+            break;
+          }
+          case "descent": {
+            if (value) value.value = n.toFixed(2);
+            const weights = Array.from({ length: 7 }, (_, i) => 4 * (1 - 2 * n) ** i);
+            const losses = weights.map((w) => w * w);
+            const maxLoss = Math.max(16, ...losses);
+            attribute(
+              "[data-descent-line]",
+              "d",
+              losses
+                .map((loss, i) => `${i ? "L" : "M"}${40 + i * 40},${170 - (loss / maxLoss) * 130}`)
+                .join(" "),
+            );
+            demo
+              .querySelectorAll<SVGCircleElement>("[data-descent-dot]")
+              .forEach((dot, index) =>
+                dot.setAttribute("cy", String(170 - ((losses[index] ?? 0) / maxLoss) * 130)),
+              );
+            write("[data-loss-max]", numeric(maxLoss, 0));
+            if (result)
+              result.textContent = `After 6 steps: w = ${(weights[6] ?? 0).toFixed(3)} · loss = ${(losses[6] ?? 0).toFixed(3)}`;
+            const status =
+              n > 1
+                ? "The steps diverge: loss grows."
+                : n === 1
+                  ? "The steps oscillate between 4 and −4 without converging."
+                  : n > 0.5
+                    ? "The steps cross zero but converge toward it."
+                    : n === 0.5
+                      ? "This quadratic reaches zero in one step."
+                      : "Converges toward zero.";
+            write(
+              "[data-descent-status]",
+              `${status} The chart rescales vertically to fit the loss.`,
+            );
+            break;
+          }
+        }
+      };
+      input.addEventListener("input", update);
+      input.addEventListener("change", () => {
+        update();
+        if (announcement && result) announcement.textContent = result.textContent;
+      });
+      update();
+    });
+  };
+  initializeCourseDemos();
+  document.addEventListener("astro:page-load", initializeCourseDemos);
+</script>
+
+<style>
+  .course-notebook {
+    --course-accent: var(--course-pigment);
+    min-width: 0;
+    color: var(--home-ink, #29362d);
+  }
+  :global(html[data-theme="dark"]) .course-notebook {
+    --course-accent: color-mix(in srgb, var(--course-pigment) 40%, #fff9ef);
+  }
+  .course-notebook__summary {
+    margin: 0 0 22px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--home-muted, #697166);
+  }
+  .course-demo {
+    padding: 20px;
+    border: 1px solid var(--home-line, #d9dacd);
+    background: var(--home-paper, #f6f2e9);
+    border-radius: 4px 16px 16px 4px;
+    color: var(--course-accent);
+  }
+  .course-demo__heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    text-transform: uppercase;
+    font: 9px/1.5 var(--font-mono, monospace);
+    letter-spacing: 0.12em;
+  }
+  .course-demo h3 {
+    margin: 9px 0 14px;
+    font:
+      23px/1.15 Georgia,
+      serif;
+    letter-spacing: -0.03em;
+    color: var(--home-ink, #29362d);
+  }
+  .course-demo svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 10px 0;
+    overflow: visible;
+  }
+  .course-demo svg text {
+    fill: var(--home-muted, #697166);
+    font: 9px var(--font-mono, monospace);
+  }
+  .course-demo svg .course-muted-label {
+    font-size: 8px;
+  }
+  .course-grid {
+    fill: none;
+    stroke: var(--home-line, #d9dacd);
+    stroke-width: 0.8;
+  }
+  .course-axis {
+    fill: none;
+    stroke: #919785;
+    stroke-width: 1;
+  }
+  .course-reference {
+    fill: none;
+    stroke: #a89e85;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 4;
+  }
+  .course-active-line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .course-demo__control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 13px 0 2px;
+    font-size: 12px;
+    color: var(--home-ink, #29362d);
+  }
+  .course-demo__control output {
+    font: 11px var(--font-mono, monospace);
+    font-variant-numeric: tabular-nums;
+    color: var(--course-accent);
+  }
+  .course-demo input[type="range"] {
+    display: block;
+    width: 100%;
+    min-height: 36px;
+    margin: 0;
+    accent-color: var(--course-accent);
+    cursor: pointer;
+  }
+  .course-demo input:focus-visible,
+  .course-demo textarea:focus-visible,
+  .course-notebook__certificate:focus-visible {
+    outline: 2px solid var(--home-blue, #3159be);
+    outline-offset: 4px;
+  }
+  .course-demo__result {
+    margin: 10px 0;
+    padding: 11px 12px;
+    background: color-mix(in srgb, var(--course-accent) 8%, transparent);
+    border-left: 2px solid var(--course-accent);
+    font: 11px/1.7 var(--font-mono, monospace);
+    overflow-wrap: anywhere;
+    color: var(--home-ink, #29362d);
+  }
+  .course-demo__explanation,
+  .course-demo__premise {
+    margin: 10px 0;
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--home-muted, #697166);
+  }
+  .course-demo__premise {
+    font-size: 12px;
+  }
+  .course-demo__formula {
+    margin: 10px 0;
+    font: 10px/1.8 var(--font-mono, monospace);
+    overflow-wrap: anywhere;
+  }
+  .course-demo__footnote {
+    margin: 18px 0 0;
+    padding-top: 10px;
+    border-top: 1px dashed var(--home-line, #d9dacd);
+    font-size: 9px;
+    color: var(--home-muted, #697166);
+    letter-spacing: 0.03em;
+  }
+  .course-demo__text-label {
+    display: block;
+    margin: 18px 0 8px;
+    color: var(--home-ink, #29362d);
+    font-size: 12px;
+  }
+  .course-demo textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+    min-height: 70px;
+    max-height: 180px;
+    border: 1px solid var(--home-line, #d9dacd);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--home-ink, #29362d);
+    padding: 12px;
+    font: 12px/1.7 var(--font-sans, sans-serif);
+  }
+  .course-token-stream {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 55px;
+    margin: 16px 0;
+  }
+  .course-token-stream > :global(span) {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    padding: 7px 9px;
+    border: 1px solid var(--home-line, #d9dacd);
+    border-radius: 3px;
+    color: var(--home-ink, #29362d);
+    font: 11px/1.5 var(--font-mono, monospace);
+  }
+  .course-token-stream :global(small) {
+    color: var(--home-muted, #697166);
+    font-size: 8px;
+  }
+  .course-bayes-bar {
+    display: flex;
+    gap: 3px;
+    height: 38px;
+    margin-top: 14px;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .course-bayes-bar > span {
+    display: block;
+    background: var(--course-accent);
+  }
+  .course-bayes-bar > span + span {
+    background: #c69a83;
+  }
+  .course-bayes-legend {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin: 8px 0 16px;
+    color: var(--home-muted, #697166);
+    font-size: 9px;
+  }
+  .course-bayes-legend span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .course-bayes-legend i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--course-accent);
+  }
+  .course-bayes-legend span + span i {
+    background: #c69a83;
+  }
+  .course-demo__toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--home-ink, #29362d);
+  }
+  .course-demo__toggle input {
+    accent-color: var(--course-accent);
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+  .course-notebook__topics {
+    margin-top: 28px;
+  }
+  .course-notebook__topics h3 {
+    margin: 0 0 12px;
+    font:
+      23px/1.3 Georgia,
+      serif;
+    color: var(--home-ink, #29362d);
+  }
+  .course-notebook__topics ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .course-notebook__topics li {
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    align-items: baseline;
+    gap: 8px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--home-line, #d9dacd);
+  }
+  .course-notebook__topics li > span {
+    font: 9px/1.8 var(--font-mono, monospace);
+    color: var(--course-accent);
+  }
+  .course-notebook__topics li p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.75;
+    color: var(--home-muted, #697166);
+  }
+  .course-notebook__certificate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    margin-top: 18px;
+    color: var(--course-accent);
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    font-size: 12px;
+  }
+  .course-demo__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  @media (max-width: 360px) {
+    .course-demo {
+      padding: 15px;
+    }
+    .course-demo h3 {
+      font-size: 21px;
+    }
+  }
+</style>

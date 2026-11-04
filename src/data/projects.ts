@@ -1,5 +1,5 @@
 export type ProjectStatus = "shipped" | "in-progress" | "research";
-export type ProjectVisual = "infrastructure" | "pattern" | "donation" | "learning";
+export type ProjectVisual = "infrastructure" | "pattern" | "management" | "examination";
 
 export interface Project {
   index: string;
@@ -11,6 +11,14 @@ export interface Project {
   summary: string;
   statement: string;
   visual: ProjectVisual;
+  image?: {
+    src: string;
+    smallSrc: string;
+    width: number;
+    height: number;
+    alt: string;
+    caption: string;
+  };
   accent: "blue" | "amber" | "violet" | "mint";
   disciplines: string[];
   facts: string[];
@@ -122,100 +130,120 @@ export const projects: Project[] = [
   },
   {
     index: "03",
-    slug: "berhan",
-    title: "Berhan",
-    eyebrow: "Donation infrastructure · Ethiopia",
+    slug: "zikuala-management-system",
+    title: "Zikuala Management System",
+    eyebrow: "School operations · Academic workflows",
     status: "in-progress",
     statusLabel: "In progress",
     summary:
-      "An in-progress unified donation platform designed around Ethiopian charities, local supporters, and the diaspora.",
-    statement: "Make giving across distance feel direct, flexible, and human.",
-    visual: "donation",
-    accent: "amber",
-    disciplines: ["Product design", "Payments", "Recurring giving", "Multi-party flows"],
+      "A school management system connecting public information, an eLearning catalogue, and role-aware academic and administrative work.",
+    statement: "A clearer home for a school's information and everyday work.",
+    visual: "management",
+    image: {
+      src: "images/projects/zikuala-school-home.webp",
+      smallSrc: "images/projects/zikuala-school-home-small.webp",
+      width: 1600,
+      height: 744,
+      alt: "Ziquala Abo School homepage with its school building, school and monastery navigation, eLearning, and portal login.",
+      caption:
+        "The public homepage for Ziquala Abo School, with school information, eLearning, and portal access.",
+    },
+    accent: "mint",
+    disciplines: ["React", "TypeScript", "Express", "PostgreSQL", "Academic workflows"],
     facts: [
-      "Local and diaspora payment paths",
-      "Split donations",
-      "Anonymous giving",
-      "Recurring donations and donor tiers",
+      "Separate public school and monastery sections",
+      "Searchable eLearning catalogue and document viewer",
+      "Academic and administrative role-based interfaces",
+      "Frontend foundation with backend integration in progress",
     ],
     context:
-      "Berhan is being shaped around a fragmented donation journey: charities need a coherent platform while local and diaspora donors need flexible ways to support causes from different payment contexts.",
+      "School information serves different audiences: families exploring a school, students finding learning material, and staff managing academic work. Zikuala brings those journeys together while keeping their responsibilities distinct.",
     system:
-      "The current product direction brings donor identity preferences, recurring support, split allocation, donor tiers, and local/diaspora payment paths into one understandable giving flow.",
+      "The frontend includes public information, a searchable eLearning catalogue, and academic and administrative portal views. A TypeScript, Express, and PostgreSQL backend provides the API foundation. Frontend demonstrations and backend integration remain distinct; the project is presented as in progress.",
     decisions: [
       {
-        title: "Design for more than one payment context",
+        title: "Keep the public journeys distinct",
         detail:
-          "Local and diaspora giving are treated as first-class journeys rather than forcing every donor through one assumed path.",
+          "School information and the monastery section have separate routes and media treatment, so each audience can find the context it needs.",
       },
       {
-        title: "Keep donor intent flexible",
+        title: "Make learning materials findable",
         detail:
-          "Anonymous giving, split donations, recurring support, and tiers reflect different ways people choose to participate.",
+          "The eLearning frontend supports title search, grade and subject filters, document previews, and publishing controls. Persistence and permission enforcement are backend integration work.",
       },
       {
-        title: "Label the work honestly",
+        title: "Match the portal to its actual scope",
         detail:
-          "Berhan remains explicitly in progress; the portfolio describes direction and implemented thinking without implying live payment partnerships.",
+          "Academic and administrative roles shape navigation and workflows. Unrelated finance, clinic, transport, and auditing modules are excluded from this project.",
       },
     ],
     proof: [
-      "Defined local and diaspora audiences",
-      "Specified split and anonymous donation flows",
-      "Specified recurring support and donor tiers",
-      "Active in-progress status",
+      "Implemented public routes and academic portal frontend",
+      "eLearning catalogue, filters, and document-reader interfaces",
+      "Academic Manager workspace and demonstration gradebook",
+      "Separate backend API foundation and documented integration priorities",
     ],
     reflection:
-      "The product challenge is not adding more donation features. It is making several forms of trust, identity, payment, and allocation feel like one calm experience.",
+      "A management system becomes clearer when its boundaries are clear. Public information, learning materials, and academic operations need to connect without turning every role into the same dashboard.",
   },
   {
     index: "04",
-    slug: "ml-engineering-dojo",
-    title: "ML Engineering Dojo",
-    eyebrow: "From-scratch learning lab",
-    status: "research",
-    statusLabel: "Learning lab",
+    slug: "digital-examination-analysis",
+    title: "Digital Examination & Analysis",
+    eyebrow: "Ongoing work · Exams and post-exam analysis",
+    status: "in-progress",
+    statusLabel: "In progress",
     summary:
-      "A disciplined space for moving beneath framework abstractions and rebuilding machine-learning ideas from their mathematical core.",
-    statement: "Understand the abstraction by rebuilding what is underneath it.",
-    visual: "learning",
-    accent: "mint",
-    disciplines: ["Python", "Mathematics", "Algorithms", "Evaluation"],
+      "An ongoing examination platform spanning paper preparation, student exam delivery, and post-exam results and analysis for schools.",
+    statement:
+      "Follow the whole examination journey, from preparation to understanding the results.",
+    visual: "examination",
+    image: {
+      src: "images/projects/digital-examination-analysis.webp",
+      smallSrc: "images/projects/digital-examination-analysis-small.webp",
+      width: 1600,
+      height: 1000,
+      alt: "Digital examination results interface showing a sample marks table, score-distribution chart, and topic-performance bars.",
+      caption:
+        "Results, score distribution, and topic analysis in the examination interface, shown with demonstration data.",
+    },
+    accent: "amber",
+    disciplines: ["React", "TypeScript", "IndexedDB", "Exam delivery", "Results analysis"],
     facts: [
-      "Classical ML foundations",
-      "From-scratch implementation path",
-      "Model evaluation",
-      "Deep-learning progression",
+      "Teacher preparation and administrator review workflows",
+      "Scheduled exams and durable student answer handling",
+      "Results reports, topic charts, and CSV export interfaces",
+      "Ongoing backend integration and acceptance work",
     ],
     context:
-      "Frameworks accelerate implementation, but they can hide the mechanics that make models succeed or fail. The Dojo is a learning system for turning formulas into tested code before leaning on higher-level tools.",
+      "A digital exam is more than a question screen. Teachers prepare papers, administrators organize sittings, students need reliable answer handling, and the results must help people understand what happened afterward.",
     system:
-      "Each topic moves through a repeatable loop: derive the idea, implement it, inspect behavior, compare outputs, and record where the abstraction becomes useful. Per-algorithm completion status remains deliberately transparent.",
+      "The frontend connects teacher preparation, administrative scheduling, student delivery, and results views. Answer persistence distinguishes local saves from server receipt. Post-exam workflows include role-scoped reports, topic analysis, exports, recovery review, and separately released practice. Real-backend acceptance and production readiness remain ongoing work.",
     decisions: [
       {
-        title: "Start with the mechanism",
+        title: "Make answer state understandable",
         detail:
-          "From-scratch implementations expose assumptions about distance, optimization, splitting, and evaluation that frameworks package away.",
+          "A device save, an uploaded answer, and a confirmed final submission are different states. The interface keeps that distinction visible during interruptions and recovery.",
       },
       {
-        title: "Separate coursework from implementation",
+        title: "Treat results as a controlled workflow",
         detail:
-          "A concept can be studied without claiming that a complete, tested implementation is finished; the public status reflects that distinction.",
+          "Scheduled release, role-scoped reports, and retained result revisions shape the results flow. Practice scores stay separate from official marks.",
       },
       {
-        title: "Evaluate, then optimize",
-        detail: "Correctness and observable model behavior come before premature performance work.",
+        title: "Connect assessment to useful analysis",
+        detail:
+          "Results interfaces combine reports, topic charts, and export paths so staff can inspect performance after an exam. Synthetic demonstrations do not establish real-school adoption or production capacity.",
       },
     ],
     proof: [
-      "Completed study of core classical ML topics",
-      "Explicit from-scratch implementation direction",
-      "Model-evaluation focus",
-      "Current progression toward deep learning and transformers",
+      "Teacher, student, and administrator examination interfaces",
+      "Durable answer handling and explicit recovery states",
+      "Post-exam reporting, topic charts, and export interfaces",
+      "Documented separation of synthetic checks from real-backend acceptance",
     ],
     reflection:
-      "The goal is not to replace mature libraries. It is to earn a sharper mental model of what those libraries do, where they fail, and which evidence to inspect when results look wrong.",
+      "The most important work is often between the obvious screens: preserving a student's answers, describing uncertainty honestly, and turning an assessment into information that teachers and students can use.",
   },
 ];
 

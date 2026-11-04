@@ -1,5 +1,5 @@
 ---
-import type { ProjectVisual as VisualType } from "@/data/projects";
+import { projects, type ProjectVisual as VisualType } from "@/data/projects";
 import { withBase } from "@/utils/paths";
 
 interface Props {
@@ -8,13 +8,34 @@ interface Props {
 }
 
 const { type, compact = false } = Astro.props;
+const screenshot = projects.find((project) => project.visual === type)?.image;
 ---
 
 <div
-  class:list={["project-visual", `project-visual--${type}`, { "project-visual--compact": compact }]}
-  aria-hidden="true"
+  class:list={[
+    "project-visual",
+    `project-visual--${type}`,
+    { "project-visual--compact": compact, "project-visual--screenshot": !!screenshot },
+  ]}
+  style={screenshot ? `--screenshot-ratio:${screenshot.width} / ${screenshot.height}` : undefined}
+  aria-hidden={screenshot ? undefined : "true"}
 >
-  <div class="visual-grid"></div>
+  {!screenshot && <div class="visual-grid" />}
+  {
+    screenshot && (
+      <img
+        class="project-evidence-image"
+        src={withBase(screenshot.src)}
+        srcset={`${withBase(screenshot.smallSrc)} 640w, ${withBase(screenshot.src)} 1600w`}
+        sizes={compact ? "(max-width: 700px) 100vw, 50vw" : "(max-width: 1200px) 100vw, 1200px"}
+        alt={screenshot.alt}
+        width={screenshot.width}
+        height={screenshot.height}
+        loading="lazy"
+        decoding="async"
+      />
+    )
+  }
 
   {
     type === "infrastructure" && (
@@ -70,107 +91,186 @@ const { type, compact = false } = Astro.props;
   }
 
   {
-    type === "donation" && (
-      <div class="donation-product">
-        <div class="donation-product__intro">
-          <span>BERHAN · PRODUCT DIRECTION</span>
-          <strong>Giving should feel clear before it asks for commitment.</strong>
-          <small>IN-PROGRESS CONCEPT</small>
-        </div>
-        <div class="giving-preview">
-          <div class="giving-preview__head">
-            <div class="berhan-mark" aria-hidden="true">
-              <span />
-            </div>
-            <div>
-              <strong>Support a cause</strong>
-              <small>Flexible giving, one calm flow</small>
-            </div>
-            <span class="prototype-pill">Prototype</span>
-          </div>
-          <div class="giving-progress" aria-hidden="true">
+    !screenshot && (type === "management" || type === "examination") && (
+      <div class:list={["systems-exhibit", `systems-exhibit--${type}`]}>
+        <span class="systems-exhibit__eyebrow">
+          {type === "management" ? "ACADEMIC WORKFLOWS" : "PREPARE · DELIVER · UNDERSTAND"}
+        </span>
+        <svg viewBox="0 0 600 320" role="presentation">
+          {type === "management" ? (
             <>
-              <span class="is-active">Cause</span>
-              <i />
-            </>{" "}
-            <>
-              <span>Amount</span>
-              <i />
-            </>{" "}
-            <span>Confirm</span>
-          </div>
-          <div class="giving-selection">
-            <span>Selected cause</span>
-            <strong>Choose where your support goes</strong>
-            <small>One cause or a thoughtful split between several.</small>
-          </div>
-          <div class="giving-options">
-            <>
-              <span>Local supporter</span>
-              <span>Diaspora supporter</span>
+              <rect
+                x="175"
+                y="65"
+                width="250"
+                height="190"
+                rx="10"
+                fill="#fff9ec"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M175 107h250M235 108v147"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <circle cx="194" cy="86" r="3" fill="currentColor" />
+              <circle cx="207" cy="86" r="3" fill="currentColor" />
+              <path
+                d="M253 133h150M253 157h150M253 181h150M253 205h150M280 133v72M341 133v72"
+                fill="none"
+                stroke="currentColor"
+                stroke-opacity=".4"
+              />
+              <rect x="192" y="126" width="24" height="8" rx="2" fill="currentColor" opacity=".6" />
+              <rect x="192" y="148" width="24" height="8" rx="2" fill="currentColor" opacity=".3" />
+              <rect x="192" y="170" width="24" height="8" rx="2" fill="currentColor" opacity=".3" />
+              <path
+                d="M175 160H105m320 0h70"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-dasharray="4 5"
+              />
+              <circle
+                cx="80"
+                cy="160"
+                r="25"
+                fill="#fff9ec"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <circle
+                cx="520"
+                cy="160"
+                r="25"
+                fill="#fff9ec"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="m67 160 9 9 17-19M510 151h20v19h-20z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
             </>
-          </div>
-          <div class="giving-toggle">
-            <span>
-              <>
-                <strong>Give anonymously</strong>
-                <small>Keep your identity private</small>
-              </>
-            </span>
-            <i aria-hidden="true" />
-          </div>
-          <div class="giving-action">
-            Continue securely <span aria-hidden="true">→</span>
-          </div>
-        </div>
-        <div class="donation-product__features">
-          <div>
+          ) : (
             <>
-              <span>Recurring support</span>
-              <small>Designed for continued participation</small>
+              <rect
+                x="80"
+                y="70"
+                width="145"
+                height="190"
+                rx="8"
+                fill="#fff9ec"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M105 105h75M105 135h94M105 155h94M105 185h94M105 205h94"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+              />
+              <path
+                d="m108 234 9 8 17-18M247 165h68m-12-10 12 10-12 10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <rect
+                x="337"
+                y="85"
+                width="185"
+                height="160"
+                rx="8"
+                fill="#fff9ec"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M357 213h145M357 112v101"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <rect x="376" y="167" width="24" height="46" fill="currentColor" opacity=".4" />
+              <rect x="416" y="143" width="24" height="70" fill="currentColor" opacity=".65" />
+              <rect x="456" y="119" width="24" height="94" fill="currentColor" />
             </>
-          </div>
-          <div>
-            <>
-              <span>Donor choice</span>
-              <small>Split, private, or direct giving</small>
-            </>
-          </div>
-          <div>
-            <>
-              <span>Two contexts</span>
-              <small>Local and diaspora paths</small>
-            </>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  {
-    type === "learning" && (
-      <div class="learning-map">
-        <div class="learning-curve">
-          <svg viewBox="0 0 560 260" role="presentation">
-            <path class="axis" d="M46 28v196h472" />
-            <path class="curve curve--ghost" d="M48 58c80 8 118 118 190 119 87 1 116-95 274-112" />
-            <path
-              class="curve"
-              d="M48 194c72-2 84-92 154-93 68-1 90 74 148 72 62-2 84-88 162-115"
-            />
-            <g>
-              <circle cx="48" cy="194" r="6" />
-              <circle cx="202" cy="101" r="6" />
-              <circle cx="350" cy="173" r="6" />
-              <circle cx="512" cy="58" r="6" />
-            </g>
-          </svg>
-        </div>
-        <span class="learning-tag learning-tag--a">derive</span>
-        <span class="learning-tag learning-tag--b">implement</span>
-        <span class="learning-tag learning-tag--c">evaluate</span>
-        <span class="visual-label">FROM-SCRATCH MODEL STUDY</span>
+          )}
+        </svg>
+        <span class="systems-exhibit__caption">
+          {type === "management"
+            ? "Public information, learning materials, academic work."
+            : "An examination is a process. The results are a starting point."}
+        </span>
+        <small>ILLUSTRATIVE SYSTEM STUDY · IN PROGRESS</small>
       </div>
     )
   }
 </div>
+
+<style>
+  .project-visual.project-visual--screenshot {
+    min-height: 0;
+    aspect-ratio: var(--screenshot-ratio);
+    background: #081320;
+  }
+  .project-evidence-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .systems-exhibit {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background: #e5eadc;
+    color: #48644b;
+  }
+  .systems-exhibit--examination {
+    background: #f0e6d4;
+    color: #88613f;
+  }
+  .systems-exhibit svg {
+    width: min(700px, 95%);
+    height: auto;
+    max-height: 65%;
+  }
+  .systems-exhibit__eyebrow,
+  .systems-exhibit small {
+    font-family: var(--font-mono, monospace);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  .systems-exhibit__caption {
+    font:
+      italic 19px/1.4 Georgia,
+      serif;
+    text-align: center;
+    margin: 5px 0 18px;
+    max-width: 500px;
+  }
+  @media (max-width: 640px) {
+    .systems-exhibit {
+      padding: 20px;
+    }
+    .systems-exhibit__eyebrow,
+    .systems-exhibit small {
+      font-size: 7px;
+    }
+    .systems-exhibit__caption {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+  }
+</style>

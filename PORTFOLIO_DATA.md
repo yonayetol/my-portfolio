@@ -1,6 +1,6 @@
 # Yonas Portfolio — Consolidated Source of Truth
 
-> Internal content inventory for the portfolio project. This file consolidates the three documents supplied on 2026-07-21. It is a factual working source, not final website copy.
+> Internal content inventory for the portfolio project. This file consolidates the supplied documents, subsequent user corrections, and identified local project documentation. It is a factual working source, not final website copy.
 
 ## Data rules
 
@@ -13,28 +13,33 @@
 
 ## Source provenance
 
-| ID  | Supplied file                                                              | Main contribution                                                                            |
-| --- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| S1  | `/home/yonas/Downloads/Yonas_Portfolio_Master_Profile.md`                  | Biography, roles, skills, projects, learning, preferences, working style, and brand keywords |
-| S2  | `/home/yonas/Downloads/portfolio_context.md`                               | Project details, training details, workflow note, and nine certification links               |
-| S3  | `/home/yonas/Downloads/portfolio_context-v2.md`                            | Everything in S2 plus contact and professional-profile links                                 |
-| S4  | `/home/yonas/Downloads/photo_2024-10-15_16-07-13.jpg`                      | User-supplied public portrait, 900 × 1200 JPEG                                               |
-| S5  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 19-22-26.png` | Dated LeetCode metrics for `japu_yonas`                                                      |
-| S6  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 10-12-10.png` | Approved Nexora IMS / Abdi Adama School Life interface capture                               |
+| ID  | Supplied file                                                              | Main contribution                                                                                             |
+| --- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| S1  | `/home/yonas/Downloads/Yonas_Portfolio_Master_Profile.md`                  | Biography, roles, skills, projects, learning, preferences, working style, and brand keywords                  |
+| S2  | `/home/yonas/Downloads/portfolio_context.md`                               | Project details, training details, workflow note, and nine certification links                                |
+| S3  | `/home/yonas/Downloads/portfolio_context-v2.md`                            | Everything in S2 plus contact and professional-profile links                                                  |
+| S4  | `/home/yonas/Downloads/photo_2024-10-15_16-07-13.jpg`                      | User-supplied public portrait, 900 × 1200 JPEG                                                                |
+| S5  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 19-22-26.png` | Dated LeetCode metrics for `japu_yonas`                                                                       |
+| S6  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 10-12-10.png` | Approved Nexora IMS / Abdi Adama School Life interface capture                                                |
+| S7  | `/tmp/codex-clipboard-SXktFv.png`                                          | User-supplied Ziquala Abo School public homepage screenshot, 1900 × 883 PNG, approved for the Zikuala project |
+
+The latest user correction confirms fourth-year Computer Science at Addis Ababa University (AAU), Zikuala Management System as portfolio work, and ongoing digital examination and post-exam analysis. These corrections supersede earlier conflicting identity and project records.
+
+Additional project evidence was inspected read-only in `nexora/zikuala/zikuala-frontend/README.md`, `ZIQUALA_FRONTEND_PLAN.md`, `nexora/zikuala/ziquala-backend/README.md`, and `nexora/digital-exam/Nexora-Online-Examination/README.md` plus `docs/automatic-results-and-grouped-history.md`. Documentation and frontend demonstrations establish scope, not deployment or adoption.
 
 The original source documents and supplied assets should remain the raw evidence. This file is the normalized working version for implementation.
 
 ## Identity
 
-| Field                      | Value                                                         | Status / source                                                                                         |
-| -------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Preferred name             | Yonas                                                         | Confirmed from S1                                                                                       |
-| Full public display name   | Not explicitly supplied                                       | Needs confirmation; the LinkedIn slug suggests “Yonas Ayele,” but a URL slug is not sufficient evidence |
-| Location                   | Addis Ababa, Ethiopia                                         | Confirmed from S1                                                                                       |
-| Education                  | B.Sc. Computer Science, Year III                              | Confirmed from S1; institution and dates needed                                                         |
-| Program/alumni affiliation | A2SV Generation 6 alumnus                                     | Confirmed from S1; dates and profile link needed                                                        |
-| Current role 1             | Co-founder & Deputy Manager, Nexora Technology PLC            | Confirmed from S1, S2, S3                                                                               |
-| Current role 2             | Software Programmer, Trainer & Technical Evaluator, iCog Labs | Confirmed from S1, S2, S3                                                                               |
+| Field                      | Value                                                              | Status / source                                                                                         |
+| -------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Preferred name             | Yonas                                                              | Confirmed from S1                                                                                       |
+| Full public display name   | Not explicitly supplied                                            | Needs confirmation; the LinkedIn slug suggests “Yonas Ayele,” but a URL slug is not sufficient evidence |
+| Location                   | Addis Ababa, Ethiopia                                              | Confirmed from S1                                                                                       |
+| Education                  | Fourth-year B.Sc. Computer Science at Addis Ababa University (AAU) | Confirmed by latest user correction; dates not supplied                                                 |
+| Program/alumni affiliation | A2SV Generation 6 alumnus                                          | Confirmed from S1; dates and profile link needed                                                        |
+| Current role 1             | Co-founder & Deputy Manager, Nexora Technology PLC                 | Confirmed from S1, S2, S3                                                                               |
+| Current role 2             | Software Programmer, Trainer & Technical Evaluator, iCog Labs      | Confirmed from S1, S2, S3                                                                               |
 
 ### Supplied professional labels
 
@@ -143,22 +148,7 @@ The public interface uses the strongest proof points and labels the capture date
 
 Project statuses below are intentionally explicit so the site never presents plans as shipped products.
 
-### 1. Berhan
-
-| Field             | Data                                                                                                                             |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Type              | Unified donation platform for Ethiopian charities                                                                                |
-| Status            | In progress                                                                                                                      |
-| Audience          | Ethiopian charities, local donors, and diaspora donors                                                                           |
-| Supplied features | Local and diaspora payments; split donations; anonymous giving; recurring donations; donor tiers                                 |
-| Stack             | Not supplied                                                                                                                     |
-| Role              | Not supplied                                                                                                                     |
-| Links             | Not supplied                                                                                                                     |
-| Evidence needed   | Screenshots, architecture, current feature state, repository/demo, role, collaborators, payment constraints, and milestone dates |
-
-**Safe public framing:** An in-progress product; do not imply that payment flows or charity partnerships are live without evidence.
-
-### 3. School Information Management System / Nexora IMS
+### 1. School Information Management System / Nexora IMS
 
 | Field                   | Data                                                                                                                                                                                                                     |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -171,7 +161,7 @@ Project statuses below are intentionally explicit so the site never presents pla
 | Approved visual         | School Life interface screenshot supplied on 2026-07-22; optimized derivative stored as `public/images/projects/nexora-ims-school-life.webp`                                                                             |
 | Evidence needed         | Anonymized metrics, supported user roles, deployment diagram, team/role details, broader institution permission, and outcome data                                                                                        |
 
-### 4. MM2 Pattern Miner
+### 2. MM2 Pattern Miner
 
 | Field                     | Data                                                                                                                                                |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -182,14 +172,28 @@ Project statuses below are intentionally explicit so the site never presents pla
 | Links                     | Not supplied                                                                                                                                        |
 | Evidence needed           | Repository/PR links, precise ownership, example query/output, architecture, performance or correctness evidence, and permission to present the work |
 
-### 9. ML Engineering Dojo
+### 3. Zikuala Management System
 
-| Field                           | Data                                                                                                                                                                     |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Type                            | From-scratch machine-learning implementations                                                                                                                            |
-| Status                          | Mixed: classical ML fundamentals are described as completed, while several named implementations are future/studying items; exact per-algorithm state needs confirmation |
-| Planned / referenced algorithms | KNN; K-Means; linear regression; logistic regression; decision trees; random forests; gradient boosting; neural networks; CNNs                                           |
-| Evidence needed                 | Repository, notebooks/tests, per-algorithm status, mathematical notes, datasets, benchmarks, and implementation constraints                                              |
+| Field                    | Data                                                                                                                                                                                                                                          |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type                     | School management system connecting public information, eLearning, and academic/administrative work                                                                                                                                           |
+| Status                   | In progress; frontend foundations and demos are documented, with backend integration still a separate stage                                                                                                                                   |
+| Confirmed frontend scope | Separate school and monastery routes; searchable eLearning catalogue; document reader; academic and administrative role views; Academic Manager workspace and demo gradebook                                                                  |
+| API foundation           | TypeScript, Express, PostgreSQL                                                                                                                                                                                                               |
+| Boundaries               | Finance, clinic, auditor, and driver modules are explicitly outside scope; no public deployment or adoption claim                                                                                                                             |
+| Evidence sources         | Frontend README and ZIQUALA_FRONTEND_PLAN; backend README in the local zikuala workspace                                                                                                                                                      |
+| Approved visual          | S7 public homepage screenshot; responsive derivatives at `public/images/projects/zikuala-school-home.webp` and `zikuala-school-home-small.webp`, preserving the full composition. The image does not change the project’s in-progress status. |
+
+### 4. Digital Examination and Post Exam Analysis
+
+| Field               | Data                                                                                                                                                                                           |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type                | Ongoing school examination platform and post-exam analysis                                                                                                                                     |
+| Status              | In progress, confirmed by the user                                                                                                                                                             |
+| Supported scope     | Teacher preparation/review; administrative scheduling; student exam delivery; durable answer handling; role-scoped results; topic charts and exports; recovery and separately enabled practice |
+| Technical direction | React, TypeScript, IndexedDB; explicit distinction between device saves, server receipt, and final submission                                                                                  |
+| Boundaries          | Synthetic demos and documented frontend behavior do not establish real-backend acceptance, production capacity, or school adoption                                                             |
+| Evidence sources    | Current examination repository README, results interfaces, and the October 23 scheduled-results implementation guide                                                                           |
 
 ## Technical capabilities
 
@@ -287,7 +291,7 @@ Do not use percentage meters or unsupported “expert” labels. Present capabil
 - Deep learning
 - Transformers
 
-There is a possible status inconsistency: S1 describes classical ML fundamentals as completed while also listing KNN and K-Means as studying; the ML Engineering Dojo lists those algorithms as intended from-scratch implementations. Confirm whether “completed” refers to coursework, implementation, or conceptual coverage.
+S1 describes classical ML fundamentals as completed while also listing KNN and K-Means as studying. Treat completed coursework separately from implemented software; do not infer a finished project from studied topics.
 
 ## Current focus and goals
 
@@ -305,7 +309,6 @@ There is a possible status inconsistency: S1 describes classical ML fundamentals
 ### Building
 
 - Portfolio website
-- Berhan donation platform
 - AI workflow automation projects
 - ML from-scratch implementations
 
@@ -384,8 +387,8 @@ All nine credentials and URLs are supplied in S2 and S3. Titles and URLs must be
 
 ### Formal education
 
-- B.Sc. Computer Science, Year III.
-- Institution, start date, expected graduation, relevant coursework, GPA/honors, and public disclosure preference are missing.
+- Fourth-year B.Sc. Computer Science at Addis Ababa University (AAU).
+- Institution and current year are confirmed by the latest user correction. Start date, expected graduation, GPA, and honors have not been supplied.
 
 ### A2SV
 
@@ -447,7 +450,7 @@ Before these become homepage claims, connect each one to a specific proof item. 
 6. Supply repository/PR evidence and disclosure permission for MM2 Pattern Miner.
 7. Supply company and role dates for Nexora and iCog Labs.
 8. Confirm per-project responsibilities, collaborators, and exact statuses.
-9. Confirm educational institution and dates.
+9. Confirm education dates if they are to be published.
 10. Manually open all nine credential links in a logged-out browser.
 
 ### High-value improvements
@@ -488,3 +491,9 @@ Before these become homepage claims, connect each one to a specific proof item. 
 - **2026-07-21:** Created consolidated data file from S1, S2, and S3; normalized overlaps; masked the phone number; documented verification status and content gaps.
 - **2026-07-21:** Added the supplied portrait and a dated LeetCode profile snapshot (S4 and S5) to the public evidence inventory.
 - **2026-07-22:** Added the user-approved Nexora IMS / Abdi Adama School Life capture (S6) as authentic project-interface evidence.
+
+## Project imagery update — 4 November 2026
+
+- **Zikuala:** S7 is the user-supplied Ziquala Abo School homepage capture. It appears in the project collection, case study, and house story. The full image is preserved in responsive WebP versions (1600 × 744 and 640 × 297).
+- **Digital Examination & Analysis:** The project image is an actual capture of the local examination frontend’s results page (`/admin/results/demo-recovery-sitting`), using its documented synthetic recovery fixture. It shows the marks table, score distribution, and topic-performance bars. The interface explicitly identifies the example as synthetic; the portfolio caption identifies demonstration data. This is interface evidence, not evidence of production use or real school results.
+- The examination capture was made in a temporary copy of `nexora/digital-exam/Nexora-Online-Examination` in demo mode. No original project source or production data was changed. Responsive assets are `public/images/projects/digital-examination-analysis.webp` (1600 × 1000) and `digital-examination-analysis-small.webp` (640 × 400).

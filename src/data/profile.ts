@@ -2,6 +2,7 @@ export const profile = {
   name: "Yonas",
   role: "AI Engineer & Software Builder",
   location: "Addis Ababa, Ethiopia",
+  education: "Fourth-year Computer Science student at Addis Ababa University (AAU).",
   email: "yonasayeletola62@gmail.com",
   intro: "I build intelligent systems from first principles—and ship them into the real world.",
   support:
@@ -43,16 +44,19 @@ export const codingProfile = {
   platform: "LeetCode",
   username: "japu_yonas",
   href: "https://leetcode.com/u/japu_yonas/",
-  capturedAt: "21 Jul 2026",
+  capturedAt: "Shared snapshot",
   totalSolved: 420,
-  totalAvailable: 3999,
+  totalAvailable: 4101,
+  attempting: 5,
+  // Historical metadata belongs to the earlier record, not the shared screenshot.
+  metadataCapturedAt: "21 Jul 2026",
   rank: "279,676",
   badges: 3,
   latestBadge: "50 Days Badge 2025",
   difficulty: [
-    { label: "Easy", solved: 187, available: 956, tone: "mint" },
-    { label: "Medium", solved: 205, available: 2088, tone: "amber" },
-    { label: "Hard", solved: 28, available: 955, tone: "coral" },
+    { label: "Easy", solved: 187, available: 975, tone: "mint" },
+    { label: "Medium", solved: 205, available: 2139, tone: "amber" },
+    { label: "Hard", solved: 28, available: 987, tone: "coral" },
   ],
 } as const;
 
@@ -79,11 +83,11 @@ export const experience = [
       "An algorithmic foundation shaped by data structures, problem-solving discipline, and continuous technical evaluation.",
   },
   {
-    organization: "Computer Science",
-    role: "B.Sc. · Year III",
+    organization: "Addis Ababa University (AAU)",
+    role: "Fourth-year B.Sc. Computer Science",
     marker: "Education",
     detail:
-      "Formal computer science study alongside production engineering, AI research, and from-scratch implementation work.",
+      "Fourth-year Computer Science study at AAU alongside software engineering, AI learning, and technical teaching.",
   },
 ] as const;
 

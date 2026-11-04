@@ -1,102 +1,173 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
-import ContactSection from "@/components/ContactSection.astro";
+import ProjectVisual from "@/components/ProjectVisual.astro";
 import { projects } from "@/data/projects";
-
-const sections = [
-  { id: "top", index: "00", label: "Overview" },
-  { id: "project-archive", index: "01", label: "Project archive" },
-  { id: "contact", index: "02", label: "Contact" },
-];
+import { withBase } from "@/utils/paths";
+import "@/styles/interiors.css";
+const statuses = [...new Set(projects.map((project) => project.status))];
+const statusLabels = { shipped: "Shipped", "in-progress": "In progress", research: "Research" };
 ---
 
 <BaseLayout
-  title="Selected Work — Yonas"
-  description="Production systems, symbolic AI, donation infrastructure, and from-scratch machine-learning work by Yonas."
-  sections={sections}
+  title="The workshop · Projects by Yonas"
+  description="Step inside Yonas’s workshop. Production software, symbolic AI, school management, and digital examination."
 >
-  <main id="main-content">
-    <header class="page-hero page-hero--work" id="top">
-      <div class="shell page-hero__grid">
-        <div data-reveal data-visible="true">
-          <p class="section-kicker"><span>01</span><span>Work archive</span></p>
-          <h1>Systems, not <em>screenshots.</em></h1>
-        </div>
-        <div class="page-hero__aside" data-reveal data-visible="true">
+  <main id="main-content" class="interior-page">
+    <header class="home-shell interior-heading" id="top">
+      <a class="interior-breadcrumb" href={withBase()}>← Back to portfolio</a>
+      <p class="home-eyebrow">Room 02 / The workshop</p>
+      <div class="interior-heading-row">
+        <h1>Made with<br /><em>intention.</em></h1><div>
           <p>
-            A record of shipped software, active AI work, product infrastructure, and the learning
-            systems underneath them.
-          </p>
-          <span class="mono">04 records / 03 states</span>
+            Some things are out in the world. Others are still taking shape. Here’s what’s on my
+            workbench—and the thinking behind it.
+          </p><span class="interior-small">{projects.length} PROJECTS · ALWAYS BUILDING</span>
         </div>
       </div>
     </header>
-
-    <section class="work-archive section" id="project-archive">
-      <div class="shell">
-        <div class="work-filter" data-work-filter data-reveal>
-          <span class="mono">FILTER /</span>
-          <div role="group" aria-label="Filter projects by status">
-            <button type="button" data-filter="all" aria-pressed="true">All <span>04</span></button>
-            <button type="button" data-filter="shipped" aria-pressed="false"
-              >Shipped <span>01</span></button
-            >
-            <button type="button" data-filter="in-progress" aria-pressed="false"
-              >In progress <span>02</span></button
-            >
-            <button type="button" data-filter="research" aria-pressed="false"
-              >Learning lab <span>01</span></button
-            >
-          </div>
-          <p class="sr-only" aria-live="polite" data-filter-status>Showing all 4 projects.</p>
+    <section class="home-shell interior-work" aria-label="Project collection">
+      <div class="interior-filter" data-work-filter>
+        <span class="interior-small">On the workbench</span>
+        <div role="group" aria-label="Filter projects by status" hidden>
+          <button type="button" data-filter="all" aria-pressed="true">Everything</button>
+          {
+            statuses.map((status) => (
+              <button type="button" data-filter={status} aria-pressed="false">
+                {statusLabels[status]}
+              </button>
+            ))
+          }
         </div>
-
-        <div class="work-grid" id="project-results">
-          {projects.map((project) => <ProjectCard project={project} />)}
-        </div>
-
-        <div class="archive-note" data-reveal>
-          <span class="mono">A note on evidence</span>
-          <p>
-            Status labels are intentional. “In progress” means the direction is active—not that
-            every proposed integration is live. Learning work stays a learning lab until its
-            implementation record is complete.
-          </p>
-        </div>
+        <p class="sr-only" aria-live="polite" data-filter-status>
+          Showing all {projects.length} projects.
+        </p>
+      </div>
+      <div class="interior-projects">
+        {
+          projects.map((project) => (
+            <article
+              class={`interior-project interior-project--${project.visual}`}
+              data-project-card
+              data-status={project.status}
+            >
+              <a
+                href={withBase(`work/${project.slug}/`)}
+                class="interior-project-art"
+                aria-label={`Read about ${project.title}`}
+              >
+                {project.image ? (
+                  <img
+                    class="interior-project-evidence"
+                    src={withBase(project.image.smallSrc)}
+                    srcset={`${withBase(project.image.smallSrc)} 640w, ${withBase(project.image.src)} 1600w`}
+                    sizes="(max-width: 640px) 85vw, (max-width: 1100px) 42vw, 520px"
+                    alt={project.image.alt}
+                    width={project.image.width}
+                    height={project.image.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : project.visual === "infrastructure" ? (
+                  <img
+                    src={withBase("images/projects/nexora-ims-school-life.webp")}
+                    alt="Nexora IMS school life interface"
+                    width="1600"
+                    height="900"
+                    loading="lazy"
+                  />
+                ) : project.visual === "management" || project.visual === "examination" ? (
+                  <ProjectVisual type={project.visual} compact />
+                ) : (
+                  <svg viewBox="0 0 600 320" aria-hidden="true">
+                    {project.visual === "pattern" && (
+                      <>
+                        <g fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M110 170 220 80 320 165 420 70 505 175 405 265 320 165 210 250 110 170M220 80 210 250M420 70 405 265" />
+                          <circle cx="320" cy="165" r="58" stroke-dasharray="4 7" />
+                        </g>
+                        <g fill="currentColor">
+                          <circle cx="110" cy="170" r="11" />
+                          <circle cx="220" cy="80" r="8" />
+                          <circle cx="320" cy="165" r="19" />
+                          <circle cx="420" cy="70" r="8" />
+                          <circle cx="505" cy="175" r="11" />
+                          <circle cx="405" cy="265" r="8" />
+                          <circle cx="210" cy="250" r="8" />
+                        </g>
+                      </>
+                    )}
+                  </svg>
+                )}
+                <>
+                  <span class="interior-art-number">{project.index}</span>
+                  <span class="interior-art-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </>
+              </a>
+              <div class="interior-project-meta">
+                <>
+                  <span>{project.eyebrow}</span>
+                  <span class={`interior-status interior-status--${project.status}`}>
+                    {project.statusLabel}
+                  </span>
+                </>
+              </div>
+              <h2>
+                <a href={withBase(`work/${project.slug}/`)}>{project.title}</a>
+              </h2>
+              <p>{project.summary}</p>
+              <ul class="interior-tags">
+                {project.disciplines.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
       </div>
     </section>
-
-    <ContactSection />
+    <aside class="home-shell interior-endnote">
+      <span class="home-eyebrow">A little context</span><p>
+        Work in progress means exactly that. I share the direction, decisions, and supported scope
+        of each project, with room for the unfinished parts.
+      </p><a class="home-link" href={withBase("explore/#kitchen")}>Visit the kitchen in 3D →</a>
+    </aside>
   </main>
 </BaseLayout>
-
 <script>
-  const initFilter = () => {
-    const filter = document.querySelector<HTMLElement>("[data-work-filter]");
-    if (!filter || filter.dataset.ready === "true") return;
-    filter.dataset.ready = "true";
-
+  const filter = document.querySelector<HTMLElement>("[data-work-filter]");
+  if (filter) {
     const buttons = filter.querySelectorAll<HTMLButtonElement>("[data-filter]");
     const cards = document.querySelectorAll<HTMLElement>("[data-project-card]");
-    const status = filter.querySelector<HTMLElement>("[data-filter-status]");
-
-    buttons.forEach((button) => {
+    buttons.forEach((button) =>
       button.addEventListener("click", () => {
-        const value = button.dataset.filter;
         let count = 0;
         buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
         cards.forEach((card) => {
-          const show = value === "all" || card.dataset.status === value;
-          card.toggleAttribute("hidden", !show);
-          if (show) count += 1;
+          const show =
+            button.dataset.filter === "all" || card.dataset.status === button.dataset.filter;
+          card.hidden = !show;
+          if (show) count++;
         });
+        const status = filter.querySelector("[data-filter-status]");
         if (status)
           status.textContent = `Showing ${count} ${count === 1 ? "project" : "projects"}.`;
-      });
-    });
-  };
-
-  document.addEventListener("astro:page-load", initFilter);
-  initFilter();
+      }),
+    );
+    filter.querySelector<HTMLElement>('[role="group"]')?.removeAttribute("hidden");
+  }
 </script>
+
+<style>
+  .interior-project-art :global(.project-visual--management),
+  .interior-project-art :global(.project-visual--examination) {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+  }
+  .interior-project-art .interior-project-evidence {
+    height: auto;
+    object-fit: contain;
+  }
+</style>

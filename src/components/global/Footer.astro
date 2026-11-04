@@ -1,32 +1,28 @@
 ---
-import { profile, socialLinks } from "@/data/profile";
+import { socialLinks } from "@/data/profile";
 import { withBase } from "@/utils/paths";
-
-const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
-  <div class="shell footer-grid">
-    <div>
-      <a class="footer-mark" href={withBase()}
-        >Y<span aria-hidden="true">/</span><span class="sr-only"> home</span></a
-      >
-      <p>{profile.brandLine}</p>
-    </div>
-    <div class="footer-links" aria-label="Social profiles">
-      {
-        socialLinks.slice(0, 4).map((link) => (
-          <a href={link.href} target="_blank" rel="noreferrer">
-            {link.label}
-            <span aria-hidden="true">↗</span>
-          </a>
-        ))
-      }
-    </div>
-    <div class="footer-meta">
-      <span>© {year} {profile.name}</span>
-      <span>{profile.location}</span>
-      <a href="#main-content">Back to top ↑</a>
-    </div>
+<footer class="home-footer home-shell">
+  <div>
+    <a class="footer-home-name" href={withBase()}>yonas.</a><p>
+      Built with intention. Always growing.
+    </p>
+  </div>
+  <nav aria-label="Social profiles">
+    {
+      socialLinks.slice(0, 2).map((link) => (
+        <a href={link.href} target="_blank" rel="noreferrer">
+          {link.label} ↗
+        </a>
+      ))
+    }<a href={withBase("explore/")}>Explore in 3D ↗</a>
+  </nav>
+  <div class="home-footer-end">
+    <span>© {new Date().getFullYear()} Yonas · Addis Ababa</span><button
+      type="button"
+      data-motion-toggle
+      aria-pressed="false">Pause motion</button
+    ><a href="#main-content">Back to top ↑</a>
   </div>
 </footer>

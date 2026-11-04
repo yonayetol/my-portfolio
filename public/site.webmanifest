@@ -1,11 +1,11 @@
 {
   "name": "Yonas — AI Engineer & Software Builder",
   "short_name": "Yonas",
-  "description": "Evidence-led portfolio of intelligent systems, production engineering, and technical teaching.",
+  "description": "A home for ideas, AI engineering, thoughtful software, and things taking shape.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#080a0f",
-  "theme_color": "#080a0f",
+  "background_color": "#f6f2e9",
+  "theme_color": "#f6f2e9",
   "icons": [
     {
       "src": "favicon.svg",
