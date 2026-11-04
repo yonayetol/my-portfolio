@@ -63,7 +63,9 @@ Teaching ─────── iCog Labs ─────── First-principles 
       │
 Product engineering ── Nexora IMS ── Deployment / operations
       │
-Custom algorithms ───── ML Engineering Dojo
+School workflows ───── Zikuala Management System
+      │
+Assessment ─────────── Digital Examination & Analysis
 ```
 
 On the homepage this appears as a subtle hero/section transition. Hovering or focusing a node reveals one compact proof statement; selecting it moves to the relevant case study or section. On reduced-motion devices it becomes a clear static relationship map.
@@ -146,11 +148,12 @@ Use exactly four public states:
 
 Map current projects as follows after confirmation:
 
-| Project             | Planned public status | Placement                                          |
-| ------------------- | --------------------- | -------------------------------------------------- |
-| Nexora IMS          | Shipped               | Featured case study, with confidentiality controls |
-| MM2 Pattern Miner   | In progress           | Featured technical case study                      |
-| ML Engineering Dojo | Learning lab          | Featured transparent learning record               |
+| Project                        | Planned public status | Placement                                             |
+| ------------------------------ | --------------------- | ----------------------------------------------------- |
+| Nexora IMS                     | Shipped               | Featured case study, with confidentiality controls    |
+| MM2 Pattern Miner              | In progress           | Featured technical case study                         |
+| Zikuala Management System      | In progress           | Academic operations and eLearning frontend case study |
+| Digital Examination & Analysis | In progress           | Ongoing examination delivery and post-exam analysis   |
 
 ### Case-study template
 
@@ -184,7 +187,8 @@ Each featured project will follow the same evidence-driven structure:
 ├── /work
 │   ├── /work/nexora-ims
 │   ├── /work/mm2-pattern-miner
-│   └── /work/ml-engineering-dojo
+│   ├── /work/zikuala-management-system
+│   └── /work/digital-examination-analysis
 ├── /about
 ├── /notes                         (launch only with at least 2 strong notes)
 │   └── /notes/[slug]
@@ -231,7 +235,7 @@ Credentials will be discoverable from About and the homepage without crowding pr
    - Dates must be supplied before launch.
 
 6. **Current lab**
-   - Honest snapshot of MM2 Pattern Miner and the ML Engineering Dojo.
+   - Honest snapshot of MM2 Pattern Miner, Zikuala Management System, and ongoing Digital Examination & Analysis.
    - Shows momentum without presenting plans as products.
 
 7. **Credentials**
@@ -473,7 +477,7 @@ AI-generated imagery will not substitute for proof of real projects. If used at 
 
 - [ ] Approve primary title, value proposition, and brand line.
 - [x] Draft the complete homepage narrative in plain language.
-- [x] Select the three launch work records from the revised data.
+- [x] Select the four current work records from the revised data.
 - [ ] Interview Yonas through focused questions for missing project details.
 - [x] Draft all selected case studies using Context → System → Decisions → Evidence → Reflection.
 - [x] Separate shipped, in-progress, and learning-lab work.
@@ -516,7 +520,7 @@ AI-generated imagery will not substitute for proof of real projects. If used at 
 - [x] Implement reduced-motion behavior.
 - [x] Build the work index and semantic filters with a live result announcement.
 - [x] Build a reusable case-study layout.
-- [x] Complete Nexora IMS, MM2 Pattern Miner, and ML Engineering Dojo case studies.
+- [x] Complete Nexora IMS, MM2 Pattern Miner, Zikuala Management System, and Digital Examination & Analysis case studies with accurate progress labels.
 - [x] Create code-native, nonessential system diagrams with accessible surrounding content.
 
 **Exit gate:** signature interaction is useful, stable, and accessible; every featured work route is complete.
@@ -667,3 +671,39 @@ These do not block initial design-system work, but they block accurate launch co
 - **2026-07-22:** Replaced the portfolio's repeated node-and-orbit diagrams with evidence-led, project-specific compositions: an active-project workbench in the hero and an interactive capability-to-project evidence panel. Removed faux identity scans, decorative project codes, arbitrary visual numbering, and unsupported dashboard metrics so the presentation feels authored, credible, and specific to the work.
 - **2026-07-22:** Removed the standalone Addis Ababa context section from the About page and closed the navigation sequence so Contact follows the learning section directly.
 - **2026-07-22:** Rebuilt the motion hierarchy around user-paced storytelling after studying OJI's chapter continuity, Ricardo Chance's layered portfolio movement, and Explanideo's scrollytelling principles. Added staggered editorial entrances, a continuous chapter field and progress sweep, a bounded stacked-project sequence, scroll-driven media depth and marquee movement, live reduced-motion teardown, and a continuously updating section rail across desktop and mobile. Removed the redundant fixed glow layer and synchronized first-paint motion defaults; the final mobile production audit scored 98 Performance and 100 for Accessibility, Best Practices, and SEO, with CLS reduced to 0.03.
+
+## Current revision — Evening, exploration, and personal evidence
+
+### Intent
+
+Make the home a place visitors can explore on their own, filled with objects that represent Yonas's actual projects, coursework, and problem-solving practice. This revision follows the user's latest corrections and supersedes conflicting content and interaction choices above.
+
+### Implementation order
+
+1. Default to a warm evening scene, with local light around the workbench, learning collection, and entry. Preserve a daylight toggle and save choices using a fresh preference key so the previous daylight default does not override this revision.
+2. Add an explicit free-exploration mode. Desktop visitors use WASD and turn controls; touch visitors use a movement joystick and drag to look. Bound movement to the property and prevent walking through major furniture and walls. Keep room shortcuts, a reset route, keyboard object lists, and reduced-motion alternatives.
+3. Replace anonymous shelf blocks with seven authored course objects: linear algebra, neural networks, NLP, probability and statistics, supervised learning, exploratory data analysis, and neural-network optimization. Each should have a real title, meaningful visual identity, supplied topics, and a small explanatory interaction. Do not imply that studying a course establishes mastery or production experience.
+4. Put the LeetCode record on an unobstructed, illuminated display. Add direct access from the interface and retain the exact supplied snapshot: 420 of 4,101 solved; 187/975 easy, 205/2,139 medium, 28/987 hard; 5 attempting.
+5. Replace the ML Engineering Dojo project with Zikuala Management System. Inspect existing local project documentation for supported scope before writing details. Feature digital examination and post-exam analysis as ongoing work. Do not invent deployment status, adoption numbers, or capabilities.
+6. Update education to fourth-year Computer Science at AAU. Keep shared content consistent across the house, quick view, About, project archive, and supporting records.
+7. Validate formatting, types, production builds, base-path support, free movement, collisions, touch input, keyboard focus, reduced motion, loading/error fallbacks, and all object-to-content mappings. Commit the finished revision on the existing feature branch.
+
+### Acceptance criteria
+
+- The initial house is evening-lit without requiring a toggle.
+- Movement responds directly to the visitor and never leaves them stuck; room shortcuts remain available.
+- Every featured course object opens relevant learning content, and the collection feels personal rather than decorative filler.
+- LeetCode is discoverable immediately and legible on desktop and mobile.
+- Zikuala and the ongoing examination project replace obsolete content without unsupported claims.
+- AAU and fourth-year CS are visible in the biography.
+- The experience remains usable with keyboard navigation, reduced motion, and a readable fallback.
+
+### Implemented and verified
+
+- Evening now defaults on through a versioned preference; six local lights warm the house. An explicit daylight choice persists.
+- Free exploration supports WASD, arrows/Q/E, pointer dragging, and a touch joystick. Collision stepping, safe starting positions, and property bounds are covered by a repeatable navigation test. Room shortcuts and Reset remain available.
+- Seven clothbound course volumes open seven interactive notebooks with the supplied course topics. The same notebooks render on the standard credentials route.
+- LeetCode has a freestanding illuminated display beside the collection and a persistent shortcut. The supplied totals remain labeled as a shared snapshot.
+- Zikuala and Digital Examination & Analysis have dedicated case studies grounded in local project documentation. Both are clearly in progress. The kitchen presents the examination project; education consistently states fourth-year Computer Science at AAU.
+- Browser checks exercised all 17 stories, keyboard Escape/focus restoration, nested course navigation, desktop walking/turning/stopping, return to the same walking pose after inspection, mobile joystick/drag/release/reset, 320px layouts, all seven course demonstrations, reduced motion, stored preferences, no-JavaScript content, malformed hashes, and WebGL context loss.
+- `npm run verify` passes, including navigation geometry tests, Astro diagnostics, production generation, and internal-link/metadata validation. The `/my-portfolio/` base-path build also validates. The Three.js bundle retains Vite's advisory size warning; no new performance score is claimed.

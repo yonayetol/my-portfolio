@@ -1215,3 +1215,268 @@ html[data-motion="off"] .spatial-stage {
   font-size: 12px;
   line-height: 1.7;
 }
+
+/* A small brass practice plaque stays within reach, even at the garden gate. */
+.spatial-practice-access {
+  position: absolute;
+  z-index: 6;
+  top: 112px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid #bc9b60;
+  border-radius: 8px;
+  background: #f3e6c9;
+  color: #3b4331;
+  box-shadow: 0 4px 24px #141e1420;
+}
+.spatial-practice-access > span:first-child {
+  color: #8e611b;
+  font-size: 24px;
+}
+.spatial-practice-access strong {
+  font:
+    27px Georgia,
+    serif;
+}
+.spatial-practice-access > span:last-child {
+  font-size: 11px;
+}
+.spatial-practice-access small {
+  display: block;
+  margin-top: 4px;
+  font:
+    7px "Space Mono",
+    monospace;
+  letter-spacing: 0.7px;
+}
+.spatial-explore {
+  display: none;
+  position: absolute;
+  right: 40px;
+  top: 195px;
+  z-index: 5;
+  max-width: 235px;
+  text-align: right;
+}
+.spatial-home[data-house-state="inside"] .spatial-explore {
+  display: block;
+}
+.spatial-explore button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--spatial-line);
+  border-radius: 7px;
+  background: var(--spatial-paper);
+  color: var(--spatial-ink);
+  font-size: 12px;
+}
+.spatial-explore button:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+.spatial-explore button[aria-pressed="true"] {
+  background: #315343;
+  color: #fff9e9;
+}
+.spatial-explore p {
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--spatial-ink);
+  background: var(--spatial-paper);
+  border-radius: 6px;
+  padding: 7px 10px;
+}
+.spatial-walk-controls {
+  position: absolute;
+  bottom: 140px;
+  left: 40px;
+  right: 40px;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  pointer-events: none;
+}
+.spatial-walk-controls[hidden],
+.spatial-explore button[hidden] {
+  display: none;
+}
+.spatial-joystick {
+  width: 112px;
+  height: 112px;
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid var(--spatial-line);
+  background: color-mix(in srgb, var(--spatial-paper) 88%, transparent);
+  box-shadow: inset 0 0 0 12px #75826916;
+  touch-action: none;
+  pointer-events: auto;
+}
+.spatial-joystick > span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #315343;
+  color: #fff9e9;
+  border: 1px solid #9baa80;
+  font-size: 25px;
+  box-shadow: 0 3px 10px #17281c30;
+}
+.spatial-steering {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--spatial-paper);
+  border: 1px solid var(--spatial-line);
+  border-radius: 30px;
+  padding: 3px;
+  pointer-events: auto;
+}
+.spatial-steering button {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--spatial-ink);
+  font-size: 22px;
+  touch-action: none;
+}
+.spatial-steering > span {
+  font:
+    10px "Space Mono",
+    monospace;
+  width: 25px;
+  text-align: center;
+}
+.spatial-home[data-exploring="true"] .spatial-room-caption {
+  bottom: 275px;
+  width: 235px;
+  padding: 12px 18px;
+}
+.spatial-home[data-exploring="true"] .spatial-room-caption > p,
+.spatial-home[data-exploring="true"] .spatial-room-caption > h2 {
+  display: none;
+}
+.spatial-home[data-exploring="true"] .spatial-object-list {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.spatial-home[data-exploring="true"] .spatial-object-list > div {
+  max-height: 30svh;
+}
+.spatial-home[data-exploring="true"] .spatial-look-hint {
+  visibility: hidden;
+}
+.spatial-home[data-focused] .spatial-practice-access,
+.spatial-home[data-focused] .spatial-explore,
+.spatial-home[data-focused] .spatial-walk-controls {
+  visibility: hidden;
+}
+.story-course-index {
+  display: grid;
+  gap: 8px;
+  margin: 25px 0;
+}
+.story-course-index button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  background: #eeeadc;
+  border: 0;
+  border-left: 6px solid var(--book-color);
+  border-radius: 2px 7px 7px 2px;
+  padding: 16px;
+  min-height: 55px;
+  color: #283d31;
+}
+.story-course-index button > span {
+  font:
+    10px "Space Mono",
+    monospace;
+}
+.story-course-index button > span:last-child {
+  margin-left: auto;
+}
+.story-course-index button strong {
+  font:
+    16px Georgia,
+    serif;
+}
+.spatial-object-list > div {
+  max-height: min(40svh, 310px);
+  overflow-y: auto;
+}
+@media (max-width: 700px) {
+  .spatial-practice-access {
+    top: 92px;
+    right: 16px;
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  .spatial-practice-access strong {
+    font-size: 22px;
+  }
+  .spatial-practice-access > span:first-child {
+    display: none;
+  }
+  .spatial-practice-access > span:last-child {
+    font-size: 10px;
+  }
+  .spatial-practice-access small {
+    font-size: 5px;
+  }
+  .spatial-home[data-house-state="outside"] .spatial-practice-access {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+  }
+  .spatial-explore {
+    top: 92px;
+    left: 16px;
+    right: auto;
+    max-width: 170px;
+    text-align: left;
+  }
+  .spatial-explore p {
+    max-width: 165px;
+    font-size: 9px;
+  }
+  .spatial-explore button {
+    font-size: 10px;
+    padding: 9px 10px;
+  }
+  .spatial-explore button[data-explore-reset] {
+    margin-top: 5px;
+  }
+  .spatial-walk-controls {
+    bottom: 116px;
+    left: 20px;
+    right: 20px;
+  }
+  .spatial-joystick {
+    width: 100px;
+    height: 100px;
+  }
+  .spatial-steering {
+    gap: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .spatial-home[data-exploring="true"] .spatial-room-caption {
+    bottom: 235px;
+    left: 20px;
+    width: 210px;
+  }
+}

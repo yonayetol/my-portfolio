@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { codingProfile } from "@/data/profile";
 import { withBase } from "@/utils/paths";
+import { courses, type Course } from "@/data/courses";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 
 /** A small, entirely procedural home. Shared geometry keeps the scene inexpensive. */
 export function createHouseWorld(onAssetReady?: () => void) {
@@ -401,7 +403,7 @@ export function createHouseWorld(onAssetReady?: () => void) {
 
   // A real portrait gives the room its owner. The callback wakes an on-demand
   // renderer when the local photograph has decoded; navigation never waits on it.
-  const portrait = local("Yonas's portrait", -5.9, 0.15, -2.35, 0.55);
+  const portrait = local("Yonas's portrait", -7.1, 0.15, 0.8, 0.9);
   portrait.userData.inspect = "about";
   for (const x of [-0.51, 0.51]) {
     rod(portrait, [x, 0, 0.15], [x * 0.5, 2.7, -0.12], 0.045, "wood");
@@ -464,12 +466,22 @@ export function createHouseWorld(onAssetReady?: () => void) {
         "plasterShadow",
       );
   ball(workshop, 0.85, 1.35, 0.41, 0.09, 0.045, 0.14, "black");
-  const dojo = new THREE.Group();
-  dojo.name = "Machine learning practice books";
-  dojo.userData.inspect = "dojo";
-  workshop.add(dojo);
-  book(dojo, 1.65, 1.35, 0.1, 0.63, 0.12, 0.8, "roof");
-  book(dojo, 1.62, 1.49, 0.06, 0.57, 0.12, 0.72, "blue");
+  const zikuala = new THREE.Group();
+  zikuala.name = "Zikuala campus model";
+  zikuala.userData.inspect = "zikuala";
+  workshop.add(zikuala);
+  box(zikuala, 1.65, 1.36, 0.1, 1.03, 0.1, 0.94, "oliveLight");
+  box(zikuala, 1.65, 1.425, 0.1, 0.1, 0.025, 0.85, "cream");
+  for (const [x, z, h] of [
+    [1.39, -0.09, 0.33],
+    [1.92, -0.1, 0.45],
+    [1.4, 0.35, 0.24],
+  ]) {
+    box(zikuala, x!, 1.42 + h! / 2, z!, 0.3, h!, 0.28, "plasterLight");
+    box(zikuala, x!, 1.45 + h!, z!, 0.34, 0.045, 0.32, "blue");
+    box(zikuala, x!, 1.5 + h! / 2, z! + 0.147, 0.16, 0.08, 0.012, "blueLight");
+  }
+  label(zikuala, "ZIKUALA", 1.65, 1.38, 0.58, 0.85, 0.11, "#647751", "#fff1ce");
   mug(workshop, 1.08, 1.3, -0.35, "olive");
   cylinder(workshop, -1.7, 1.34, -0.34, 0.23, 0.08, "blue");
   rod(workshop, [-1.7, 1.34, -0.34], [-1.72, 2.1, -0.34], 0.035, "brass");
@@ -528,10 +540,32 @@ export function createHouseWorld(onAssetReady?: () => void) {
   mug(kitchen, 1.05, 1.34, 0.25, "paper");
   // Narrow freestanding preparation island leaves the center route open.
   table(kitchen, 0, 0, 2.1, 2.6, 0.9, 1.2, "wood");
-  box(kitchen, 0.15, 1.28, 2.1, 0.9, 0.03, 0.58, "paper");
-  box(kitchen, 0.15, 1.3, 2.1, 0.018, 0.008, 0.55, "plasterShadow");
+  box(kitchen, 0.12, 1.28, 2.13, 0.8, 0.035, 0.6, "paper");
+  const examTitle = label(kitchen, "EXAMINATION", 0.12, 1.302, 2.05, 0.68, 0.16);
+  if (examTitle) examTitle.rotation.x = -Math.PI / 2;
+  for (let i = 0; i < 3; i++) {
+    box(kitchen, 0.12, 1.305, 2.14 + i * 0.075, 0.45, 0.006, 0.009, "paleWood");
+    cylinder(kitchen, -0.15, 1.308, 2.14 + i * 0.075, 0.016, 0.006, "olive");
+  }
+  const examTablet = new THREE.Group();
+  examTablet.position.set(0.75, 1.3, 2.15);
+  examTablet.rotation.set(-0.28, -0.2, 0);
+  kitchen.add(examTablet);
+  box(examTablet, 0, 0.45, 0, 0.62, 0.86, 0.065, "blue");
+  box(examTablet, 0, 0.46, 0.04, 0.54, 0.72, 0.012, "paper");
+  label(examTablet, "POST EXAM", 0, 0.72, 0.052, 0.49, 0.11);
   for (let i = 0; i < 4; i++)
-    box(kitchen, -0.1, 1.303, 1.94 + i * 0.09, 0.28, 0.006, 0.012, "wood");
+    box(
+      examTablet,
+      -0.17 + i * 0.11,
+      0.28 + i * 0.035,
+      0.053,
+      0.06,
+      0.12 + i * 0.07,
+      0.012,
+      i % 2 ? "olive" : "blueLight",
+    );
+  label(examTablet, "ANALYSIS", 0, 0.18, 0.052, 0.49, 0.1);
   cylinder(kitchen, -0.8, 1.35, 2.12, 0.24, 0.18, "cream");
   for (const [x, z] of [
     [-0.9, 2.06],
@@ -547,51 +581,288 @@ export function createHouseWorld(onAssetReady?: () => void) {
     pan.rotation.x = Math.PI / 2;
   }
 
-  // READING NOOK — library shelves, certificates, a reading chair and dated score.
-  const library = local("Reading nook", -5.5, 0.15, -6.5);
-  library.userData.inspect = "credentials";
-  for (const x of [-2.3, 2.3]) box(library, x, 1.55, 0, 0.16, 3.1, 0.55, "wood");
-  box(library, 0, 1.55, -0.2, 4.6, 3.1, 0.08, "darkWood");
-  const bookColors: Material[] = ["olive", "blue", "roof", "paper", "paleWood", "coral"];
-  for (let shelf = 0; shelf < 4; shelf++) {
-    const y = 0.22 + shelf * 0.76;
-    box(library, 0, y, 0, 4.8, 0.12, 0.65, "wood");
-    for (let i = 0; i < 11; i++) {
-      const x = -2.05 + i * 0.38;
-      const h = 0.36 + ((i * 7 + shelf * 3) % 5) * 0.045;
-      book(
-        library,
-        x,
-        y + h / 2 + 0.06,
-        0.05,
-        0.2 + (i % 2) * 0.08,
-        h,
-        0.38,
-        bookColors[(i + shelf) % bookColors.length]!,
-      );
-      box(library, x, y + h * 0.4, 0.248, 0.13, 0.025, 0.008, "brass");
-    }
+  // READING NOOK — seven authored volumes, each a readable physical object.
+  const courseHotspots: Record<string, THREE.Vector3> = {};
+  const display = local("The learning collection", -5.5, 0.15, -6.3);
+  // Open walnut ledges leave the room light and the independent score visible.
+  for (const x of [-2.55, 2.55]) box(display, x, 0.5, 0, 0.12, 1, 0.7, "wood");
+  box(display, 0, 0.8, 0, 5.9, 0.12, 1.15, "paleWood");
+  box(display, -0.2, 2.4, -0.22, 5.3, 0.1, 0.8, "wood");
+  for (const x of [-2.4, 2]) {
+    rod(display, [x, 1.95, -0.45], [x, 2.36, 0.05], 0.035, "brass");
   }
-  box(library, 0, 3.15, 0, 4.8, 0.13, 0.7, "paleWood");
-  label(library, "THE READING NOOK", 0, 3.48, -0.12, 2.8, 0.38);
-  // A small diploma frame is deliberately decorative, without invented issuer text.
-  box(group, -8.78, 2.6, -3.3, 0.08, 1.05, 0.85, "brass");
-  box(group, -8.72, 2.6, -3.3, 0.02, 0.89, 0.69, "paper");
-  const reading = local("Library chair", -6.1, 0.15, -3.8, 0.25);
-  reading.userData.inspect = "credentials";
-  box(reading, 0, 0.53, 0, 1.25, 0.28, 1.1, "coral");
-  box(reading, 0, 1.03, -0.48, 1.25, 0.85, 0.23, "roof");
-  for (const x of [-0.59, 0.59]) box(reading, x, 0.78, 0, 0.16, 0.4, 1.15, "roof");
-  for (const x of [-0.48, 0.48])
-    for (const z of [-0.4, 0.4]) box(reading, x, 0.21, z, 0.07, 0.42, 0.07, "wood");
-  table(reading, 1.2, 0, 0.1, 0.65, 0.65, 0.6, "paleWood");
-  book(reading, 1.2, 0.72, 0.1, 0.4, 0.11, 0.5, "blue");
+
+  function courseCover(course: Course, index: number) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 768;
+    canvas.height = 1024;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = course.color;
+    ctx.fillRect(0, 0, 768, 1024);
+    // Subtle woven cloth and a gold tooling rule: this is a book, not a UI card.
+    ctx.strokeStyle = "#ffffff08";
+    ctx.lineWidth = 1;
+    for (let x = 0; x < 768; x += 5) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, 1024);
+      ctx.stroke();
+    }
+    for (let y = 0; y < 1024; y += 5) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(768, y);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = "#e4c991";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(42, 42, 684, 940);
+    ctx.fillStyle = "#e4c991";
+    ctx.font = "24px monospace";
+    ctx.fillText(`YONAS / STUDY NOTES 0${index + 1}`, 76, 105);
+    ctx.fillStyle = "#fff4db";
+    ctx.font = "bold 58px Georgia";
+    let line = "";
+    let ty = 205;
+    for (const word of course.shortTitle.split(" ")) {
+      if (ctx.measureText(`${line} ${word}`).width > 610 && line) {
+        ctx.fillText(line, 76, ty);
+        ty += 70;
+        line = word;
+      } else line = line ? `${line} ${word}` : word;
+    }
+    ctx.fillText(line, 76, ty);
+    ctx.strokeStyle = "#e4c991";
+    ctx.fillStyle = "#e4c991";
+    ctx.lineWidth = 4;
+    const dot = (x: number, y: number, r = 8) => {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    };
+    const lineTo = (x1: number, y1: number, x2: number, y2: number) => {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    };
+    if (index === 0) {
+      ctx.globalAlpha = 0.3;
+      for (let i = 0; i < 6; i++) {
+        lineTo(130 + i * 90, 490, 130 + i * 90, 850);
+        lineTo(130, 490 + i * 72, 580, 490 + i * 72);
+      }
+      ctx.globalAlpha = 1;
+      lineTo(210, 790, 575, 610);
+      lineTo(210, 790, 380, 480);
+      lineTo(575, 610, 538, 610);
+      lineTo(575, 610, 554, 647);
+      lineTo(380, 480, 345, 512);
+      lineTo(380, 480, 384, 525);
+      ctx.font = "italic 38px Georgia";
+      ctx.fillText("v", 590, 615);
+      ctx.fillText("u", 386, 477);
+    } else if (index === 1) {
+      const nodes = [
+        [175, 570],
+        [175, 710],
+        [175, 850],
+        [380, 510],
+        [380, 650],
+        [380, 790],
+        [585, 610],
+        [585, 750],
+      ];
+      ctx.globalAlpha = 0.5;
+      for (const a of nodes.slice(0, 3))
+        for (const b of nodes.slice(3, 6)) lineTo(a[0]!, a[1]!, b[0]!, b[1]!);
+      for (const a of nodes.slice(3, 6))
+        for (const b of nodes.slice(6)) lineTo(a[0]!, a[1]!, b[0]!, b[1]!);
+      ctx.globalAlpha = 1;
+      nodes.forEach(([x, y]) => dot(x!, y!, 19));
+    } else if (index === 2) {
+      ctx.font = "36px Georgia";
+      ctx.fillText("language", 118, 562);
+      ctx.fillText("meaning", 400, 682);
+      ctx.fillText("context", 200, 812);
+      lineTo(180, 590, 450, 634);
+      lineTo(450, 709, 290, 764);
+      lineTo(300, 774, 180, 590);
+      dot(180, 590);
+      dot(450, 709);
+      dot(300, 774);
+      ctx.font = "italic 28px Georgia";
+      ctx.fillText("words → representations", 120, 906);
+    } else if (index === 3) {
+      lineTo(110, 827, 640, 827);
+      lineTo(110, 827, 110, 490);
+      ctx.beginPath();
+      for (let i = 0; i <= 100; i++) {
+        const x = 120 + i * 5;
+        const y = 824 - 300 * Math.exp(-Math.pow((i - 50) / 22, 2) / 2);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.font = "italic 35px Georgia";
+      ctx.fillText("μ", 365, 887);
+      ctx.fillText("σ", 485, 700);
+    } else if (index === 4) {
+      lineTo(130, 850, 630, 850);
+      lineTo(130, 850, 130, 480);
+      lineTo(150, 810, 610, 525);
+      for (let i = 0; i < 13; i++) dot(165 + i * 33, 810 - i * 20 + Math.sin(i * 2.4) * 48, 8);
+      ctx.font = "italic 32px Georgia";
+      ctx.fillText("learn from examples", 150, 920);
+    } else if (index === 5) {
+      for (let i = 0; i < 6; i++) {
+        const h = 65 + ((i * 7) % 5) * 41;
+        ctx.fillRect(130 + i * 80, 810 - h, 48, h);
+      }
+      lineTo(120, 830, 635, 830);
+      ctx.font = "italic 31px Georgia";
+      ctx.fillText("look closer at the data", 132, 905);
+    } else {
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath();
+        ctx.ellipse(385, 690, 55 + i * 45, 35 + i * 30, -0.4, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      lineTo(170, 540, 270, 740);
+      lineTo(270, 740, 340, 640);
+      lineTo(340, 640, 380, 685);
+      dot(170, 540);
+      dot(270, 740);
+      dot(340, 640);
+      dot(380, 685, 12);
+      ctx.font = "italic 32px Georgia";
+      ctx.fillText("follow the gradient", 180, 922);
+    }
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return new THREE.MeshStandardMaterial({ map: texture, roughness: 0.84 });
+  }
+
+  const roundedBook = new RoundedBoxGeometry(1, 1, 1, 3, 0.035);
+  courses.forEach((course, index) => {
+    const upper = index >= 4;
+    const x = upper ? -7.15 + (index - 4) * 1.5 : -7.65 + index * 1.43;
+    const y = upper ? 2.62 : 1.02;
+    const z = upper ? -6.52 : -6.22;
+    const volume = local(
+      course.title,
+      x,
+      y,
+      z,
+      [-0.12, 0.08, -0.08, 0.14, 0.08, -0.06, 0.12][index] ?? 0,
+    );
+    volume.userData.inspect = course.id;
+    volume.rotation.z = index === 1 ? -0.045 : index === 5 ? 0.035 : 0;
+    const cloth = new THREE.MeshStandardMaterial({ color: course.color, roughness: 0.95 });
+    const pageBlock = new THREE.Mesh(roundedBook, materials.paper);
+    pageBlock.position.set(0.025, 0.64, 0);
+    pageBlock.scale.set(0.91, 1.25, 0.25);
+    pageBlock.castShadow = true;
+    volume.add(pageBlock);
+    for (const side of [-1, 1]) {
+      const cover = new THREE.Mesh(roundedBook, cloth);
+      cover.position.set(0, 0.64, side * 0.16);
+      cover.scale.set(1.02, 1.36, 0.065);
+      cover.castShadow = true;
+      volume.add(cover);
+    }
+    const spine = cylinder(volume, -0.48, 0.64, 0, 0.17, 1.35, cloth);
+    spine.scale.x = 0.13;
+    spine.scale.z = 0.17;
+    // Rounded binding, gold headbands and fine individual page edges.
+    for (const yy of [0.045, 1.235]) box(volume, -0.45, yy, 0.005, 0.13, 0.025, 0.28, "brass");
+    for (let edge = 0; edge < 10; edge++)
+      box(volume, 0.487, 0.12 + edge * 0.11, 0, 0.008, 0.005, 0.24, "plasterShadow");
+    const coverArt = new THREE.Mesh(new THREE.PlaneGeometry(0.96, 1.3), courseCover(course, index));
+    coverArt.position.set(0, 0.64, 0.196);
+    volume.add(coverArt);
+    box(volume, 0.27, -0.065, -0.02, 0.055, 0.22, 0.01, index % 2 ? "roof" : "blue");
+    // An angled brass stand presents the volume as something visitors can pick up.
+    rod(volume, [-0.4, 0, 0.29], [0.4, 0, 0.29], 0.025, "brass");
+    rod(volume, [0, 0, -0.3], [0, 0.65, -0.2], 0.025, "brass");
+    courseHotspots[course.id] = new THREE.Vector3(x, y + 0.7, z + 0.23);
+  });
+  label(display, "A FEW THINGS I'VE STUDIED", -0.2, 3.96, -0.1, 4.1, 0.3);
+
+  // Meaningful sculptural companions on the ledge: a vector frame and tiny network.
+  const vectors = local("Basis vectors", -8.08, 1.03, -5.98);
+  vectors.userData.inspect = "course-linear-algebra";
+  rod(vectors, [0, 0, 0], [0, 0.63, 0], 0.018, "brass");
+  rod(vectors, [0, 0, 0], [0.42, 0.18, 0], 0.018, "blue");
+  rod(vectors, [0, 0, 0], [0, 0.1, 0.35], 0.018, "roof");
+  const certificate = local("Certificate folio", -7.5, 1.1, -4.6, 0.3);
+  certificate.userData.inspect = "credentials";
+  table(certificate, 0, -1.1, 0, 1.4, 0.8, 1, "wood");
+  box(certificate, 0, 0, 0, 1.04, 0.055, 0.67, "blue");
+  const certificatePage = label(certificate, "COURSE CERTIFICATES", 0, 0.04, 0, 0.94, 0.59);
+  if (certificatePage) certificatePage.rotation.x = -Math.PI / 2;
+  cylinder(certificate, 0.29, 0.05, 0.16, 0.075, 0.012, "brass");
   plant(group, -8, 0.15, 1, 1.2);
-  const practice = local("Algorithm practice snapshot", -2.6, 1.65, -6.74);
+
+  // LeetCode is a freestanding illuminated record, never buried behind a shelf.
+  const practice = local("LeetCode problem-solving record", -0.9, 0.15, -5.7, 0.14);
   practice.userData.inspect = "practice";
-  box(practice, 0, 0, 0, 1.5, 1.03, 0.12, "brass");
-  label(practice, `${codingProfile.totalSolved} problems solved`, 0, 0.15, 0.075, 1.38, 0.52);
-  label(practice, codingProfile.capturedAt, 0, -0.25, 0.075, 1.38, 0.25);
+  box(practice, 0, 0.06, 0, 1.55, 0.12, 0.8, "darkWood");
+  cylinder(practice, 0, 0.79, 0, 0.065, 1.5, "brass");
+  box(practice, 0, 2.02, 0, 2.65, 2.0, 0.12, "darkWood");
+  box(practice, 0, 2.02, 0.065, 2.5, 1.85, 0.045, "brass");
+  const scoreCanvas = document.createElement("canvas");
+  scoreCanvas.width = 1200;
+  scoreCanvas.height = 880;
+  const score = scoreCanvas.getContext("2d")!;
+  score.fillStyle = "#203b35";
+  score.fillRect(0, 0, 1200, 880);
+  score.strokeStyle = "#ccb582";
+  score.lineWidth = 3;
+  score.strokeRect(25, 25, 1150, 830);
+  score.fillStyle = "#edc779";
+  score.font = "600 74px Georgia";
+  score.fillText("LeetCode", 70, 130);
+  score.fillStyle = "#fff2ce";
+  score.font = "bold 232px Georgia";
+  score.fillText(String(codingProfile.totalSolved), 65, 390);
+  score.font = "38px sans-serif";
+  score.fillText(`/ ${codingProfile.totalAvailable.toLocaleString()} solved`, 490, 340);
+  score.fillStyle = "#b7c8a9";
+  score.font = "28px sans-serif";
+  score.fillText("A practice in clear thinking", 75, 450);
+  const statColors = ["#a6d6b5", "#ebc276", "#e6a58e"];
+  codingProfile.difficulty.forEach((item, index) => {
+    const x = 75 + index * 365;
+    score.fillStyle = statColors[index]!;
+    score.font = "bold 71px Georgia";
+    score.fillText(String(item.solved), x, 587);
+    score.font = "32px sans-serif";
+    score.fillText(item.label, x, 640);
+    score.fillStyle = "#c9d1bf";
+    score.font = "25px sans-serif";
+    score.fillText(`of ${item.available.toLocaleString()}`, x, 683);
+  });
+  score.fillStyle = "#edc779";
+  score.font = "29px sans-serif";
+  score.fillText(`${codingProfile.attempting} attempting`, 75, 775);
+  score.fillStyle = "#c9d1bf";
+  score.font = "25px sans-serif";
+  score.fillText(codingProfile.capturedAt, 700, 775);
+  const scoreTexture = new THREE.CanvasTexture(scoreCanvas);
+  scoreTexture.colorSpace = THREE.SRGBColorSpace;
+  const scoreFace = new THREE.Mesh(
+    new THREE.PlaneGeometry(2.38, 1.745),
+    new THREE.MeshStandardMaterial({
+      map: scoreTexture,
+      emissiveMap: scoreTexture,
+      emissive: 0xffffff,
+      emissiveIntensity: 0.32,
+      roughness: 0.6,
+    }),
+  );
+  scoreFace.position.set(0, 2.02, 0.095);
+  practice.add(scoreFace);
 
   // LEARNING GARDEN — beds, stepping stones, trellis and flowers.
   const garden = local("Garden", -5.5, 0, 7.1);
@@ -726,6 +997,54 @@ export function createHouseWorld(onAssetReady?: () => void) {
   box(group, -3.4, 1.59, 11.08, 0.32, 0.035, 0.018, "black");
   box(group, 0, 0.17, 2.4, 2.15, 0.035, 0.75, "olive");
 
+  // Local pools of warm light make the house inhabitable after sunset. These
+  // lamps never cast additional shadow maps; the controller owns day/evening.
+  const eveningLights: THREE.PointLight[] = [];
+  const bulbMaterial = new THREE.MeshStandardMaterial({
+    color: "#ffe3a6",
+    emissive: "#ffc976",
+    emissiveIntensity: 1.5,
+    roughness: 0.5,
+  });
+  for (const fixture of [
+    { x: -5.2, z: -4.7, y: 3.65, power: 22, reach: 8 },
+    { x: 4.6, z: -3.5, y: 3.35, power: 20, reach: 8 },
+    { x: 5.7, z: 0.2, y: 3.35, power: 18, reach: 7 },
+  ]) {
+    rod(
+      group,
+      [fixture.x, 4.0, fixture.z],
+      [fixture.x, fixture.y + 0.15, fixture.z],
+      0.015,
+      "darkWood",
+    );
+    const shade = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.1, 0.4, 0.35, 16, 1, true),
+      materials.brass,
+    );
+    shade.position.set(fixture.x, fixture.y + 0.12, fixture.z);
+    group.add(shade);
+    ball(group, fixture.x, fixture.y - 0.03, fixture.z, 0.13, 0.13, 0.13, bulbMaterial);
+    const light = new THREE.PointLight("#ffd294", fixture.power, fixture.reach, 2);
+    light.position.set(fixture.x, fixture.y - 0.12, fixture.z);
+    light.castShadow = false;
+    light.userData.eveningIntensity = fixture.power;
+    group.add(light);
+    eveningLights.push(light);
+  }
+  for (const fixture of [
+    { x: -7, z: -1.5, y: 2.25, power: 12, reach: 6 },
+    { x: 0, z: 9.4, y: 2.4, power: 14, reach: 7 },
+    { x: 4.9, z: 6.8, y: 2.6, power: 10, reach: 6 },
+  ]) {
+    const light = new THREE.PointLight("#ffce92", fixture.power, fixture.reach, 2);
+    light.position.set(fixture.x, fixture.y, fixture.z);
+    light.castShadow = false;
+    light.userData.eveningIntensity = fixture.power;
+    group.add(light);
+    eveningLights.push(light);
+  }
+
   const targets = {
     welcome: new THREE.Vector3(0, 1, 2),
     main: new THREE.Vector3(-4, 1.1, -1),
@@ -737,17 +1056,46 @@ export function createHouseWorld(onAssetReady?: () => void) {
   };
 
   const hotspots = {
-    about: new THREE.Vector3(-5.9, 2.3, -2.28),
+    about: new THREE.Vector3(-7.1, 2.3, 0.87),
     principles: new THREE.Vector3(-5, 1.05, 0.75),
     nexora: new THREE.Vector3(4.6, 2.2, -4.92),
     mm2: new THREE.Vector3(7.35, 2.45, -6.48),
-    dojo: new THREE.Vector3(6.25, 1.8, -4.5),
+    zikuala: new THREE.Vector3(6.25, 1.95, -4.5),
     recipe: new THREE.Vector3(4.8, 1.65, 0),
-    credentials: new THREE.Vector3(-5.5, 2.4, -6.1),
-    practice: new THREE.Vector3(-2.6, 1.8, -6.6),
+    credentials: new THREE.Vector3(-7.5, 1.35, -4.6),
+    practice: new THREE.Vector3(-0.9, 2.25, -5.55),
     learning: new THREE.Vector3(-5.5, 1.2, 7.1),
     contact: new THREE.Vector3(4.9, 1.2, 6.8),
+    ...courseHotspots,
   };
+
+  // Physical footprints before the controller adds the visitor's body radius.
+  const collisions: Array<{ minX: number; maxX: number; minZ: number; maxZ: number }> = [
+    { minX: -9.2, maxX: -8.7, minZ: -7.2, maxZ: 3.2 },
+    { minX: 8.7, maxX: 9.2, minZ: -7.2, maxZ: 3.2 },
+    { minX: -9.2, maxX: 9.2, minZ: -7.2, maxZ: -6.8 },
+    { minX: -9.2, maxX: -1.65, minZ: 2.8, maxZ: 3.2 },
+    { minX: 1.65, maxX: 9.2, minZ: 2.8, maxZ: 3.2 },
+    { minX: -7.8, maxX: -6.4, minZ: 0.1, maxZ: 1.3 },
+    { minX: -6.5, maxX: -3.1, minZ: -1.8, maxZ: -0.35 },
+    { minX: -5.85, maxX: -3.75, minZ: 0.17, maxZ: 1.33 },
+    { minX: -6.7, maxX: -5.1, minZ: -2.95, maxZ: -2.05 },
+    { minX: 2.25, maxX: 6.95, minZ: -5.45, maxZ: -3.75 },
+    { minX: 4.15, maxX: 5.05, minZ: -3.55, maxZ: -2.75 },
+    { minX: 6.15, maxX: 7.65, minZ: -2.0, maxZ: 2.0 },
+    { minX: 4.3, maxX: 5.3, minZ: -1.35, maxZ: 1.35 },
+    { minX: -8.5, maxX: -2.5, minZ: -6.9, maxZ: -5.72 },
+    { minX: -2.26, maxX: 0.46, minZ: -6, maxZ: -5.4 },
+    { minX: -8.2, maxX: -6.8, minZ: -5.05, maxZ: -4.15 },
+    { minX: -7.9, maxX: -3.1, minZ: 5.7, maxZ: 8.5 },
+    { minX: 4.2, maxX: 5.6, minZ: 6.2, maxZ: 7.4 },
+    { minX: 2.85, maxX: 3.95, minZ: 6.2, maxZ: 7.4 },
+    { minX: 5.85, maxX: 6.95, minZ: 6.2, maxZ: 7.4 },
+    { minX: -10.9, maxX: -10.5, minZ: 0.25, maxZ: 0.75 },
+    { minX: 10.5, maxX: 11.1, minZ: -4.8, maxZ: -4.2 },
+    { minX: -10, maxX: -1.6, minZ: 9.75, maxZ: 10.25 },
+    { minX: 1.6, maxX: 10, minZ: 9.75, maxZ: 10.25 },
+  ];
 
   // Repeated furniture pieces share one draw call per geometry, material and
   // inspection target. The moving gate and lift-away roof retain local transforms.
@@ -812,5 +1160,5 @@ export function createHouseWorld(onAssetReady?: () => void) {
   batchPrimitives(roof);
   batchPrimitives(gate);
 
-  return { group, gate, roof, targets, hotspots };
+  return { group, gate, roof, targets, hotspots, collisions, eveningLights };
 }

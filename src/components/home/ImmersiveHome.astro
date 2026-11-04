@@ -1,6 +1,8 @@
 ---
 import HouseScene from "./HouseScene.astro";
 import CodingPractice from "./CodingPractice.astro";
+import CourseNotebook from "./CourseNotebook.astro";
+import { courses } from "@/data/courses";
 import { profile, experience, learning, codingProfile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { credentials } from "@/data/credentials";
@@ -19,18 +21,35 @@ const objects = [
   { id: "principles", room: "main-room", label: "How I think", hint: "THE NOTEBOOK" },
   { id: "nexora", room: "workshop", label: "Nexora IMS", hint: "THE MONITOR" },
   { id: "mm2", room: "workshop", label: "MM2 Pattern Miner", hint: "THE REASONING BOARD" },
-  { id: "dojo", room: "workshop", label: "ML Engineering Dojo", hint: "THE WORKBOOK" },
-  { id: "recipe", room: "kitchen", label: "What’s cooking?", hint: "THE RECIPE" },
+  { id: "zikuala", room: "workshop", label: "Zikuala Management System", hint: "THE CAMPUS MODEL" },
+  {
+    id: "recipe",
+    room: "kitchen",
+    label: "Digital examination & analysis",
+    hint: "CURRENTLY COOKING",
+  },
   {
     id: "practice",
     room: "reading-nook",
-    label: `${codingProfile.totalSolved} problems. One practice.`,
-    hint: "THE PRACTICE NOTEBOOK",
+    label: `LeetCode · ${codingProfile.totalSolved} solved`,
+    hint: "THE PRACTICE DISPLAY",
   },
   { id: "credentials", room: "reading-nook", label: "A shelf of learning", hint: "THE BOOKSHELF" },
+  ...courses.map((course) => ({
+    id: course.id,
+    room: "reading-nook",
+    label: course.shortTitle,
+    hint: "OPEN A COURSE",
+  })),
   { id: "learning", room: "garden", label: "Ideas taking root", hint: "THE PLANTING BED" },
   { id: "contact", room: "contact", label: "Start a conversation", hint: "THE COFFEE TABLE" },
 ];
+const projectObjects: Record<string, string> = {
+  "nexora-ims": "nexora",
+  "mm2-pattern-miner": "mm2",
+  "zikuala-management-system": "zikuala",
+  "digital-examination-analysis": "recipe",
+};
 ---
 
 <main id="main-content" class="spatial-home" data-house-state="outside">
@@ -38,7 +57,7 @@ const objects = [
     <div class="spatial-poster" aria-hidden="true" inert><HouseScene /></div>
     <canvas
       data-house-canvas
-      aria-label="Three-dimensional home. Use the room links to explore, or focus here and use the arrow keys to look around."
+      aria-label="Three-dimensional home. Use room links or enable Free explore: WASD to walk, arrow keys to turn, drag to look. Click objects to discover their stories."
       tabindex="-1"></canvas>
     <div class="spatial-vignette" aria-hidden="true"></div>
     <div class="digital-eye" aria-hidden="true"><span></span><i></i><small>LOOK CLOSER</small></div>
@@ -69,24 +88,33 @@ const objects = [
         type="button"
         data-house-light
         aria-pressed="false"
-        aria-label="Switch to evening"
+        aria-label="Switch to daylight"
         ><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"
           ><circle cx="12" cy="12" r="4" stroke="currentColor"></circle><path
             d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"
             stroke="currentColor"></path></svg
-        ><span data-light-label>Daylight</span></button
+        ><span data-light-label>Evening</span></button
       >
       <a href={withBase("quick-view/")} class="spatial-quick"
         >Quick view <span aria-hidden="true">↗</span></a
       >
     </nav>
   </header>
+  <a
+    class="spatial-practice-access"
+    href={withBase("credentials/#practice")}
+    data-open-practice
+    aria-label={`Open LeetCode practice: ${codingProfile.totalSolved} solved`}
+    ><span aria-hidden="true">⌁</span><strong>{codingProfile.totalSolved}</strong><span
+      >LeetCode <small>PROBLEMS SOLVED ↗</small></span
+    ></a
+  >
   <div class="spatial-welcome">
     <p class="spatial-eyebrow"><i></i> ADDIS ABABA, ETHIOPIA</p>
     <h1>A curious mind.<br />An open <em>door.</em></h1>
     <p>
-      I’m Yonas. AI engineer, software builder,<br class="spatial-desktop" /> and the person who lives
-      in these ideas.
+      I’m Yonas. AI engineer, software builder,<br class="spatial-desktop" /> and a fourth-year CS student
+      at AAU.
     </p>
     <p class="spatial-invitation">
       This is a place to explore.<br /> Come in. Look around. Stay a little.
@@ -112,7 +140,10 @@ const objects = [
     </h2><p data-room-description>Objects hold stories. Take a closer look.</p><details
       class="spatial-object-list"
     >
-      <summary>Objects in this room <span aria-hidden="true">+</span></summary><div>
+      <summary
+        ><span data-object-list-label>Objects in this room</span>
+        <span aria-hidden="true">+</span></summary
+      ><div>
         {
           objects.map((object) => (
             <button type="button" data-inspect={object.id} data-room-object={object.room}>
@@ -126,27 +157,56 @@ const objects = [
   </div>
   <div class="spatial-hotspots spatial-only" aria-label="Objects to inspect">
     {
-      objects.map((object) => (
-        <button
-          class="spatial-hotspot"
-          type="button"
-          data-inspect={object.id}
-          data-hotspot={object.id}
-          data-room-object={object.room}
-          hidden
-        >
-          <>
-            <span class="hotspot-dot" aria-hidden="true">
-              +
-            </span>
-            <span class="hotspot-label">
-              <small>{object.hint}</small>
-              {object.label}
-            </span>
-          </>
-        </button>
-      ))
+      objects
+        .filter((object) => !object.id.startsWith("course-"))
+        .map((object) => (
+          <button
+            class="spatial-hotspot"
+            type="button"
+            data-inspect={object.id}
+            data-hotspot={object.id}
+            data-room-object={object.room}
+            hidden
+          >
+            <>
+              <span class="hotspot-dot" aria-hidden="true">
+                +
+              </span>
+              <span class="hotspot-label">
+                <small>{object.hint}</small>
+                {object.label}
+              </span>
+            </>
+          </button>
+        ))
     }
+  </div>
+  <div class="spatial-explore spatial-only">
+    <button type="button" data-explore-toggle aria-pressed="false"
+      ><span aria-hidden="true">✥</span> <span data-explore-label>Free explore</span></button
+    >
+    <button
+      type="button"
+      data-explore-reset
+      aria-label="Reset your position to the main room"
+      hidden>↶ Reset</button
+    >
+    <p data-explore-help>Choose a room, or make your own way.</p>
+  </div>
+  <div class="spatial-walk-controls spatial-only" hidden data-walk-controls>
+    <div
+      class="spatial-joystick"
+      data-joystick
+      role="group"
+      aria-label="Touch movement joystick. Drag to walk."
+    >
+      <span data-joystick-knob aria-hidden="true">✥</span>
+    </div>
+    <div class="spatial-steering">
+      <button type="button" data-turn="-1" aria-label="Turn left">↶</button><span data-compass
+        >N</span
+      ><button type="button" data-turn="1" aria-label="Turn right">↷</button>
+    </div>
   </div>
   <div class="spatial-bottom spatial-only">
     <button
@@ -187,7 +247,7 @@ const objects = [
         aria-label="Close story and return to the room">✕</button
       >
     </div>
-    <h2 id="story-title" data-story-title>Look a little closer.</h2>
+    <h2 id="story-title" data-story-title tabindex="-1">Look a little closer.</h2>
     <article data-story="about" hidden>
       <img
         class="story-portrait"
@@ -196,8 +256,9 @@ const objects = [
         width="480"
         height="577"
       /><p>
-        I’m drawn to the space between <em>“what if?”</em> and something that actually works. I build
-        intelligent systems, ship software, and share what I learn.
+        I’m a fourth-year Computer Science student at Addis Ababa University. I’m drawn to the space
+        between <em>“what if?”</em> and something that actually works. I build intelligent systems, ship
+        software, and share what I learn.
       </p><div class="story-experience">
         {
           experience.slice(0, 3).map((item) => (
@@ -222,16 +283,7 @@ const objects = [
     </article>
     {
       projects.map((project) => (
-        <article
-          data-story={
-            project.slug === "nexora-ims"
-              ? "nexora"
-              : project.slug === "mm2-pattern-miner"
-                ? "mm2"
-                : "dojo"
-          }
-          hidden
-        >
+        <article data-story={projectObjects[project.slug]} hidden>
           <span class="story-status">{project.statusLabel}</span>
           {project.slug === "nexora-ims" && (
             <img
@@ -283,22 +335,6 @@ const objects = [
         </article>
       ))
     }
-    <article data-story="recipe" hidden>
-      <span class="story-status">IN PROGRESS</span><p class="story-lead">MM2 Pattern Miner</p><p>
-        On the stove: finding meaningful patterns in a hypergraph. A mix of symbolic reasoning,
-        careful filtering, and asking what makes a pattern surprising.
-      </p><div class="recipe-step">
-        <span>01</span><div><strong>Filter</strong><p>Keep patterns with enough support.</p></div>
-      </div><div class="recipe-step">
-        <span>02</span><div><strong>Expand</strong><p>Explore meaningful conjunctions.</p></div>
-      </div><div class="recipe-step">
-        <span>03</span><div>
-          <strong>Score</strong><p>Separate frequency from interestingness.</p>
-        </div>
-      </div><a class="spatial-story-link" href={withBase("work/mm2-pattern-miner/")}
-        >Open the working recipe ↗</a
-      >
-    </article>
     <article data-story="practice" hidden><CodingPractice /></article>
     <article data-story="credentials" hidden>
       <details class="story-deep-read">
@@ -316,18 +352,32 @@ const objects = [
           ))
         }
       </details>
-      <p class="story-lead">Always a student.</p><p>
-        A shelf of learning in mathematics, machine learning, deep learning, NLP, and applied AI.
-        Formal checkpoints along a self-directed path.
-      </p><div class="story-book"><span>01</span><strong>Mathematical foundations</strong></div><div
-        class="story-book"
-      >
-        <span>02</span><strong>Machine & deep learning</strong>
-      </div><div class="story-book"><span>03</span><strong>Applied AI</strong></div><a
-        class="spatial-story-link"
-        href={withBase("credentials/")}>Browse credentials & practice ↗</a
-      >
+      <p class="story-lead">Seven books. Seven ways of seeing.</p><p>
+        These are courses I’ve studied, with little experiments to make the ideas tangible. Pick a
+        clothbound volume on the shelf, or open one here.
+      </p>
+      <div class="story-course-index">
+        {
+          courses.map((course, index) => (
+            <button type="button" data-inspect={course.id} style={`--book-color:${course.color}`}>
+              <>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{course.shortTitle}</strong>
+                <span aria-hidden="true">↗</span>
+              </>
+            </button>
+          ))
+        }
+      </div>
+      <a class="spatial-story-link" href={withBase("credentials/")}>All courses & credentials ↗</a>
     </article>
+    {
+      courses.map((course) => (
+        <article data-story={course.id} hidden>
+          <CourseNotebook course={course} />
+        </article>
+      ))
+    }
     <article data-story="learning" hidden>
       <p class="story-lead">A little tending, every day.</p><p>
         Some ideas have deep roots. Others are just beginning to take shape. My learning connects
@@ -336,8 +386,8 @@ const objects = [
         {learning.completed.map((topic) => <span>{topic}</span>)}
       </div><h3>Currently exploring</h3><div class="story-tags">
         {learning.current.map((topic) => <span>{topic}</span>)}
-      </div><a class="spatial-story-link" href={withBase("work/ml-engineering-dojo/")}
-        >Visit the ML Engineering Dojo ↗</a
+      </div><a class="spatial-story-link" href={withBase("credentials/")}
+        >Explore my learning notebooks ↗</a
       >
     </article>
     <article data-story="contact" hidden>

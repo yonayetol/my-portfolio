@@ -2,6 +2,7 @@ export const profile = {
   name: "Yonas",
   role: "AI Engineer & Software Builder",
   location: "Addis Ababa, Ethiopia",
+  education: "Fourth-year Computer Science student at Addis Ababa University (AAU).",
   email: "yonasayeletola62@gmail.com",
   intro: "I build intelligent systems from first principles—and ship them into the real world.",
   support:
@@ -82,11 +83,11 @@ export const experience = [
       "An algorithmic foundation shaped by data structures, problem-solving discipline, and continuous technical evaluation.",
   },
   {
-    organization: "Computer Science",
-    role: "B.Sc. · Year III",
+    organization: "Addis Ababa University (AAU)",
+    role: "Fourth-year B.Sc. Computer Science",
     marker: "Education",
     detail:
-      "Formal computer science study alongside production engineering, AI research, and from-scratch implementation work.",
+      "Fourth-year Computer Science study at AAU alongside software engineering, AI learning, and technical teaching.",
   },
 ] as const;
 

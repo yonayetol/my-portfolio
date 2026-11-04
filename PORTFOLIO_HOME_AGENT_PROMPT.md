@@ -18,19 +18,20 @@ Give the site a distinctive silhouette that remains recognizable with all text h
 
 ## 2 Ground the experience in my real work
 
-I am Yonas, an AI engineer and software builder based in Addis Ababa, Ethiopia. My existing portfolio includes Nexora Technology PLC, iCog Labs, A2SV, symbolic AI, machine learning, software delivery, and technical teaching.
+I am Yonas, an AI engineer, software builder, and fourth-year Computer Science student at Addis Ababa University (AAU), based in Addis Ababa, Ethiopia. My existing portfolio includes Nexora Technology PLC, iCog Labs, A2SV, symbolic AI, machine learning, software delivery, and technical teaching.
 
 Read the repository instructions, `PORTFOLIO_DATA.md`, existing content modules, routes, and components before implementing. Reuse verified content from `src/data/profile.ts`, `src/data/projects.ts`, and `src/data/credentials.ts`. Inspect the current Astro setup and preserve useful foundations. This brief replaces the old visual concept; preserve its factual and privacy constraints.
 
 Existing project records include:
 
-| Project             | Role in the home                                        | Content boundary                                                                                  |
-| ------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| Nexora IMS          | A substantial finished object in the workshop           | Existing record labels it shipped; explain actual engineering decisions and available evidence    |
-| MM2 Pattern Miner   | An active kitchen recipe and a workshop research record | Keep its in-progress status; explain support filtering, conjunction expansion, and surprisingness |
-| ML Engineering Dojo | A learning notebook connected to the garden             | Use its existing record and distinguish learning practice from production work                    |
+| Project                        | Role in the home                                        | Content boundary                                                                                    |
+| ------------------------------ | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Nexora IMS                     | A substantial finished object in the workshop           | Existing record labels it shipped; explain actual engineering decisions and available evidence      |
+| MM2 Pattern Miner              | An active kitchen recipe and a workshop research record | Keep its in-progress status; explain support filtering, conjunction expansion, and surprisingness   |
+| Zikuala Management System      | An academic operations model in the workshop            | In progress; distinguish the frontend foundation from backend integration and production acceptance |
+| Digital Examination & Analysis | Current work in the kitchen and workshop                | In progress; explain exam delivery and post-exam analysis without claiming production adoption      |
 
-Do not invent metrics, deployments, testimonials, employment dates, partnerships, research results, repository links, or recent activity. Existing learning statistics are dated snapshots, not live feeds. Keep their capture dates visible or omit the numbers. Never expose unpublished contact details. Do not turn the current education record into a guessed graduation date.
+Do not invent metrics, deployments, testimonials, employment dates, partnerships, research results, repository links, or recent activity. Existing learning statistics are shared snapshots, not live feeds. Show a capture date only when supplied, and keep historical metadata separate from the current shared snapshot. Never expose unpublished contact details. Do not turn the current education record into a guessed graduation date.
 
 Rewrite internal-sounding phrases such as “the supplied project record” into clear first-person portfolio copy where supported. A project’s declared status is not itself evidence; show actual artifacts when available and make missing evidence a content task rather than fabricating it.
 
@@ -138,7 +139,7 @@ Translate kitchen language into useful project information:
 | Ready to serve   | A verified shipped result                  |
 | Next step        | A documented next action, if available     |
 
-Use only supported current work. MM2 fits here based on the current record; keep the learning lab clearly labeled as learning. Show last-updated dates only when known. Do not create fake progress percentages, completion timers, heat gauges pretending to measure progress, or automatically changing activity messages.
+Use only supported current work. Digital Examination & Analysis is current work, with MM2 and Zikuala also explicitly in progress. Show last-updated dates only when known. Do not create fake progress percentages, completion timers, heat gauges pretending to measure progress, or automatically changing activity messages.
 
 On focus or selection, a recipe page lifts slightly and its details appear in a clean reading area. The steam remains decorative. The kitchen should communicate the state of the work even with all animation removed.
 
@@ -146,7 +147,7 @@ On focus or selection, a recipe page lifts slightly and its details appear in a 
 
 Represent learning as cultivation without assigning arbitrary skill scores. Studied foundations sit in established planting beds; current learning appears near a trellis or nursery bench. Plant size must not imply a measured proficiency level.
 
-Keep topic labels visible. Selecting a topic reveals a short supported description, a relevant project, or a real learning artifact. For example, pattern mining connects back to MM2; machine-learning foundations connect to the Dojo. Group the existing learning topics so the garden does not become a forest of floating technology logos.
+Keep topic labels visible. Selecting a topic reveals a short supported description, a relevant project, or a real learning artifact. For example, pattern mining connects back to MM2; machine-learning foundations connect to the supplied coursework and algorithm practice. Group the existing learning topics so the garden does not become a forest of floating technology logos.
 
 The signature interaction is a **thread of understanding**: selecting a topic highlights a fine route through the trellis to its associated project. Show the same relationship in text. Trigger this on keyboard focus or deliberate selection as well as pointer interaction. Do not imply relationships that the content does not support.
 
@@ -154,7 +155,7 @@ The signature interaction is a **thread of understanding**: selecting a topic hi
 
 Present credentials as readable records arranged beside a bookshelf or a small gallery wall. Each entry shows title and provider before opening. Reuse the existing credential viewer where useful, with proper dialog behavior and a direct document link.
 
-Algorithm practice may appear as a dated notebook page containing the existing coding profile statistics and external profile links. Keep it secondary to shipped work. Avoid a trophy room that overwhelms the personal atmosphere.
+Algorithm practice may appear as a notebook page containing the shared coding profile snapshot and external profile links. Do not infer a capture date. Keep it secondary to shipped work. Avoid a trophy room that overwhelms the personal atmosphere.
 
 ### Veranda
 
@@ -250,7 +251,7 @@ Preserve working project and credential URLs, public contact links, SEO metadata
 
 ## 12 Make the art achievable
 
-Create a compact asset plan before coding detailed scenes: one courtyard master composition, coordinated room vignettes, three project objects, a small foliage set, and reusable material textures. Lock perspective, shadow direction, line weight, and color treatment first.
+Create a compact asset plan before coding detailed scenes: one courtyard master composition, coordinated room vignettes, four project objects, a small foliage set, and reusable material textures. Lock perspective, shadow direction, line weight, and color treatment first.
 
 For generated art, use one consistent art-direction brief and references. Generate background and foreground layers separately where needed. Keep all text out of generated imagery. Retain editable source assets when available and track rights for third-party materials.
 

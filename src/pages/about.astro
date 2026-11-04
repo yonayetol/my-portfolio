@@ -21,7 +21,7 @@ const principles = [
 
 <BaseLayout
   title="The main room · About Yonas"
-  description="Meet Yonas, an AI engineer, software builder, and technical trainer in Addis Ababa. First principles, real software, and a habit of sharing what he learns."
+  description="Meet Yonas, an AI engineer, software builder, technical trainer, and fourth-year Computer Science student at Addis Ababa University (AAU)."
 >
   <main id="main-content" class="interior-page">
     <header class="home-shell interior-heading interior-about-heading" id="top">
@@ -35,7 +35,9 @@ const principles = [
           </p><p>
             AI engineer, software builder, and technical trainer.<br />At home in Addis Ababa,
             Ethiopia.
-          </p><a class="home-link" href={`mailto:${profile.email}`}>Say hello ↗</a>
+          </p><p>{profile.education}</p><a class="home-link" href={`mailto:${profile.email}`}
+            >Say hello ↗</a
+          >
         </div><figure class="interior-portrait">
           <img
             src={withBase("images/yonas-portrait.jpg")}

@@ -1,13 +1,16 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectVisual from "@/components/ProjectVisual.astro";
 import { projects } from "@/data/projects";
 import { withBase } from "@/utils/paths";
 import "@/styles/interiors.css";
+const statuses = [...new Set(projects.map((project) => project.status))];
+const statusLabels = { shipped: "Shipped", "in-progress": "In progress", research: "Research" };
 ---
 
 <BaseLayout
   title="The workshop · Projects by Yonas"
-  description="Step inside Yonas’s workshop. Production software, symbolic AI, and machine-learning experiments."
+  description="Step inside Yonas’s workshop. Production software, symbolic AI, school management, and digital examination."
 >
   <main id="main-content" class="interior-page">
     <header class="home-shell interior-heading" id="top">
@@ -27,9 +30,13 @@ import "@/styles/interiors.css";
         <span class="interior-small">On the workbench</span>
         <div role="group" aria-label="Filter projects by status" hidden>
           <button type="button" data-filter="all" aria-pressed="true">Everything</button>
-          <button type="button" data-filter="shipped" aria-pressed="false">Shipped</button>
-          <button type="button" data-filter="in-progress" aria-pressed="false">In progress</button>
-          <button type="button" data-filter="research" aria-pressed="false">Learning</button>
+          {
+            statuses.map((status) => (
+              <button type="button" data-filter={status} aria-pressed="false">
+                {statusLabels[status]}
+              </button>
+            ))
+          }
         </div>
         <p class="sr-only" aria-live="polite" data-filter-status>
           Showing all {projects.length} projects.
@@ -56,6 +63,8 @@ import "@/styles/interiors.css";
                     height="900"
                     loading="lazy"
                   />
+                ) : project.visual === "management" || project.visual === "examination" ? (
+                  <ProjectVisual type={project.visual} compact />
                 ) : (
                   <svg viewBox="0 0 600 320" aria-hidden="true">
                     {project.visual === "pattern" && (
@@ -73,23 +82,6 @@ import "@/styles/interiors.css";
                           <circle cx="405" cy="265" r="8" />
                           <circle cx="210" cy="250" r="8" />
                         </g>
-                      </>
-                    )}
-                    {project.visual === "learning" && (
-                      <>
-                        <path
-                          d="M170 75q65-20 130 10 65-30 130-10v175q-65-20-130 10-65-30-130-10z"
-                          fill="var(--home-paper)"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <path
-                          d="M300 85v175M194 117h64M194 136h51M194 155h58M328 117h75M328 136h59M328 155h64M194 198q25-50 65 10M329 214l17-43 22 25 30-30"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <path d="M402 69v74l-9-9-9 9V73" fill="currentColor" />
                       </>
                     )}
                   </svg>
@@ -154,3 +146,28 @@ import "@/styles/interiors.css";
     filter.querySelector<HTMLElement>('[role="group"]')?.removeAttribute("hidden");
   }
 </script>
+
+<style>
+  .interior-project-art :global(.project-visual--management),
+  .interior-project-art :global(.project-visual--examination) {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+  }
+  .interior-project-art :global(.systems-exhibit) {
+    padding: 20px 15px;
+  }
+  .interior-project-art :global(.systems-exhibit svg) {
+    max-height: 70%;
+  }
+  .interior-project-art :global(.systems-exhibit__caption) {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  .interior-project-art :global(.systems-exhibit small) {
+    display: none;
+  }
+  .interior-project-art :global(.systems-exhibit__eyebrow) {
+    font-size: 7px;
+  }
+</style>

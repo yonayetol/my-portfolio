@@ -1,6 +1,6 @@
 # Yonas Portfolio — Consolidated Source of Truth
 
-> Internal content inventory for the portfolio project. This file consolidates the three documents supplied on 2026-07-21. It is a factual working source, not final website copy.
+> Internal content inventory for the portfolio project. This file consolidates the supplied documents, subsequent user corrections, and identified local project documentation. It is a factual working source, not final website copy.
 
 ## Data rules
 
@@ -22,19 +22,23 @@
 | S5  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 19-22-26.png` | Dated LeetCode metrics for `japu_yonas`                                                      |
 | S6  | `/home/yonas/Pictures/Screenshots/Screenshot From 2026-07-21 10-12-10.png` | Approved Nexora IMS / Abdi Adama School Life interface capture                               |
 
+The latest user correction confirms fourth-year Computer Science at Addis Ababa University (AAU), Zikuala Management System as portfolio work, and ongoing digital examination and post-exam analysis. These corrections supersede earlier conflicting identity and project records.
+
+Additional project evidence was inspected read-only in `nexora/zikuala/zikuala-frontend/README.md`, `ZIQUALA_FRONTEND_PLAN.md`, `nexora/zikuala/ziquala-backend/README.md`, and `nexora/digital-exam/Nexora-Online-Examination/README.md` plus `docs/automatic-results-and-grouped-history.md`. Documentation and frontend demonstrations establish scope, not deployment or adoption.
+
 The original source documents and supplied assets should remain the raw evidence. This file is the normalized working version for implementation.
 
 ## Identity
 
-| Field                      | Value                                                         | Status / source                                                                                         |
-| -------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Preferred name             | Yonas                                                         | Confirmed from S1                                                                                       |
-| Full public display name   | Not explicitly supplied                                       | Needs confirmation; the LinkedIn slug suggests “Yonas Ayele,” but a URL slug is not sufficient evidence |
-| Location                   | Addis Ababa, Ethiopia                                         | Confirmed from S1                                                                                       |
-| Education                  | B.Sc. Computer Science, Year III                              | Confirmed from S1; institution and dates needed                                                         |
-| Program/alumni affiliation | A2SV Generation 6 alumnus                                     | Confirmed from S1; dates and profile link needed                                                        |
-| Current role 1             | Co-founder & Deputy Manager, Nexora Technology PLC            | Confirmed from S1, S2, S3                                                                               |
-| Current role 2             | Software Programmer, Trainer & Technical Evaluator, iCog Labs | Confirmed from S1, S2, S3                                                                               |
+| Field                      | Value                                                              | Status / source                                                                                         |
+| -------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Preferred name             | Yonas                                                              | Confirmed from S1                                                                                       |
+| Full public display name   | Not explicitly supplied                                            | Needs confirmation; the LinkedIn slug suggests “Yonas Ayele,” but a URL slug is not sufficient evidence |
+| Location                   | Addis Ababa, Ethiopia                                              | Confirmed from S1                                                                                       |
+| Education                  | Fourth-year B.Sc. Computer Science at Addis Ababa University (AAU) | Confirmed by latest user correction; dates not supplied                                                 |
+| Program/alumni affiliation | A2SV Generation 6 alumnus                                          | Confirmed from S1; dates and profile link needed                                                        |
+| Current role 1             | Co-founder & Deputy Manager, Nexora Technology PLC                 | Confirmed from S1, S2, S3                                                                               |
+| Current role 2             | Software Programmer, Trainer & Technical Evaluator, iCog Labs      | Confirmed from S1, S2, S3                                                                               |
 
 ### Supplied professional labels
 
@@ -167,14 +171,27 @@ Project statuses below are intentionally explicit so the site never presents pla
 | Links                     | Not supplied                                                                                                                                        |
 | Evidence needed           | Repository/PR links, precise ownership, example query/output, architecture, performance or correctness evidence, and permission to present the work |
 
-### 3. ML Engineering Dojo
+### 3. Zikuala Management System
 
-| Field                           | Data                                                                                                                                                                     |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Type                            | From-scratch machine-learning implementations                                                                                                                            |
-| Status                          | Mixed: classical ML fundamentals are described as completed, while several named implementations are future/studying items; exact per-algorithm state needs confirmation |
-| Planned / referenced algorithms | KNN; K-Means; linear regression; logistic regression; decision trees; random forests; gradient boosting; neural networks; CNNs                                           |
-| Evidence needed                 | Repository, notebooks/tests, per-algorithm status, mathematical notes, datasets, benchmarks, and implementation constraints                                              |
+| Field                    | Data                                                                                                                                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type                     | School management system connecting public information, eLearning, and academic/administrative work                                                                          |
+| Status                   | In progress; frontend foundations and demos are documented, with backend integration still a separate stage                                                                  |
+| Confirmed frontend scope | Separate school and monastery routes; searchable eLearning catalogue; document reader; academic and administrative role views; Academic Manager workspace and demo gradebook |
+| API foundation           | TypeScript, Express, PostgreSQL                                                                                                                                              |
+| Boundaries               | Finance, clinic, auditor, and driver modules are explicitly outside scope; no public deployment or adoption claim                                                            |
+| Evidence sources         | Frontend README and ZIQUALA_FRONTEND_PLAN; backend README in the local zikuala workspace                                                                                     |
+
+### 4. Digital Examination and Post Exam Analysis
+
+| Field               | Data                                                                                                                                                                                           |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type                | Ongoing school examination platform and post-exam analysis                                                                                                                                     |
+| Status              | In progress, confirmed by the user                                                                                                                                                             |
+| Supported scope     | Teacher preparation/review; administrative scheduling; student exam delivery; durable answer handling; role-scoped results; topic charts and exports; recovery and separately enabled practice |
+| Technical direction | React, TypeScript, IndexedDB; explicit distinction between device saves, server receipt, and final submission                                                                                  |
+| Boundaries          | Synthetic demos and documented frontend behavior do not establish real-backend acceptance, production capacity, or school adoption                                                             |
+| Evidence sources    | Current examination repository README, results interfaces, and the October 23 scheduled-results implementation guide                                                                           |
 
 ## Technical capabilities
 
@@ -272,7 +289,7 @@ Do not use percentage meters or unsupported “expert” labels. Present capabil
 - Deep learning
 - Transformers
 
-There is a possible status inconsistency: S1 describes classical ML fundamentals as completed while also listing KNN and K-Means as studying; the ML Engineering Dojo lists those algorithms as intended from-scratch implementations. Confirm whether “completed” refers to coursework, implementation, or conceptual coverage.
+S1 describes classical ML fundamentals as completed while also listing KNN and K-Means as studying. Treat completed coursework separately from implemented software; do not infer a finished project from studied topics.
 
 ## Current focus and goals
 
@@ -368,8 +385,8 @@ All nine credentials and URLs are supplied in S2 and S3. Titles and URLs must be
 
 ### Formal education
 
-- B.Sc. Computer Science, Year III.
-- Institution, start date, expected graduation, relevant coursework, GPA/honors, and public disclosure preference are missing.
+- Fourth-year B.Sc. Computer Science at Addis Ababa University (AAU).
+- Institution and current year are confirmed by the latest user correction. Start date, expected graduation, GPA, and honors have not been supplied.
 
 ### A2SV
 
@@ -431,7 +448,7 @@ Before these become homepage claims, connect each one to a specific proof item. 
 6. Supply repository/PR evidence and disclosure permission for MM2 Pattern Miner.
 7. Supply company and role dates for Nexora and iCog Labs.
 8. Confirm per-project responsibilities, collaborators, and exact statuses.
-9. Confirm educational institution and dates.
+9. Confirm education dates if they are to be published.
 10. Manually open all nine credential links in a logged-out browser.
 
 ### High-value improvements

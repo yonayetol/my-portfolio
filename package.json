@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate": "node scripts/validate-build.mjs",
-    "verify": "npm run format:check && npm run build && npm run validate"
+    "test:navigation": "node scripts/test-house-navigation.mjs",
+    "verify": "npm run format:check && npm run test:navigation && npm run build && npm run validate"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

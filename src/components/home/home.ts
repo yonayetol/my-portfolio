@@ -23,7 +23,7 @@ export function initHome() {
     const dark = root.dataset.theme !== "dark";
     root.dataset.theme = dark ? "dark" : "light";
     root.style.colorScheme = dark ? "dark" : "light";
-    save("home-evening", String(dark));
+    save("home-evening-v2", String(dark));
     sync();
   });
   motion?.addEventListener("click", () => {

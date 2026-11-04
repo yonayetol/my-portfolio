@@ -1,5 +1,5 @@
 export type ProjectStatus = "shipped" | "in-progress" | "research";
-export type ProjectVisual = "infrastructure" | "pattern" | "learning";
+export type ProjectVisual = "infrastructure" | "pattern" | "management" | "examination";
 
 export interface Project {
   index: string;
@@ -122,51 +122,102 @@ export const projects: Project[] = [
   },
   {
     index: "03",
-    slug: "ml-engineering-dojo",
-    title: "ML Engineering Dojo",
-    eyebrow: "From-scratch learning lab",
-    status: "research",
-    statusLabel: "Learning lab",
+    slug: "zikuala-management-system",
+    title: "Zikuala Management System",
+    eyebrow: "School operations · Academic workflows",
+    status: "in-progress",
+    statusLabel: "In progress",
     summary:
-      "A disciplined space for moving beneath framework abstractions and rebuilding machine-learning ideas from their mathematical core.",
-    statement: "Understand the abstraction by rebuilding what is underneath it.",
-    visual: "learning",
+      "A school management system connecting public information, an eLearning catalogue, and role-aware academic and administrative work.",
+    statement: "A clearer home for a school's information and everyday work.",
+    visual: "management",
     accent: "mint",
-    disciplines: ["Python", "Mathematics", "Algorithms", "Evaluation"],
+    disciplines: ["React", "TypeScript", "Express", "PostgreSQL", "Academic workflows"],
     facts: [
-      "Classical ML foundations",
-      "From-scratch implementation path",
-      "Model evaluation",
-      "Deep-learning progression",
+      "Separate public school and monastery sections",
+      "Searchable eLearning catalogue and document viewer",
+      "Academic and administrative role-based interfaces",
+      "Frontend foundation with backend integration in progress",
     ],
     context:
-      "Frameworks accelerate implementation, but they can hide the mechanics that make models succeed or fail. The Dojo is a learning system for turning formulas into tested code before leaning on higher-level tools.",
+      "School information serves different audiences: families exploring a school, students finding learning material, and staff managing academic work. Zikuala brings those journeys together while keeping their responsibilities distinct.",
     system:
-      "Each topic moves through a repeatable loop: derive the idea, implement it, inspect behavior, compare outputs, and record where the abstraction becomes useful. Per-algorithm completion status remains deliberately transparent.",
+      "The frontend includes public information, a searchable eLearning catalogue, and academic and administrative portal views. A TypeScript, Express, and PostgreSQL backend provides the API foundation. Frontend demonstrations and backend integration remain distinct; the project is presented as in progress.",
     decisions: [
       {
-        title: "Start with the mechanism",
+        title: "Keep the public journeys distinct",
         detail:
-          "From-scratch implementations expose assumptions about distance, optimization, splitting, and evaluation that frameworks package away.",
+          "School information and the monastery section have separate routes and media treatment, so each audience can find the context it needs.",
       },
       {
-        title: "Separate coursework from implementation",
+        title: "Make learning materials findable",
         detail:
-          "A concept can be studied without claiming that a complete, tested implementation is finished; the public status reflects that distinction.",
+          "The eLearning frontend supports title search, grade and subject filters, document previews, and publishing controls. Persistence and permission enforcement are backend integration work.",
       },
       {
-        title: "Evaluate, then optimize",
-        detail: "Correctness and observable model behavior come before premature performance work.",
+        title: "Match the portal to its actual scope",
+        detail:
+          "Academic and administrative roles shape navigation and workflows. Unrelated finance, clinic, transport, and auditing modules are excluded from this project.",
       },
     ],
     proof: [
-      "Completed study of core classical ML topics",
-      "Explicit from-scratch implementation direction",
-      "Model-evaluation focus",
-      "Current progression toward deep learning and transformers",
+      "Implemented public routes and academic portal frontend",
+      "eLearning catalogue, filters, and document-reader interfaces",
+      "Academic Manager workspace and demonstration gradebook",
+      "Separate backend API foundation and documented integration priorities",
     ],
     reflection:
-      "The goal is not to replace mature libraries. It is to earn a sharper mental model of what those libraries do, where they fail, and which evidence to inspect when results look wrong.",
+      "A management system becomes clearer when its boundaries are clear. Public information, learning materials, and academic operations need to connect without turning every role into the same dashboard.",
+  },
+  {
+    index: "04",
+    slug: "digital-examination-analysis",
+    title: "Digital Examination & Analysis",
+    eyebrow: "Ongoing work · Exams and post-exam analysis",
+    status: "in-progress",
+    statusLabel: "In progress",
+    summary:
+      "An ongoing examination platform spanning paper preparation, student exam delivery, and post-exam results and analysis for schools.",
+    statement:
+      "Follow the whole examination journey, from preparation to understanding the results.",
+    visual: "examination",
+    accent: "amber",
+    disciplines: ["React", "TypeScript", "IndexedDB", "Exam delivery", "Results analysis"],
+    facts: [
+      "Teacher preparation and administrator review workflows",
+      "Scheduled exams and durable student answer handling",
+      "Results reports, topic charts, and CSV export interfaces",
+      "Ongoing backend integration and acceptance work",
+    ],
+    context:
+      "A digital exam is more than a question screen. Teachers prepare papers, administrators organize sittings, students need reliable answer handling, and the results must help people understand what happened afterward.",
+    system:
+      "The frontend connects teacher preparation, administrative scheduling, student delivery, and results views. Answer persistence distinguishes local saves from server receipt. Post-exam workflows include role-scoped reports, topic analysis, exports, recovery review, and separately released practice. Real-backend acceptance and production readiness remain ongoing work.",
+    decisions: [
+      {
+        title: "Make answer state understandable",
+        detail:
+          "A device save, an uploaded answer, and a confirmed final submission are different states. The interface keeps that distinction visible during interruptions and recovery.",
+      },
+      {
+        title: "Treat results as a controlled workflow",
+        detail:
+          "Scheduled release, role-scoped reports, and retained result revisions shape the results flow. Practice scores stay separate from official marks.",
+      },
+      {
+        title: "Connect assessment to useful analysis",
+        detail:
+          "Results interfaces combine reports, topic charts, and export paths so staff can inspect performance after an exam. Synthetic demonstrations do not establish real-school adoption or production capacity.",
+      },
+    ],
+    proof: [
+      "Teacher, student, and administrator examination interfaces",
+      "Durable answer handling and explicit recovery states",
+      "Post-exam reporting, topic charts, and export interfaces",
+      "Documented separation of synthetic checks from real-backend acceptance",
+    ],
+    reflection:
+      "The most important work is often between the obvious screens: preserving a student's answers, describing uncertainty honestly, and turning an assessment into information that teachers and students can use.",
   },
 ];
 

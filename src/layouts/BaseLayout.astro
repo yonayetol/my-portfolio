@@ -53,15 +53,15 @@ const jsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f6f2e9" />
+    <meta name="theme-color" content="#182823" />
     <meta name="color-scheme" content="dark light" />
     <script is:inline>
       (() => {
         document.documentElement.dataset.js = "true";
-        let evening = false,
+        let evening = true,
           motion = !matchMedia("(prefers-reduced-motion: reduce)").matches;
         try {
-          evening = localStorage.getItem("home-evening") === "true";
+          evening = localStorage.getItem("home-evening-v2") !== "false";
           motion = motion && localStorage.getItem("home-motion") !== "off";
         } catch {}
         document.documentElement.dataset.theme = evening ? "dark" : "light";
