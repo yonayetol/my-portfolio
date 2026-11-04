@@ -1,6 +1,6 @@
 # Yonas — A Home for a Mind That Builds
 
-A personal portfolio for Yonas, an AI engineer, software builder, technical trainer, and fourth-year Computer Science student at Addis Ababa University (AAU). The `feat/portfolio-home` redesign makes the homepage an interactive 3D courtyard home. Enter through the gate, move between rooms, and inspect objects to discover introductions, projects, work in progress, learning, credentials, and contact details.
+A personal portfolio for Yonas, an AI engineer, software builder, technical trainer, and fourth-year Computer Science student at Addis Ababa University (AAU). The homepage presents the essentials first. Visitors can choose the interactive 3D courtyard at `/explore/`, enter through the gate, move between rooms, and inspect objects for projects, work in progress, learning, and personal stories. A visible Portfolio link returns to the overview.
 
 Built with Astro, TypeScript, Three.js, locally served Space Grotesk and Space Mono fonts, semantic HTML, and CSS. The site produces static files for the existing GitHub Pages deployment.
 
@@ -20,16 +20,20 @@ npm run preview
 
 ## Navigation and interactions
 
-- `/` opens at the gate. **Come inside** moves the camera into the main room; the room navigation selects the workshop, kitchen, reading nook, garden, or veranda.
-- Move the pointer to look around. The eye cursor highlights inspectable objects; click an object or its labeled hotspot to open its story. The **Objects in this room** list provides equivalent buttons.
-- On touch devices, drag to look and tap an object to inspect it. With the canvas focused, use arrow keys to look around and **Home** to reset the view. Close stories with the close button or **Escape**.
-- `/quick-view/` is the compact HTML overview. `/work/`, `/work/[slug]/`, `/about/`, and `/credentials/` remain direct routes to the detailed content.
+- `/` opens the standard portfolio overview: introduction, projects, experience, and contact. The prominent **Explore in 3D** action enters the optional home experience at `/explore/`.
+- `/quick-view/` remains an alias of the same overview with a canonical URL pointing to `/`. `/work/`, `/work/[slug]/`, `/about/`, and `/credentials/` remain direct routes to detailed content.
+- `/explore/` opens at the gate. **Come inside** moves the camera into the main room; room navigation selects the workshop, kitchen, reading nook, garden, or veranda. Room links use `/explore/#main-room`, `/explore/#workshop`, `/explore/#kitchen`, `/explore/#reading-nook`, `/explore/#garden`, and `/explore/#contact`.
+- The standard header and footer link to the **3D home**. The **3D house map** links directly to its rooms. Brand links and **Back to portfolio** return to `/`; **Say hello** goes to the standard overview’s `/#contact` section.
+- Inside the 3D home, move the pointer to look around. The eye cursor highlights inspectable objects; click an object or its illustrated marker to open its story. Marker names appear on hover or keyboard focus; touch devices keep compact names visible. The **Objects in this room** list provides equivalent buttons.
+- On touch devices in the 3D home, drag to look and tap an object to inspect it. With the canvas focused, use arrow keys to look around and **Home** to reset the view. Close stories with the close button or **Escape**.
 - Evening is the default. Daylight and camera-motion choices persist locally. Reduced motion disables animated travel and continuous walking while room shortcuts and object lists remain usable.
 - **Free explore** gives visitors direct movement: WASD to walk, arrows or Q/E to turn, and drag to look. Touch visitors use the thumb joystick and drag the scene. Furniture, walls, and property boundaries stop the camera; **Reset** returns to the main room. Opening a story pauses movement and returns to the same walking position when closed.
 - Seven authored course books open interactive mathematics and ML notebooks. The same collection is available at `/credentials/#course-notebooks`. LeetCode has a lit physical display and an always-visible shortcut; the statistics remain the supplied snapshot.
-- An SVG courtyard poster appears while the 3D view loads. An HTML overview remains available when JavaScript or WebGL is unavailable; essential information also lives on the direct routes.
+- At `/explore/`, an SVG courtyard poster appears while the 3D view loads. An HTML fallback remains available when JavaScript or WebGL is unavailable; the standard portfolio at `/` and its direct content routes do not require the 3D experience.
 
 ## Editing the home
+
+- `src/components/QuickOverview.astro` is the shared overview for `/` and `/quick-view/`. `src/pages/explore.astro` owns the separate 3D route.
 
 - `src/components/home/ImmersiveHome.astro` defines the scene interface, room links, object stories, and HTML fallback.
 - `src/components/home/house-world.ts` constructs the Three.js house, garden, furnishings, textures, and inspectable objects.

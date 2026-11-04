@@ -1,0 +1,216 @@
+---
+import { profile, experience, socialLinks } from "@/data/profile";
+import { projects } from "@/data/projects";
+import { withBase } from "@/utils/paths";
+---
+
+<main id="main-content" class="quick-page home-shell">
+  <p class="home-eyebrow">YONAS / A QUICK INTRODUCTION</p><h1>
+    Yonas.<br /><em>The essentials.</em>
+  </h1><p class="quick-intro">
+    {profile.role} · {profile.location}
+  </p><p>{profile.education}</p><p>{profile.support}</p>
+  <div class="quick-actions">
+    <a class="home-button" href={`mailto:${profile.email}`}>Get in touch ↗</a>
+    <a class="quick-explore" href={withBase("explore/")}>
+      <svg width="28" height="30" viewBox="0 0 32 35" fill="none" aria-hidden="true"
+        ><path d="m3 16 13-11 13 11v16H3ZM12 32V21h8v11" stroke="currentColor" stroke-width="1.5"
+        ></path></svg
+      >
+      <span
+        ><strong>Explore the 3D home</strong><small>An interactive visit through my work</small
+        ></span
+      >
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+  <section id="work" aria-labelledby="quick-work">
+    <h2 id="quick-work">Selected work</h2>{
+      projects.map((project) => (
+        <a class="quick-record" href={withBase(`work/${project.slug}/`)}>
+          <>
+            <div>
+              <>
+                <span class="home-eyebrow">{project.statusLabel}</span>
+                <h3>{project.title} ↗</h3>
+                <p>{project.summary}</p>
+              </>
+            </div>
+            <span>{project.disciplines.slice(0, 3).join(" · ")}</span>
+          </>
+        </a>
+      ))
+    }
+  </section>
+  <section id="experience" aria-labelledby="quick-experience">
+    <h2 id="quick-experience">Experience & education</h2>{
+      experience.map((item) => (
+        <div class="quick-record">
+          <>
+            <div>
+              <>
+                <h3>{item.organization}</h3>
+                <p>{item.detail}</p>
+              </>
+            </div>
+            <span>{item.role}</span>
+          </>
+        </div>
+      ))
+    }
+  </section>
+  <section id="contact" aria-labelledby="quick-contact">
+    <h2 id="quick-contact">Find me here</h2><nav aria-label="Public profiles" class="quick-actions">
+      {
+        socialLinks.map((link) => (
+          <a class="home-link" href={link.href} target="_blank" rel="noreferrer">
+            {link.label} ↗
+          </a>
+        ))
+      }
+    </nav><a class="home-link" href={`mailto:${profile.email}`}>{profile.email}</a>
+  </section>
+  <aside class="quick-invitation" aria-label="Explore the interactive portfolio">
+    <div>
+      <p class="home-eyebrow">THE DOOR IS OPEN</p><h2>There’s a little world behind the work.</h2><p
+      >
+        Visit the workshop, browse the books, or take a walk through the garden.
+      </p>
+    </div>
+    <a class="home-link" href={withBase("explore/")}>Step into the 3D home ↗</a>
+  </aside>
+</main>
+<style>
+  .quick-page {
+    max-width: 1050px;
+    padding-top: 70px;
+    padding-bottom: 75px;
+  }
+  .quick-page h1 {
+    font: 64px/1.1 var(--font-serif);
+    letter-spacing: -2px;
+    margin: 20px 0;
+  }
+  .quick-page > p {
+    max-width: 650px;
+    color: var(--home-muted);
+    font-size: 14px;
+  }
+  .quick-page .quick-intro {
+    font-size: 16px;
+    color: var(--home-ink);
+    margin-bottom: 15px;
+  }
+  .quick-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid var(--home-line);
+    border-radius: 6px;
+    padding: 12px 17px;
+    color: var(--home-ink);
+    background: var(--home-surface);
+    transition:
+      border-color 180ms,
+      background 180ms;
+  }
+  .quick-explore:hover {
+    border-color: var(--home-green);
+    background: var(--home-wash);
+  }
+  .quick-explore strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .quick-explore small {
+    display: block;
+    font-size: 10px;
+    color: var(--home-muted);
+    margin-top: 3px;
+  }
+  .quick-explore > span:last-child {
+    margin-left: 7px;
+  }
+  .quick-actions {
+    align-items: center;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin: 27px 0;
+  }
+  .quick-page section {
+    margin-top: 65px;
+  }
+  .quick-page h2 {
+    font: 34px var(--font-serif);
+    margin-bottom: 25px;
+  }
+  .quick-record {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 30px;
+    padding: 25px 0;
+    border-top: 1px solid var(--home-line);
+  }
+  .quick-record h3 {
+    font: 24px var(--font-serif);
+    margin: 8px 0;
+  }
+  .quick-record p {
+    font-size: 12px;
+    color: var(--home-muted);
+  }
+  .quick-record > span {
+    font-size: 11px;
+    color: var(--home-muted);
+    align-self: center;
+    text-align: right;
+  }
+  .quick-record:hover h3 {
+    color: var(--home-blue);
+  }
+  .quick-invitation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    padding-top: 35px;
+    margin-top: 65px;
+    border-top: 1px solid var(--home-line);
+  }
+  .quick-invitation h2 {
+    font-size: 28px;
+    line-height: 1.2;
+    margin: 12px 0;
+  }
+  .quick-invitation p:not(.home-eyebrow) {
+    font-size: 12px;
+    color: var(--home-muted);
+    max-width: 400px;
+  }
+  .quick-invitation > a {
+    flex-shrink: 0;
+  }
+  @media (max-width: 600px) {
+    .quick-invitation {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    .quick-explore {
+      gap: 11px;
+    }
+
+    .quick-page h1 {
+      font-size: 51px;
+    }
+    .quick-record {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .quick-record > span {
+      text-align: left;
+    }
+  }
+</style>

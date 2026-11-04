@@ -1,17 +1,19 @@
 ---
 import { withBase } from "@/utils/paths";
 const home = withBase();
+const explore = withBase("explore/");
 const links = [
-  { label: "The home", href: home },
-  { label: "The workshop", href: withBase("work/") },
-  { label: "The kitchen", href: `${home}#kitchen` },
-  { label: "About me", href: withBase("about/") },
+  { label: "Home", href: home },
+  { label: "Projects", href: withBase("work/") },
+  { label: "About", href: withBase("about/") },
+  { label: "Credentials", href: withBase("credentials/") },
+  { label: "3D home", href: explore },
 ];
 ---
 
 <header class="home-header">
   <div class="home-shell home-header-inner">
-    <a class="home-brand" href={home} aria-label="Yonas. A little home on the web">
+    <a class="home-brand" href={home} aria-label="Yonas portfolio home">
       <svg viewBox="0 0 38 42" fill="none" aria-hidden="true"
         ><path d="m4 19 15-13 15 13v18H4Z" stroke="currentColor" stroke-width="1.8"></path><path
           d="M15 37V25h8v12M11 12V6h5"
@@ -49,51 +51,87 @@ const links = [
       <a class="home-header-contact" href={`${home}#contact`}
         >Say hello <span aria-hidden="true">↗</span></a
       >
-      <button class="home-map-trigger" data-map-open aria-label="Open house map" type="button"
+      <button class="home-map-trigger" data-map-open aria-label="Open 3D house map" type="button"
         ><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"
           ><path
             d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm11 0h7v7h-7z"
             stroke="currentColor"
             stroke-width="1.5"></path></svg
-        ><span>House map</span></button
+        ><span>3D house map</span></button
       >
     </div>
   </div>
 </header>
+<noscript>
+  <nav class="home-noscript-nav home-shell" aria-label="Portfolio pages">
+    <a href={home}>Home</a><a href={withBase("work/")}>Projects</a><a href={withBase("about/")}
+      >About</a
+    ><a href={withBase("credentials/")}>Credentials</a><a href={`${home}#contact`}>Contact</a>
+  </nav>
+</noscript>
 <dialog class="home-map" data-house-map aria-labelledby="map-title">
   <div class="home-map-top">
-    <span class="home-eyebrow">MAKE YOURSELF AT HOME</span><button
+    <span class="home-eyebrow">EXPLORE THE 3D HOME</span><button
       type="button"
       data-map-close
-      aria-label="Close house map">✕</button
+      aria-label="Close 3D house map">✕</button
     >
   </div>
-  <h2 id="map-title">Where shall we go?</h2><p>A little space for everything I care about.</p>
-  <nav aria-label="House map" class="home-map-rooms">
-    <a href={`${home}#main-room`}
+  <h2 id="map-title">Where shall we go?</h2><p>
+    Step into the optional 3D home and discover the stories inside each room.
+  </p>
+  <nav class="home-map-direct" aria-label="Portfolio pages">
+    <a href={home}>Portfolio</a><a href={withBase("work/")}>Projects</a><a href={withBase("about/")}
+      >About</a
+    ><a href={withBase("credentials/")}>Credentials</a>
+  </nav>
+  <nav aria-label="3D house map" class="home-map-rooms">
+    <a href={`${explore}#main-room`}
       ><span>01 / MAIN ROOM</span><strong>Meet the person</strong><small>About & experience ↗</small
       ></a
     >
-    <a href={`${home}#workshop`}
+    <a href={`${explore}#workshop`}
       ><span>02 / WORKSHOP</span><strong>Things I’ve built</strong><small>Selected projects ↗</small
       ></a
     >
-    <a href={`${home}#kitchen`}
+    <a href={`${explore}#kitchen`}
       ><span>03 / KITCHEN</span><strong>What’s cooking</strong><small>Work in progress ↗</small></a
     >
-    <a href={`${home}#garden`}
+    <a href={`${explore}#garden`}
       ><span>04 / GARDEN</span><strong>Ideas taking root</strong><small
         >Learning & connections ↗</small
       ></a
     >
-    <a href={withBase("credentials/")}
-      ><span>05 / READING NOOK</span><strong>A shelf of learning</strong><small>Credentials ↗</small
+    <a href={`${explore}#reading-nook`}
+      ><span>05 / READING NOOK</span><strong>A shelf of learning</strong><small
+        >Courses & practice ↗</small
       ></a
     >
-    <a href={`${home}#contact`}
+    <a href={`${explore}#contact`}
       ><span>06 / VERANDA</span><strong>Start a conversation</strong><small>Contact & links ↗</small
       ></a
     >
   </nav>
-  <a class="home-link" href={withBase("quick-view/")}>Just the essentials? Take the quick view ↗</a>
+  <a class="home-link" href={home}>Back to portfolio ↗</a>
 </dialog>
+
+<style>
+  .home-map-direct,
+  .home-noscript-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 12px;
+  }
+  .home-map-direct a,
+  .home-noscript-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--home-green);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>

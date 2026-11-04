@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/utils/paths";
 interface Props {
   compact?: boolean;
 }
@@ -467,28 +468,40 @@ const trees = [
     >
   </svg>
 
-  <a class="house-pin house-pin--main" href="#main-room"
+  <a
+    class="house-pin house-pin--main"
+    href={withBase("explore/#main-room")}
+    aria-label="Visit the main room in 3D"
     ><span class="house-pin__dot"></span><span>Main room <small>About me</small></span><span
       aria-hidden="true">↗</span
     ></a
   >
-  <a class="house-pin house-pin--kitchen" href="#kitchen"
+  <a
+    class="house-pin house-pin--kitchen"
+    href={withBase("explore/#kitchen")}
+    aria-label="Visit the kitchen in 3D"
     ><span class="house-pin__dot"></span><span>Kitchen <small>What's cooking</small></span><span
       aria-hidden="true">↗</span
     ></a
   >
-  <a class="house-pin house-pin--workshop" href="#workshop"
+  <a
+    class="house-pin house-pin--workshop"
+    href={withBase("explore/#workshop")}
+    aria-label="Visit the workshop in 3D"
     ><span class="house-pin__dot"></span><span>Workshop <small>Selected work</small></span><span
       aria-hidden="true">↗</span
     ></a
   >
-  <a class="house-pin house-pin--garden" href="#garden"
+  <a
+    class="house-pin house-pin--garden"
+    href={withBase("explore/#garden")}
+    aria-label="Visit the garden in 3D"
     ><span class="house-pin__dot"></span><span>Garden <small>Always growing</small></span><span
       aria-hidden="true">↗</span
     ></a
   >
-  <a class="gate-entry" href="#main-room"
-    ><span>THE GATE IS OPEN</span><span aria-hidden="true">↗</span></a
+  <a class="gate-entry" href={withBase("explore/#main-room")}
+    ><span>EXPLORE THE 3D HOME</span><span aria-hidden="true">↗</span></a
   >
   <span class="house-scene__note" aria-hidden="true">a little place for big ideas</span>
 </div>

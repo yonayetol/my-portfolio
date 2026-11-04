@@ -707,3 +707,11 @@ Make the home a place visitors can explore on their own, filled with objects tha
 - Zikuala and Digital Examination & Analysis have dedicated case studies grounded in local project documentation. Both are clearly in progress. The kitchen presents the examination project; education consistently states fourth-year Computer Science at AAU.
 - Browser checks exercised all 17 stories, keyboard Escape/focus restoration, nested course navigation, desktop walking/turning/stopping, return to the same walking pose after inspection, mobile joystick/drag/release/reset, 320px layouts, all seven course demonstrations, reduced motion, stored preferences, no-JavaScript content, malformed hashes, and WebGL context loss.
 - `npm run verify` passes, including navigation geometry tests, Astro diagnostics, production generation, and internal-link/metadata validation. The `/my-portfolio/` base-path build also validates. The Three.js bundle retains Vite's advisory size warning; no new performance score is claimed.
+
+## Current revision — Portfolio first, optional 3D
+
+The quick overview is now the homepage at `/`; `/quick-view/` remains an alias with a root canonical. The 3D house lives at `/explore/`, reached through explicit invitations. Portfolio return links remain visible in the 3D header and story dialog. Room links and maps point to the new route, while ordinary project, biography, credentials, and contact links stay in the standard portfolio. The homepage does not load the 3D scene.
+
+Replace the repeated cream label boxes and plus signs with compact, object-specific illustrated markers. Reveal names on hover and keyboard focus; retain short visible names on touch devices and the equivalent object list. Keep motion preferences, minimum touch targets, and readable contrast.
+
+Verified the route change, explicit 3D entry, room deep links, return actions in both header and stories, legacy quick-view canonical, desktop hover and keyboard captions, touch labels and targets at 320px, and the no-JavaScript homepage. Root and `/my-portfolio/` production builds validate.

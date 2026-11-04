@@ -17,6 +17,7 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  canonicalPath?: string;
   sections?: Array<{ id: string; index: string; label: string }>;
 }
 
@@ -26,9 +27,10 @@ const {
   description = profile.support,
   image = withBase("social-card.png"),
   noindex = false,
+  canonicalPath = Astro.url.pathname,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const canonicalURL = new URL(canonicalPath, Astro.site ?? Astro.url.origin);
 const socialImage = new URL(image.replace(/^\//, ""), Astro.site ?? Astro.url.origin);
 const jsonLd = {
   "@context": "https://schema.org",

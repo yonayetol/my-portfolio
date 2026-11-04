@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ImmersiveHome from "@/components/home/ImmersiveHome.astro";
+import QuickOverview from "@/components/QuickOverview.astro";
+import { withBase } from "@/utils/paths";
 ---
 
 <BaseLayout
-  immersive
-  title="Yonas — Come inside"
-  description="An open door into the world of Yonas. Explore a living home of AI engineering, software projects, ideas, and learning."
+  title="Yonas — AI Engineer & Software Builder"
+  description="Projects, experience, and contact details for Yonas, an AI engineer and fourth-year Computer Science student at AAU. Explore the optional 3D home."
+  canonicalPath={withBase()}
 >
-  <ImmersiveHome />
+  <QuickOverview />
 </BaseLayout>

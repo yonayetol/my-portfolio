@@ -112,14 +112,22 @@ html[data-world="ready"] .spatial-poster {
   min-height: 44px;
 }
 .spatial-quick {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
   padding: 12px 17px;
   border: 1px solid var(--spatial-line);
-  border-radius: 4px;
-  font-size: 11px;
+  border-radius: 24px;
+  background: var(--spatial-paper);
+  font-size: 12px;
   white-space: nowrap;
 }
 .spatial-quick span {
-  margin-left: 15px;
+  font-size: 17px;
+}
+.spatial-quick:hover {
+  border-color: var(--spatial-ink);
 }
 .spatial-location {
   font:
@@ -392,59 +400,140 @@ html[data-world="ready"] .spatial-poster {
   position: absolute;
   transform: translate(-50%, -50%);
   pointer-events: auto;
-  background: none;
-  border: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-align: left;
-  color: #273c2e;
-  min-width: 44px;
-  min-height: 44px;
-  filter: drop-shadow(0 3px 7px #23372230);
-}
-.hotspot-dot {
-  border: 1px solid #ffffffb0;
-  border-radius: 50%;
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
   display: grid;
   place-items: center;
-  background: #f7f3e6df;
-  font-size: 20px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #f4e6c8;
+  isolation: isolate;
+}
+.hotspot-mark {
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  border: 1px solid #d8bc7ebd;
+  border-radius: 50%;
+  background: #203d32ed;
+  box-shadow:
+    0 3px 13px #112a2440,
+    inset 0 0 0 3px #d8bc7e10;
   transition:
-    transform 0.25s,
-    background 0.25s;
+    transform 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
 }
-.hotspot-label {
-  background: #f9f5e9f2;
-  border: 1px solid #d2d2bf;
-  padding: 10px 13px;
-  border-radius: 4px;
-  font-size: 11px;
-  line-height: 1.5;
-  white-space: nowrap;
-  max-width: 220px;
+.hotspot-mark::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  border: 1px solid #f4e6c85c;
+  border-radius: 50%;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
 }
-.hotspot-label small {
-  display: block;
-  font:
-    7px "Space Mono",
-    monospace;
-  letter-spacing: 0.6px;
-  color: #5e6c5c;
-  margin-bottom: 3px;
+.hotspot-mark svg {
+  width: 19px;
+  height: 19px;
 }
-.spatial-hotspot:hover .hotspot-dot,
-.spatial-hotspot:focus-visible .hotspot-dot {
-  transform: scale(1.2);
-  background: #315343;
-  color: #fff;
+.hotspot-caption {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translate(-50%, 5px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: min(235px, calc(100vw - 32px));
+  padding: 10px 14px;
+  border: 1px solid #cfbb843d;
+  border-radius: 18px;
+  color: #fff5df;
+  background: #17392fee;
+  box-shadow: 0 5px 16px #10291f26;
+  font: 13px/1.35 var(--font-serif, Georgia, serif);
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
 }
-.spatial-hotspot:hover .hotspot-label {
-  border-color: #315343;
+.hotspot-caption svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  color: #dfc78f;
+}
+.spatial-hotspot[data-label-align="start"] .hotspot-caption {
+  left: 0;
+  transform: translate(0, 5px);
+}
+.spatial-hotspot[data-label-align="end"] .hotspot-caption {
+  left: auto;
+  right: 0;
+  transform: translate(0, 5px);
+}
+.spatial-hotspot:is(:hover, :focus-visible) {
+  z-index: 2;
+}
+.spatial-hotspot:is(:hover, :focus-visible) .hotspot-mark {
+  background: #3c5b43;
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 20px #132c2859,
+    inset 0 0 0 3px #d8bc7e18;
+}
+.spatial-hotspot:is(:hover, :focus-visible) .hotspot-mark::before {
+  transform: scale(1.1);
+  opacity: 0.65;
+}
+.spatial-hotspot:is(:hover, :focus-visible) .hotspot-caption {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.spatial-hotspot[data-label-align]:is(:hover, :focus-visible) .hotspot-caption {
+  transform: translate(0, 0);
+}
+@media (hover: none), (pointer: coarse) {
+  .hotspot-caption {
+    opacity: 1;
+    bottom: auto;
+    top: 50%;
+    left: calc(100% + 3px);
+    max-width: min(145px, calc(50vw - 36px));
+    padding: 8px 11px;
+    font-size: 12px;
+    gap: 7px;
+  }
+  .spatial-hotspot .hotspot-caption,
+  .spatial-hotspot:is(:hover, :focus-visible) .hotspot-caption,
+  .spatial-hotspot[data-label-align] .hotspot-caption,
+  .spatial-hotspot[data-label-align]:is(:hover, :focus-visible) .hotspot-caption {
+    transform: translate(0, -50%);
+    left: var(--caption-left, calc(100% + 3px));
+    right: var(--caption-right, auto);
+  }
+  .spatial-hotspot[data-label-side="left"] {
+    --caption-left: auto;
+    --caption-right: calc(100% + 3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hotspot-mark,
+  .hotspot-mark::before,
+  .hotspot-caption {
+    transition: none;
+  }
+}
+html[data-motion="off"] :is(.hotspot-mark, .hotspot-mark::before, .hotspot-caption) {
+  transition: none;
 }
 .digital-eye {
   position: fixed;
@@ -887,10 +976,6 @@ html[data-motion="off"] .spatial-stage {
   .spatial-room-caption h2 {
     font-size: 26px;
   }
-  .hotspot-label {
-    font-size: 10px;
-    max-width: 180px;
-  }
 }
 @media (max-width: 700px) {
   .spatial-header {
@@ -922,11 +1007,9 @@ html[data-motion="off"] .spatial-stage {
     display: none;
   }
   .spatial-quick {
-    font-size: 9px;
-    padding: 11px;
-  }
-  .spatial-quick span {
-    margin-left: 8px;
+    font-size: 11px;
+    gap: 7px;
+    padding: 10px 12px;
   }
   .spatial-welcome {
     margin: 0 25px;
@@ -1039,23 +1122,6 @@ html[data-motion="off"] .spatial-stage {
   }
   .spatial-object-list summary {
     font-size: 9px;
-  }
-  .hotspot-label {
-    font-size: 10px;
-    padding: 8px 10px;
-    max-width: 155px;
-    white-space: normal;
-  }
-  .hotspot-label small {
-    font-size: 6px;
-  }
-  .hotspot-dot {
-    width: 27px;
-    height: 27px;
-    font-size: 16px;
-  }
-  .spatial-hotspot {
-    gap: 5px;
   }
   .spatial-story {
     inset: 80px 8px 8px;
@@ -1479,4 +1545,24 @@ html[data-motion="off"] .spatial-stage {
     left: 20px;
     width: 210px;
   }
+}
+
+.story-back-portfolio {
+  font-size: 11px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: #315343;
+  white-space: nowrap;
+}
+.story-back-portfolio:hover {
+  text-decoration: underline;
+}
+.story-top {
+  gap: 12px;
+}
+.story-top [data-story-location] {
+  margin-left: auto;
+  text-align: right;
+  font-size: 8px;
 }

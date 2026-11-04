@@ -820,8 +820,12 @@ export async function startHouse() {
         x > innerWidth - 30 ||
         y < 95 ||
         y > innerHeight - 110;
-      label.style.left = `${Math.min(innerWidth - 105, Math.max(65, x))}px`;
+      label.style.left = `${Math.min(innerWidth - 32, Math.max(32, x))}px`;
       label.style.top = `${y}px`;
+      label.dataset.labelSide = x > innerWidth / 2 ? "left" : "right";
+      if (x < 140) label.dataset.labelAlign = "start";
+      else if (x > innerWidth - 140) label.dataset.labelAlign = "end";
+      else delete label.dataset.labelAlign;
     });
   }
   frame(performance.now());
