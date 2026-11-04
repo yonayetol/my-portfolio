@@ -2,12 +2,12 @@
 import "@fontsource-variable/space-grotesk";
 import "@fontsource/space-mono/400.css";
 import "@fontsource/space-mono/700.css";
-import "lenis/dist/lenis.css";
+
 import "@/styles/global.css";
+import "@/styles/home.css";
 import Header from "@/components/global/Header.astro";
 import Footer from "@/components/global/Footer.astro";
-import ScrollRail from "@/components/ScrollRail.astro";
-import ScrollChoreography from "@/components/ScrollChoreography.astro";
+
 import { profile, socialLinks } from "@/data/profile";
 import { withBase } from "@/utils/paths";
 
@@ -24,7 +24,6 @@ const {
   description = profile.support,
   image = withBase("social-card.png"),
   noindex = false,
-  sections = [],
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
@@ -52,26 +51,20 @@ const jsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#080a0f" />
+    <meta name="theme-color" content="#f6f2e9" />
     <meta name="color-scheme" content="dark light" />
     <script is:inline>
-      document.documentElement.dataset.js = "true";
       (() => {
-        let preference = "";
+        document.documentElement.dataset.js = "true";
+        let evening = false,
+          motion = !matchMedia("(prefers-reduced-motion: reduce)").matches;
         try {
-          preference = localStorage.getItem("portfolio-theme") || "";
+          evening = localStorage.getItem("home-evening") === "true";
+          motion = motion && localStorage.getItem("home-motion") !== "off";
         } catch {}
-        const theme =
-          preference === "light" || preference === "dark"
-            ? preference
-            : matchMedia("(prefers-color-scheme: light)").matches
-              ? "light"
-              : "dark";
-        document.documentElement.dataset.theme = theme;
-        document.documentElement.style.colorScheme = theme;
-        document
-          .querySelector('meta[name="theme-color"]')
-          ?.setAttribute("content", theme === "light" ? "#f4f2ec" : "#080a0f");
+        document.documentElement.dataset.theme = evening ? "dark" : "light";
+        document.documentElement.dataset.motion = motion ? "on" : "off";
+        document.documentElement.style.colorScheme = evening ? "dark" : "light";
       })();
     </script>
     <meta name="description" content={description} />
@@ -93,311 +86,26 @@ const jsonLd = {
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="scroll-line" aria-hidden="true"></div>
-    {sections.length > 0 && <ScrollRail sections={sections} />}
-    {sections.length > 0 && <ScrollChoreography />}
+    <noscript
+      ><style is:global>
+        [data-map-open],
+        [data-evening],
+        [data-motion-toggle],
+        [data-copy-email],
+        .garden-topics {
+          display: none !important;
+        }
+        [data-garden-panel][hidden] {
+          display: block !important;
+        }
+      </style></noscript
+    >
     <Header />
     <slot />
     <Footer />
     <script>
-      import Lenis from "lenis";
-
-      let smoothScroll: Lenis | undefined;
-      const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-      const initSmoothScroll = () => {
-        smoothScroll?.destroy();
-        smoothScroll = undefined;
-
-        if (motionPreference.matches) return;
-
-        smoothScroll = new Lenis({
-          autoRaf: true,
-          anchors: { offset: -20 },
-          duration: 1.05,
-          smoothWheel: true,
-          syncTouch: false,
-          touchMultiplier: 1,
-          wheelMultiplier: 0.88,
-          overscroll: true,
-          stopInertiaOnNavigate: true,
-        });
-
-        smoothScroll.on("scroll", ({ progress, velocity }) => {
-          document.documentElement.style.setProperty("--page-progress", String(progress));
-          document.documentElement.style.setProperty(
-            "--scroll-velocity",
-            String(Math.min(Math.abs(velocity), 12)),
-          );
-        });
-      };
-
-      const animateNodes = (
-        nodes: HTMLElement[],
-        keyframes: Keyframe[],
-        delayStep = 55,
-        duration = 760,
-      ) => {
-        nodes.forEach((node, index) => {
-          const animation = node.animate(keyframes, {
-            duration,
-            delay: index * delayStep,
-            easing: "cubic-bezier(.16, 1, .3, 1)",
-            fill: "both",
-          });
-          animation.finished.then(() => animation.cancel()).catch(() => {});
-        });
-      };
-
-      const playReveal = (element: HTMLElement) => {
-        if (element.dataset.revealPlayed === "true" || motionPreference.matches) return;
-        element.dataset.revealPlayed = "true";
-
-        if (element.matches(".hero-copy")) {
-          animateNodes(
-            [
-              element.querySelector<HTMLElement>(".hero-overline"),
-              element.querySelector<HTMLElement>("h1"),
-              element.querySelector<HTMLElement>(".hero-lede"),
-              element.querySelector<HTMLElement>(".hero-actions"),
-            ].filter((node): node is HTMLElement => Boolean(node)),
-            [
-              { opacity: 0, transform: "translate3d(0, 48px, 0)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0)" },
-            ],
-            105,
-            880,
-          );
-          return;
-        }
-
-        if (element.matches(".hero-system")) {
-          animateNodes(
-            [
-              element.querySelector<HTMLElement>(".hero-system__header"),
-              ...element.querySelectorAll<HTMLElement>(".workbench-card"),
-              element.querySelector<HTMLElement>(".hero-system__footer"),
-            ].filter((node): node is HTMLElement => Boolean(node)),
-            [
-              { opacity: 0, transform: "translate3d(34px, 0, 0)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0)" },
-            ],
-            90,
-            820,
-          );
-          return;
-        }
-
-        if (element.matches(".section-heading")) {
-          const nodes = [
-            element.querySelector<HTMLElement>(".section-kicker"),
-            element.querySelector<HTMLElement>("h2"),
-            element.querySelector<HTMLElement>(".section-heading__copy > p"),
-          ].filter((node): node is HTMLElement => Boolean(node));
-          animateNodes(
-            nodes,
-            [
-              { opacity: 0, transform: "translate3d(0, 52px, 0) skewY(2.2deg)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0) skewY(0deg)" },
-            ],
-            95,
-            920,
-          );
-          return;
-        }
-
-        if (element.matches(".project-card")) {
-          const visual = element.querySelector<HTMLElement>(".project-visual");
-          if (visual) {
-            const animation = visual.animate(
-              [
-                { clipPath: "inset(0 0 100% 0)", transform: "scale(1.055)" },
-                { clipPath: "inset(0 0 0 0)", transform: "scale(1)" },
-              ],
-              {
-                duration: 1150,
-                easing: "cubic-bezier(.16, 1, .3, 1)",
-                fill: "both",
-              },
-            );
-            animation.finished.then(() => animation.cancel()).catch(() => {});
-          }
-          animateNodes(
-            [...element.querySelectorAll<HTMLElement>(".project-card__body > *")],
-            [
-              { opacity: 0, transform: "translate3d(0, 30px, 0)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0)" },
-            ],
-            55,
-            720,
-          );
-          return;
-        }
-
-        if (element.matches(".timeline, .credential-rail, .about-path")) {
-          const nodes = [
-            ...element.querySelectorAll<HTMLElement>(
-              ".timeline-item, .credential-card, .about-path > article",
-            ),
-          ];
-          animateNodes(
-            nodes,
-            [
-              { opacity: 0, transform: "translate3d(0, 38px, 0)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0)" },
-            ],
-            85,
-            780,
-          );
-          return;
-        }
-
-        if (element.matches(".proof-graph")) {
-          animateNodes(
-            [
-              ...element.querySelectorAll<HTMLElement>(
-                ".proof-tab, .proof-graph__evidence-head, .proof-graph__statement, .proof-graph__methods, .proof-graph__readout .text-link",
-              ),
-            ],
-            [
-              { opacity: 0, transform: "translate3d(0, 32px, 0)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0)" },
-            ],
-            70,
-            760,
-          );
-          return;
-        }
-
-        if (element.matches(".learning-board")) {
-          animateNodes(
-            [
-              ...element.querySelectorAll<HTMLElement>(
-                ".learning-board__header, .learning-board li",
-              ),
-            ],
-            [
-              { opacity: 0, transform: "translate3d(0, 24px, 0)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0)" },
-            ],
-            48,
-            620,
-          );
-          return;
-        }
-
-        if (element.matches(".about-portrait, .about-bridge__portrait")) {
-          const image = element.querySelector<HTMLElement>("img");
-          if (image) {
-            const animation = image.animate(
-              [
-                { clipPath: "inset(0 100% 0 0)", transform: "scale(1.07)" },
-                { clipPath: "inset(0 0 0 0)", transform: "scale(1)" },
-              ],
-              {
-                duration: 1100,
-                easing: "cubic-bezier(.16, 1, .3, 1)",
-                fill: "both",
-              },
-            );
-            animation.finished.then(() => animation.cancel()).catch(() => {});
-          }
-          return;
-        }
-
-        if (
-          element.matches(
-            ".case-prose, .evidence-panel, .case-reflection__grid, .decision-card, .principles-grid article, .toolkit-table article, .credential-group",
-          )
-        ) {
-          animateNodes(
-            [
-              ...element.querySelectorAll<HTMLElement>(
-                ":scope > *, .evidence-panel li, .credential-group li",
-              ),
-            ].slice(0, 14),
-            [
-              { opacity: 0, transform: "translate3d(0, 28px, 0)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0)" },
-            ],
-            58,
-            680,
-          );
-          return;
-        }
-
-        const childNodes = [
-          element.querySelector<HTMLElement>("h2, h3, blockquote"),
-          element.querySelector<HTMLElement>("p:not(.eyebrow), ul, ol, pre"),
-        ].filter((node): node is HTMLElement => Boolean(node));
-        if (childNodes.length) {
-          animateNodes(
-            childNodes,
-            [
-              { opacity: 0, transform: "translate3d(0, 26px, 0)" },
-              { opacity: 1, transform: "translate3d(0, 0, 0)" },
-            ],
-            70,
-            700,
-          );
-        }
-      };
-
-      const reveal = () => {
-        const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
-
-        const show = (element: HTMLElement, animate = true) => {
-          element.setAttribute("data-visible", "true");
-          if (animate) window.requestAnimationFrame(() => playReveal(element));
-          else element.dataset.revealPlayed = "true";
-        };
-
-        if (window.location.hash) {
-          const target = document.querySelector<HTMLElement>(window.location.hash);
-          if (target) show(target, false);
-          target
-            ?.querySelectorAll<HTMLElement>("[data-reveal]")
-            .forEach((element) => show(element, false));
-        }
-
-        if (motionPreference.matches) {
-          elements.forEach((element) => show(element, false));
-          return;
-        }
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (!entry.isIntersecting) return;
-              show(entry.target as HTMLElement);
-              observer.unobserve(entry.target);
-            });
-          },
-          { rootMargin: "0px 0px -6%", threshold: 0.1 },
-        );
-
-        elements.forEach((element) => {
-          if (element.dataset.revealReady === "true") return;
-          element.dataset.revealReady = "true";
-          element.addEventListener("focusin", () => show(element, false), { once: true });
-          if (element.dataset.visible === "true") playReveal(element);
-          else observer.observe(element);
-        });
-      };
-
-      document.addEventListener("astro:page-load", () => {
-        initSmoothScroll();
-        reveal();
-      });
-      motionPreference.addEventListener("change", () => {
-        initSmoothScroll();
-        if (motionPreference.matches) {
-          document.getAnimations().forEach((animation) => animation.cancel());
-        }
-        reveal();
-      });
-      initSmoothScroll();
-      reveal();
+      import { initHome } from "@/components/home/home";
+      initHome();
     </script>
   </body>
 </html>

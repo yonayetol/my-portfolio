@@ -1,24 +1,21 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { withBase } from "@/utils/paths";
+import "@/styles/interiors.css";
 ---
 
 <BaseLayout
-  title="404 — Signal not found"
-  description="The requested portfolio route does not exist."
+  title="A little off the garden path · Yonas"
+  description="This page does not exist. Find your way back to Yonas’s courtyard."
   noindex
 >
-  <main id="main-content" class="not-found">
-    <div class="not-found__signal" aria-hidden="true">
-      <span>4</span><i></i><span>0</span><i></i><span>4</span>
-    </div>
-    <div class="not-found__copy">
-      <p class="eyebrow">ROUTE_ERROR / SIGNAL_NOT_FOUND</p>
-      <h1>This node is outside the graph.</h1>
-      <p>The address may have moved, or the connection was never defined.</p>
-      <a class="button" href={withBase()}
-        >Return to the workshop <span aria-hidden="true">↗</span></a
-      >
-    </div>
+  <main id="main-content" class="home-shell interior-lost">
+    <span class="interior-lost-number" aria-hidden="true">404</span><p class="home-eyebrow">
+      A little off the garden path
+    </p><h1>This door doesn’t<br />lead <em>anywhere.</em></h1><p>
+      The page may have moved. The front door is still open.
+    </p><a class="home-button" href={withBase()}
+      >Back to the courtyard <span aria-hidden="true">↗</span></a
+    >
   </main>
 </BaseLayout>

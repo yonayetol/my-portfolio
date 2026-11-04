@@ -1,0 +1,507 @@
+---
+interface Props {
+  kind: "kitchen" | "garden" | "workshop" | "contact";
+}
+
+const { kind } = Astro.props;
+---
+
+<div class:list={["room-illustration", `room-illustration--${kind}`]} aria-hidden="true">
+  <svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg" fill="none" focusable="false">
+    {
+      kind === "kitchen" && (
+        <>
+          <path d="M53 293 249 321 459 284 267 265Z" fill="#b9b6a0" opacity=".16" />
+          <path d="M77 254V69Q77 45 101 45H399Q422 45 422 69V254Z" fill="#e9e0cd" />
+          <path
+            d="M84 250V69Q84 52 101 52H399Q415 52 415 69V250"
+            stroke="#fff9ed"
+            stroke-width="3"
+          />
+          <path d="M100 198H401V268H100Z" fill="#315343" />
+          <path d="M100 198H401V211H100Z" fill="#244537" />
+          <path
+            d="M111 220H190V257H111ZM206 220H285V257H206ZM302 220H390V257H302Z"
+            stroke="#6e8b6d"
+            stroke-width="1.5"
+          />
+          <path
+            d="M153 229H165M245 229H257M340 229H352"
+            stroke="#d5b46d"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <path d="M103 268V282H117V268M384 268V282H398V268" fill="#244537" />
+          <path d="M88 190H406L419 198H100Z" fill="#d3ab7b" />
+          <path d="M100 198H419V205H100Z" fill="#966c46" />
+          <path d="M99 137H405V190H99Z" fill="#c78a6f" />
+          {Array.from({ length: 12 }, (_, i) => (
+            <path d={`M${99 + i * 28} 137V190`} stroke="#e5c6ad" stroke-width="2" />
+          ))}
+          <path d="M99 155H405M99 174H405" stroke="#e5c6ad" stroke-width="2" />
+          <path d="M107 92H265L277 99H114Z" fill="#c69d70" />
+          <path d="M114 99H277V106H114Z" fill="#876447" />
+          <path d="M127 106V120M259 106V120" stroke="#876447" stroke-width="5" />
+          <path d="M125 68H145V92H125Z" fill="#d2d9bb" stroke="#748867" />
+          <path d="M123 65H147V70H123Z" fill="#a2855f" />
+          <path d="M130 75H141M130 79H140M131 84H140" stroke="#82936e" stroke-width="1.5" />
+          <rect x="158" y="72" width="23" height="20" rx="3" fill="#f5ead3" stroke="#baa582" />
+          <path d="M158 73H181V68H158Z" fill="#3159be" />
+          <path d="M163 83H177" stroke="#c19b62" stroke-width="4" />
+          <rect x="192" y="60" width="25" height="32" rx="4" fill="#d6a46c" />
+          <path d="M191 61H219V56H191Z" fill="#7f6348" />
+          <path d="M198 65V87" stroke="#e8c398" stroke-width="3" />
+          <path d="M231 74H253L249 92H235Z" fill="#b9674f" />
+          <path
+            d="M242 77V47M242 64Q225 61 228 50Q241 51 242 64M242 56Q251 40 258 43Q259 54 242 56M242 74Q257 58 265 63Q260 74 242 74"
+            fill="#69835b"
+            stroke="#48634a"
+            stroke-width="1.5"
+          />
+          <path d="M305 134V83Q305 57 334 57Q363 57 363 83V134Z" fill="#a99f7c" />
+          <path d="M311 129V84Q311 64 334 64Q357 64 357 84V129Z" fill="#d3dfd2" />
+          <path d="M334 65V130M311 96H357" stroke="#f5ead3" stroke-width="5" />
+          <path d="M315 129Q320 112 326 119Q335 104 342 119Q350 111 356 129" fill="#91a883" />
+          <path d="M299 134H369" stroke="#876447" stroke-width="6" />
+          <path d="M120 119H249" stroke="#876447" stroke-width="2" stroke-linecap="round" />
+          <path
+            d="M138 119V142M166 119V141M197 119V137M231 119V141"
+            stroke="#715e46"
+            stroke-width="2"
+          />
+          <ellipse cx="138" cy="152" rx="7" ry="12" fill="#c1a067" />
+          <path d="M161 141H171V158H161Z" fill="#c1a067" />
+          <path d="M163 144V154M168 144V154" stroke="#876447" />
+          <path d="M183 138H212V157Q212 173 197 173Q183 173 183 157Z" fill="#b9674f" />
+          <path d="M183 142H212" stroke="#df9c75" stroke-width="3" />
+          <path d="M222 141H240V164H222Z" fill="#eadab9" />
+          <path d="M226 146V159M231 146V159M236 146V159" stroke="#bba078" />
+          <ellipse cx="158" cy="188" rx="29" ry="5" fill="#344b3b" />
+          <path d="M135 168H181V183Q181 194 158 194Q135 194 135 183Z" fill="#b9674f" />
+          <ellipse cx="158" cy="168" rx="23" ry="5" fill="#d28c67" />
+          <path d="M139 168Q158 156 177 168" fill="#dca477" />
+          <path d="M154 161H162" stroke="#775741" stroke-width="4" stroke-linecap="round" />
+          <path
+            d="M134 173H126M182 173H190"
+            stroke="#775741"
+            stroke-width="4"
+            stroke-linecap="round"
+          />
+          <g
+            class="room-steam"
+            stroke="#8c927b"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            opacity=".55"
+          >
+            <path d="M150 153C141 142 158 136 151 123" />
+            <path d="M165 151C157 140 171 134 165 122" />
+          </g>
+          <ellipse cx="257" cy="189" rx="25" ry="4" fill="#876447" opacity=".3" />
+          <path d="M234 176H280Q278 192 257 192Q237 192 234 176" fill="#f1dfba" />
+          <ellipse cx="257" cy="176" rx="23" ry="5" fill="#d3b982" />
+          <path d="M251 173 272 151" stroke="#876447" stroke-width="3" stroke-linecap="round" />
+          <path
+            d="M301 177Q318 169 335 179Q350 171 367 179L374 194Q352 186 337 195Q322 188 302 194Z"
+            fill="#fff9ed"
+            stroke="#c2af8e"
+          />
+          <path
+            d="M335 179 337 195M309 180 325 179M310 184 328 183M345 181 361 181M345 185 363 185"
+            stroke="#a59b81"
+          />
+          <path d="M327 177 333 193" stroke="#b9674f" stroke-width="2" />
+          <path d="M401 193V241L378 246V198" fill="#f0e3c9" />
+          <path
+            d="M384 203V240M391 201V238M397 200V236"
+            stroke="#3159be"
+            stroke-width="1.5"
+            opacity=".65"
+          />
+          <path
+            d="M83 289Q95 286 111 290M390 292Q416 287 437 290"
+            stroke="#c1c0aa"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </>
+      )
+    }
+    {
+      kind === "garden" && (
+        <>
+          <path
+            d="M44 289Q235 246 459 283Q425 325 241 320Q97 320 44 289"
+            fill="#c7ccb2"
+            opacity=".3"
+          />
+          <path
+            d="M146 240V54Q146 40 161 40H352Q368 40 368 55V239"
+            stroke="#bfa17b"
+            stroke-width="6"
+          />
+          <path
+            d="M147 83H367M147 123H367M147 164H367M147 204H367M190 41V239M233 41V239M277 41V239M321 41V239"
+            stroke="#d2b892"
+            stroke-width="3"
+          />
+          <path
+            d="M183 250Q183 208 214 190Q258 161 242 135Q226 108 277 91Q298 82 293 49"
+            stroke="#647e54"
+            stroke-width="4"
+          />
+          <g class="room-leaves">
+            <path
+              d="M193 224Q165 216 166 195Q193 198 193 224M214 192Q211 164 230 152Q242 176 214 192M241 164Q265 165 278 146Q254 136 241 164M239 138Q213 137 208 114Q232 113 239 138M250 107Q255 80 275 80Q278 101 250 107M280 90Q306 96 316 76Q295 70 280 90M294 60Q276 54 280 36Q296 36 294 60"
+              fill="#7e9868"
+            />
+            <path
+              d="M195 224 179 207M216 190 226 164M245 162 266 151M238 135 219 121M254 103 270 87M285 87 306 80"
+              stroke="#506a46"
+              stroke-width="1.2"
+            />
+          </g>
+          <path
+            d="M305 247Q317 205 307 173Q294 130 331 118Q351 111 344 78"
+            stroke="#315343"
+            stroke-width="3"
+          />
+          <path
+            d="M312 218Q285 207 289 192Q313 192 312 218M309 186Q333 181 340 162Q317 160 309 186M308 158Q286 147 292 129Q311 132 308 158M329 120Q324 95 340 92Q347 108 329 120M344 91Q361 83 364 65Q347 64 344 91"
+            fill="#48634a"
+          />
+          <g stroke="#a8b9a1" stroke-width="1.5" stroke-dasharray="4 5">
+            <path d="M160 139 219 98 282 142 341 103M160 139 219 187 282 142 341 203" />
+          </g>
+          <g fill="#f6f0dc" stroke="#3159be" stroke-width="2">
+            <>
+              <circle cx="160" cy="139" r="5" />
+              <circle cx="219" cy="98" r="5" />
+              <circle cx="282" cy="142" r="7" />
+              <circle cx="341" cy="103" r="5" />
+              <circle cx="219" cy="187" r="5" />
+              <circle cx="341" cy="203" r="5" />
+            </>
+          </g>
+          <ellipse cx="128" cy="278" rx="52" ry="12" fill="#9b9d7f" opacity=".24" />
+          <path d="M88 214H168L158 274Q126 289 99 274Z" fill="#b9674f" />
+          <path d="M88 214H168V225H88Z" fill="#d28a69" />
+          <ellipse cx="128" cy="214" rx="40" ry="9" fill="#d28a69" />
+          <ellipse cx="128" cy="214" rx="32" ry="5" fill="#665440" />
+          <path d="M99 230 108 270M105 231 113 271" stroke="#d58d6c" stroke-width="2" />
+          <path
+            d="M128 214Q124 160 135 132M128 187 104 160M129 174 154 147"
+            stroke="#315343"
+            stroke-width="3"
+          />
+          <g class="room-leaves">
+            <path
+              d="M127 206Q92 209 86 187Q112 174 127 206M128 192Q155 175 175 187Q164 207 128 192M127 179Q94 174 91 151Q117 147 127 179M132 164Q151 135 174 144Q167 169 132 164M133 144Q116 115 129 99Q150 116 133 144"
+              fill="#617e54"
+            />
+            <path
+              d="M126 203 98 190M134 191 162 188M124 174 100 157M140 160 163 148M133 137 130 112"
+              stroke="#93a47c"
+              stroke-width="1.3"
+            />
+          </g>
+          <ellipse cx="244" cy="292" rx="53" ry="11" fill="#9b9d7f" opacity=".24" />
+          <path d="M200 237H284L274 287Q245 303 212 287Z" fill="#c57f5d" />
+          <ellipse cx="242" cy="237" rx="43" ry="10" fill="#dfa382" />
+          <ellipse cx="242" cy="236" rx="35" ry="6" fill="#665440" />
+          <path d="M213 249 220 282M219 250 225 283" stroke="#e0a884" stroke-width="2" />
+          <path
+            d="M241 237V203M241 222 224 210M242 215 260 200"
+            stroke="#48634a"
+            stroke-width="2"
+          />
+          <path
+            d="M241 219Q217 220 212 203Q232 197 241 219M241 215Q252 192 269 195Q265 214 241 215M241 206Q229 185 242 174Q254 189 241 206"
+            fill="#8ba16c"
+          />
+          <path d="M261 231 272 208" stroke="#876447" stroke-width="2" />
+          <path d="M261 209 283 213 287 199 265 195Z" fill="#f5ebd4" stroke="#bca887" />
+          <path d="M269 202 280 205" stroke="#748368" stroke-width="1.5" />
+          <ellipse cx="360" cy="276" rx="43" ry="10" fill="#9b9d7f" opacity=".24" />
+          <path d="M327 224H394L385 272Q358 284 337 272Z" fill="#a95d48" />
+          <ellipse cx="361" cy="224" rx="34" ry="8" fill="#cf8c6b" />
+          <ellipse cx="361" cy="223" rx="27" ry="4" fill="#665440" />
+          <path
+            d="M359 224Q361 195 380 180M358 213Q346 188 341 169M360 219 383 205"
+            stroke="#48634a"
+            stroke-width="2"
+          />
+          <path
+            d="M359 216Q336 211 332 196Q350 191 359 216M366 202Q371 186 384 189Q383 202 366 202M351 192Q353 172 366 173Q369 188 351 192M368 215Q385 202 395 211Q385 225 368 215"
+            fill="#819763"
+          />
+          <g fill="#d9ae6b">
+            <>
+              <circle cx="380" cy="179" r="6" />
+              <circle cx="375" cy="173" r="5" />
+              <circle cx="385" cy="172" r="5" />
+              <circle cx="388" cy="182" r="5" />
+              <circle cx="379" cy="187" r="5" />
+            </>
+          </g>
+          <circle cx="381" cy="179" r="4" fill="#8c6046" />
+          <g fill="#e3c2a2">
+            <>
+              <circle cx="341" cy="167" r="7" />
+              <circle cx="336" cy="161" r="5" />
+              <circle cx="347" cy="161" r="5" />
+            </>
+          </g>
+          <circle cx="341" cy="165" r="3" fill="#b9674f" />
+          <path d="M390 295 434 262" stroke="#9c764f" stroke-width="7" stroke-linecap="round" />
+          <path d="M427 260 438 255Q460 258 449 275L438 274Z" fill="#8d9b89" />
+          <path
+            d="M73 296 89 291M180 306 194 304M308 304 323 302"
+            stroke="#89977a"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </>
+      )
+    }
+    {
+      kind === "workshop" && (
+        <>
+          <path d="M54 292 256 322 449 283 254 263Z" fill="#b9b6a0" opacity=".18" />
+          <path d="M101 188 411 179 435 199 123 214Z" fill="#c9a078" />
+          <path d="M123 214 435 199V211L123 227Z" fill="#9e734f" />
+          <path d="M115 207 130 208V283L118 288Z" fill="#7a6246" />
+          <path d="M406 212 420 212V276L407 281Z" fill="#7a6246" />
+          <path d="M136 231 400 217V225L136 239Z" fill="#9e734f" />
+          <path d="M127 258 408 244" stroke="#ad8861" stroke-width="5" />
+          <path
+            d="M176 82Q176 73 186 73H312Q322 73 322 83V168Q322 178 312 178H186Q176 178 176 168Z"
+            fill="#b7aa8e"
+          />
+          <path
+            d="M181 82Q181 77 186 77H308Q314 77 314 83V163Q314 168 309 168H186Q181 168 181 163Z"
+            fill="#e9ddc2"
+          />
+          <path d="M190 87H304V151H190Z" fill="#304b40" />
+          <path d="M195 92H299V146H195Z" stroke="#65816a" />
+          <g stroke="#c4d1a2" stroke-width="1.3">
+            <path d="M208 121 231 103 254 120 279 103M208 121 230 137 254 120 280 137M231 103 230 137M279 103 280 137" />
+          </g>
+          <g fill="#9cad83">
+            <>
+              <circle cx="208" cy="121" r="4" />
+              <circle cx="231" cy="103" r="3" />
+              <circle cx="230" cy="137" r="3" />
+              <circle cx="279" cy="103" r="3" />
+              <circle cx="280" cy="137" r="3" />
+            </>
+          </g>
+          <circle cx="254" cy="120" r="6" fill="#dda866" />
+          <path d="M235 178V188H219L213 194H284L277 187H262V178" fill="#b7aa8e" />
+          <path d="M211 194H285" stroke="#8e826a" stroke-width="3" />
+          <path d="M279 158H300" stroke="#a59578" stroke-width="3" />
+          <circle cx="198" cy="159" r="2" fill="#7e9569" />
+          <path d="M190 200 286 195 300 206 204 211Z" fill="#e8ddc6" stroke="#b9a786" />
+          <path
+            d="M200 201 281 198M205 205 286 201"
+            stroke="#b2a88e"
+            stroke-width="1.5"
+            stroke-dasharray="3 3"
+          />
+          <ellipse cx="337" cy="201" rx="21" ry="5" fill="#26499d" />
+          <path
+            d="M336 198 357 124 332 101"
+            stroke="#3159be"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
+          <circle cx="357" cy="124" r="5" fill="#244692" />
+          <path d="M332 101 316 96" stroke="#3159be" stroke-width="4" />
+          <path d="M293 94Q303 76 318 87L333 103 296 116Z" fill="#3159be" />
+          <path d="M297 115 332 103" stroke="#203f8c" stroke-width="4" stroke-linecap="round" />
+          <path d="M299 116 324 107 302 179 244 175Z" fill="#edc780" opacity=".16" />
+          <path d="M118 179 159 174 170 181 128 187Z" fill="#f4ead4" />
+          <path d="M128 187 170 181V190L128 196Z" fill="#b9674f" />
+          <path d="M118 179V188L128 196V187" fill="#91523f" />
+          <path d="M113 165 154 160 165 167 123 173Z" fill="#f4ead4" />
+          <path d="M123 173 165 167V178L123 184Z" fill="#738265" />
+          <path d="M113 165V175L123 184V173" fill="#48634a" />
+          <path d="M121 157 158 152 165 157 128 163Z" fill="#f4ead4" />
+          <path d="M128 163 165 157V164L128 170Z" fill="#c5a16b" />
+          <path d="M121 157V164L128 170V163" fill="#9d7c4d" />
+          <path d="M371 165H394L391 193Q381 198 374 193Z" fill="#b9674f" />
+          <ellipse cx="382" cy="165" rx="11" ry="3" fill="#874e3d" />
+          <path
+            d="M378 165 374 140M382 166 385 134M386 166 393 142"
+            stroke="#c5a16b"
+            stroke-width="3"
+          />
+          <path d="M385 134 386 129M393 142 394 138" stroke="#3d5147" stroke-width="2" />
+          <path d="M73 88H141V136H73Z" fill="#d4c6a7" />
+          <path d="M78 93H136V130H78Z" fill="#f4ead4" />
+          <path d="M85 119 96 110 106 116 121 101 129 105" stroke="#3159be" stroke-width="2" />
+          <path d="M85 99V123H129" stroke="#b9b69b" />
+          <path d="M348 54H409V97H348Z" fill="#eadcb9" transform="rotate(5 348 54)" />
+          <path
+            d="M360 66H395M360 72H390M360 78H397M360 85H381"
+            stroke="#9eaa8a"
+            stroke-width="1.3"
+            transform="rotate(5 348 54)"
+          />
+          <path d="M369 49 387 50 386 60 368 59Z" fill="#c9b78c" opacity=".7" />
+          <path
+            d="M325 251Q316 239 308 248Q304 253 306 262Q313 273 325 271"
+            stroke="#315343"
+            stroke-width="2"
+          />
+          <path d="M294 271H331L326 290Q311 295 299 289Z" fill="#b9674f" />
+          <path
+            d="M311 270V242M311 257Q296 252 299 240Q313 241 311 257M312 248Q323 234 333 239Q329 251 312 248"
+            fill="#617e54"
+            stroke="#315343"
+            stroke-width="1.5"
+          />
+          <path
+            d="M94 299 106 297M369 300 394 295"
+            stroke="#c1c0aa"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </>
+      )
+    }
+    {
+      kind === "contact" && (
+        <>
+          <circle cx="339" cy="113" r="66" fill="#e5bd72" opacity=".27" />
+          <path d="M72 268Q246 231 426 263L405 282Q237 305 93 286Z" fill="#d8bd92" />
+          <path d="M93 286Q246 304 405 282V290Q245 312 93 294Z" fill="#af8b61" />
+          <path d="M111 295V321M388 294V315" stroke="#9b7a54" stroke-width="8" />
+          <ellipse cx="177" cy="262" rx="60" ry="12" fill="#bda782" />
+          <path d="M132 195Q176 186 214 199L208 253Q175 270 140 253Z" fill="#48634a" />
+          <ellipse cx="173" cy="196" rx="41" ry="12" fill="#7c9266" />
+          <ellipse cx="173" cy="195" rx="29" ry="7" fill="#315343" />
+          <path d="M214 206 238 192 247 203 213 232Z" fill="#48634a" />
+          <path d="M237 191 246 187 255 203 247 208Z" fill="#7c9266" />
+          <path d="M144 207Q104 205 103 230Q106 250 139 244" stroke="#48634a" stroke-width="9" />
+          <path d="M145 208Q111 209 111 231Q115 243 138 238" stroke="#93a381" stroke-width="2" />
+          <path d="M145 212 149 247" stroke="#7c9266" stroke-width="4" stroke-linecap="round" />
+          <path d="M160 182Q164 142 145 125M164 166 180 146" stroke="#617e54" stroke-width="2" />
+          <g class="room-leaves">
+            <path
+              d="M161 165Q135 164 132 147Q152 144 161 165M159 150Q165 127 182 130Q181 148 159 150M151 137Q133 134 132 119Q149 117 151 137M170 155Q188 149 195 135Q177 130 170 155"
+              fill="#819763"
+            />
+          </g>
+          <ellipse cx="293" cy="266" rx="41" ry="9" fill="#e7d5b2" stroke="#c2ae8b" />
+          <path d="M272 230H313V253Q313 265 293 265Q272 265 272 253Z" fill="#3159be" />
+          <path d="M314 233Q337 230 333 245Q332 255 313 252" stroke="#3159be" stroke-width="6" />
+          <ellipse cx="293" cy="230" rx="21" ry="5" fill="#6f88c3" />
+          <ellipse cx="293" cy="231" rx="16" ry="3" fill="#6f4a35" />
+          <path d="M278 237V251" stroke="#7791cf" stroke-width="3" stroke-linecap="round" />
+          <g
+            class="room-steam"
+            stroke="#8c927b"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            opacity=".55"
+          >
+            <path d="M285 220C278 210 291 205 284 195" />
+            <path d="M298 219C291 209 304 204 299 192" />
+          </g>
+          <path d="M351 227H377L380 253Q367 263 348 254Z" fill="#c38a6b" />
+          <ellipse cx="364" cy="227" rx="13" ry="4" fill="#9e634c" />
+          <path
+            d="M364 227Q353 193 370 164M361 207 345 188M363 188 386 175"
+            stroke="#617e54"
+            stroke-width="2"
+          />
+          <path
+            d="M361 210Q338 209 336 193Q352 189 361 210M365 192Q378 178 391 185Q385 199 365 192"
+            fill="#819763"
+          />
+          <g fill="#d5a265">
+            <ellipse cx="370" cy="153" rx="5" ry="10" />
+            <ellipse cx="370" cy="174" rx="5" ry="10" />
+            <ellipse cx="359" cy="164" rx="10" ry="5" />
+            <ellipse cx="381" cy="164" rx="10" ry="5" />
+            <ellipse cx="362" cy="156" rx="5" ry="8" transform="rotate(-40 362 156)" />
+            <ellipse cx="378" cy="172" rx="5" ry="8" transform="rotate(-40 378 172)" />
+          </g>
+          <circle cx="370" cy="164" r="6" fill="#7f6144" />
+          <path d="M197 276 234 269 257 279 220 287Z" fill="#f4ead4" stroke="#c4af89" />
+          <path d="M203 277 230 273M211 280 240 276" stroke="#a5a78a" />
+          <path d="M223 270 252 283" stroke="#b9674f" stroke-width="2" stroke-linecap="round" />
+          <path
+            d="M85 140Q96 130 108 140M109 110Q117 101 127 110"
+            stroke="#b2b49b"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </>
+      )
+    }
+  </svg>
+</div>
+
+<style>
+  .room-illustration {
+    width: 100%;
+    isolation: isolate;
+  }
+
+  .room-illustration svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .room-steam {
+    animation: room-steam-rise 6s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center bottom;
+  }
+
+  .room-leaves {
+    animation: room-leaf-sway 7s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center bottom;
+  }
+
+  @keyframes room-steam-rise {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: translateY(2px) scaleX(0.9);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translateY(-5px) scaleX(1.05);
+    }
+  }
+
+  @keyframes room-leaf-sway {
+    0%,
+    100% {
+      transform: rotate(-0.5deg);
+    }
+    50% {
+      transform: rotate(0.75deg);
+    }
+  }
+
+  :global(html[data-motion="off"]) .room-steam,
+  :global(html[data-motion="off"]) .room-leaves,
+  :global(html[data-page-hidden="true"]) .room-steam,
+  :global(html[data-page-hidden="true"]) .room-leaves {
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .room-steam,
+    .room-leaves {
+      animation: none;
+    }
+  }
+</style>

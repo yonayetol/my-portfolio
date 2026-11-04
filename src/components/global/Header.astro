@@ -1,129 +1,99 @@
 ---
-import { profile } from "@/data/profile";
 import { withBase } from "@/utils/paths";
-
-const path = Astro.url.pathname;
+const home = withBase();
 const links = [
-  { label: "Work", href: withBase("work/"), match: "/work" },
-  { label: "About", href: withBase("about/"), match: "/about" },
-  { label: "Credentials", href: withBase("credentials/"), match: "/credentials" },
+  { label: "The home", href: home },
+  { label: "The workshop", href: withBase("work/") },
+  { label: "The kitchen", href: `${home}#kitchen` },
+  { label: "About me", href: withBase("about/") },
 ];
 ---
 
-<header class="site-header" data-header>
-  <div class="shell header-inner">
-    <a class="brand" href={withBase()}>
-      <span class="brand-mark" aria-hidden="true">Y</span>
-      <span class="brand-copy">
-        <strong>{profile.name}</strong>
-        <span>Intelligence workshop</span>
-      </span>
-    </a>
-
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="site-navigation"
-      data-nav-toggle
-    >
-      <span class="sr-only">Open navigation</span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </button>
-
-    <nav id="site-navigation" class="site-nav" aria-label="Primary" data-nav>
-      <div class="nav-links">
-        {
-          links.map((link) => (
-            <a href={link.href} aria-current={path.includes(link.match) ? "page" : undefined}>
-              {link.label}
-            </a>
-          ))
-        }
-      </div>
-      <button
-        class="theme-toggle"
-        type="button"
-        data-theme-toggle
-        aria-label="Switch to light theme"
-        aria-pressed="false"
+<header class="home-header">
+  <div class="home-shell home-header-inner">
+    <a class="home-brand" href={home} aria-label="Yonas. A little home on the web">
+      <svg viewBox="0 0 38 42" fill="none" aria-hidden="true"
+        ><path d="m4 19 15-13 15 13v18H4Z" stroke="currentColor" stroke-width="1.8"></path><path
+          d="M15 37V25h8v12M11 12V6h5"
+          stroke="currentColor"
+          stroke-width="1.8"></path><path
+          d="m15 17 4 4 4-4m-4 4v6"
+          stroke="currentColor"
+          stroke-width="1.5"></path></svg
       >
-        <span class="theme-toggle__icon" aria-hidden="true"><i></i></span>
-        <span data-theme-label>Light</span>
-        <span class="sr-only" data-theme-action>Switch to light theme</span>
-      </button>
-      <a class="button button--small" href={`${withBase()}#contact`} data-nav-contact>
-        <span>Start a conversation</span>
-        <span aria-hidden="true">↗</span>
-      </a>
+      <span>yonas<span class="brand-period">.</span><small>A LITTLE HOME ON THE WEB</small></span>
+    </a>
+    <nav class="home-nav" aria-label="Main navigation">
+      {
+        links.map((link) => (
+          <a href={link.href} aria-current={Astro.url.pathname === link.href ? "page" : undefined}>
+            {link.label}
+          </a>
+        ))
+      }
     </nav>
+    <div class="home-header-actions">
+      <button
+        class="home-day-button"
+        type="button"
+        data-evening
+        aria-label="Switch to evening"
+        aria-pressed="false"
+        ><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+          ><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"></circle><path
+            d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"
+            stroke="currentColor"
+            stroke-width="1.5"></path></svg
+        ></button
+      >
+      <a class="home-header-contact" href={`${home}#contact`}
+        >Say hello <span aria-hidden="true">↗</span></a
+      >
+      <button class="home-map-trigger" data-map-open aria-label="Open house map" type="button"
+        ><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+          ><path
+            d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm11 0h7v7h-7z"
+            stroke="currentColor"
+            stroke-width="1.5"></path></svg
+        ><span>House map</span></button
+      >
+    </div>
   </div>
 </header>
-
-<script>
-  const initNavigation = () => {
-    const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
-    const navigation = document.querySelector<HTMLElement>("[data-nav]");
-    const themeToggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
-    if (!toggle || !navigation || toggle.dataset.ready === "true") return;
-
-    toggle.dataset.ready = "true";
-
-    const close = () => {
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.querySelector(".sr-only")!.textContent = "Open navigation";
-      navigation.removeAttribute("data-open");
-      document.body.removeAttribute("data-nav-open");
-    };
-
-    toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      toggle.querySelector(".sr-only")!.textContent = open ? "Open navigation" : "Close navigation";
-      navigation.toggleAttribute("data-open", !open);
-      document.body.toggleAttribute("data-nav-open", !open);
-    });
-
-    navigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        close();
-        toggle.focus();
-      }
-    });
-    window.matchMedia("(min-width: 801px)").addEventListener("change", close);
-
-    const syncThemeControl = () => {
-      if (!themeToggle) return;
-      const light = document.documentElement.dataset.theme === "light";
-      const actionText = light ? "Switch to dark theme" : "Switch to light theme";
-      themeToggle.setAttribute("aria-pressed", String(light));
-      themeToggle.setAttribute("aria-label", actionText);
-      const label = themeToggle.querySelector<HTMLElement>("[data-theme-label]");
-      const action = themeToggle.querySelector<HTMLElement>("[data-theme-action]");
-      if (label) label.textContent = light ? "Dark" : "Light";
-      if (action) action.textContent = actionText;
-    };
-
-    themeToggle?.addEventListener("click", () => {
-      const nextTheme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-      document.documentElement.dataset.theme = nextTheme;
-      document.documentElement.style.colorScheme = nextTheme;
-      document
-        .querySelector<HTMLMetaElement>('meta[name="theme-color"]')
-        ?.setAttribute("content", nextTheme === "light" ? "#f4f2ec" : "#080a0f");
-      try {
-        localStorage.setItem("portfolio-theme", nextTheme);
-      } catch {
-        // The selected theme still applies for the current page when storage is unavailable.
-      }
-      syncThemeControl();
-    });
-
-    syncThemeControl();
-  };
-
-  document.addEventListener("astro:page-load", initNavigation);
-  initNavigation();
-</script>
+<dialog class="home-map" data-house-map aria-labelledby="map-title">
+  <div class="home-map-top">
+    <span class="home-eyebrow">MAKE YOURSELF AT HOME</span><button
+      type="button"
+      data-map-close
+      aria-label="Close house map">✕</button
+    >
+  </div>
+  <h2 id="map-title">Where shall we go?</h2><p>A little space for everything I care about.</p>
+  <nav aria-label="House map" class="home-map-rooms">
+    <a href={`${home}#main-room`}
+      ><span>01 / MAIN ROOM</span><strong>Meet the person</strong><small>About & experience ↗</small
+      ></a
+    >
+    <a href={`${home}#workshop`}
+      ><span>02 / WORKSHOP</span><strong>Things I’ve built</strong><small>Selected projects ↗</small
+      ></a
+    >
+    <a href={`${home}#kitchen`}
+      ><span>03 / KITCHEN</span><strong>What’s cooking</strong><small>Work in progress ↗</small></a
+    >
+    <a href={`${home}#garden`}
+      ><span>04 / GARDEN</span><strong>Ideas taking root</strong><small
+        >Learning & connections ↗</small
+      ></a
+    >
+    <a href={withBase("credentials/")}
+      ><span>05 / READING NOOK</span><strong>A shelf of learning</strong><small>Credentials ↗</small
+      ></a
+    >
+    <a href={`${home}#contact`}
+      ><span>06 / VERANDA</span><strong>Start a conversation</strong><small>Contact & links ↗</small
+      ></a
+    >
+  </nav>
+  <a class="home-link" href={withBase("quick-view/")}>Just the essentials? Take the quick view ↗</a>
+</dialog>

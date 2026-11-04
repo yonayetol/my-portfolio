@@ -1,342 +1,454 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import SectionHeader from "@/components/SectionHeader.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
-import ProofGraph from "@/components/ProofGraph.astro";
-import ContactSection from "@/components/ContactSection.astro";
-import AlgorithmProfile from "@/components/AlgorithmProfile.astro";
-import CredentialViewer from "@/components/CredentialViewer.astro";
+import HouseScene from "@/components/home/HouseScene.astro";
+import RoomIllustration from "@/components/home/RoomIllustration.astro";
+import { profile, learning } from "@/data/profile";
 import { projects } from "@/data/projects";
-import { capabilityClusters, experience, learning, profile } from "@/data/profile";
-import { credentials } from "@/data/credentials";
 import { withBase } from "@/utils/paths";
-
-const featuredProjects = projects.slice(0, 3);
-const sections = [
-  { id: "top", index: "00", label: "Intro" },
-  { id: "selected-work", index: "01", label: "Work" },
-  { id: "capabilities", index: "02", label: "Systems" },
-  { id: "experience", index: "03", label: "Trajectory" },
-  { id: "learning", index: "04", label: "Learning" },
-  { id: "algorithmic-proof", index: "05", label: "Proof" },
-  { id: "credentials", index: "06", label: "Credentials" },
-  { id: "operating-manual", index: "07", label: "About" },
-  { id: "contact", index: "08", label: "Contact" },
+const rooms = [
+  ["01", "Main room", "A little about me", "#main-room"],
+  ["02", "Workshop", "Things I’ve built", "#workshop"],
+  ["03", "Kitchen", "What’s cooking", "#kitchen"],
+  ["04", "Garden", "Always growing", "#garden"],
+  ["05", "Reading nook", "Collected learning", withBase("credentials/")],
+  ["06", "Veranda", "A conversation", "#contact"],
+];
+const topics = [
+  {
+    id: "reasoning",
+    title: "Symbolic reasoning",
+    note: "In the workshop",
+    description:
+      "Represent knowledge, connect ideas, and find patterns worth noticing. My work with Hyperon explores how a system can reason over what it knows.",
+    project: "MM2 Pattern Miner",
+    slug: "mm2-pattern-miner",
+    tags: ["Hyperon", "MeTTa", "Pattern mining"],
+  },
+  {
+    id: "learning",
+    title: "Machine learning",
+    note: "Established roots",
+    description:
+      "Start with the mathematics. Implement the algorithm. Test what it actually learned. My learning practice connects studied foundations to hands-on experiments.",
+    project: "ML Engineering Dojo",
+    slug: "ml-engineering-dojo",
+    tags: ["Regression", "Model evaluation", "PyTorch"],
+  },
+  {
+    id: "building",
+    title: "Production systems",
+    note: "Out in the world",
+    description:
+      "Good software needs more than a working model. Data, permissions, deployment, and the conditions people actually use it in all belong to the same system.",
+    project: "Nexora IMS",
+    slug: "nexora-ims",
+    tags: ["PostgreSQL", "Docker", "Linux"],
+  },
 ];
 ---
 
-<BaseLayout sections={sections}>
+<BaseLayout
+  title="Yonas — A home for ideas, a workshop for what’s next"
+  description="Step into Yonas’s little home on the web. Explore AI engineering, real-world software, work in progress, and ideas taking root in Addis Ababa."
+>
   <main id="main-content">
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-grid shell">
-        <div class="hero-copy" data-reveal data-visible="true">
-          <div class="hero-overline">
-            <span class="signal-dot"></span>
-            <span>AI engineer · Software builder</span>
-            <span class="hero-overline__location">Addis Ababa / ET</span>
-          </div>
-          <h1 id="hero-title">
-            I build intelligent systems from <em>first principles</em>—and ship them into the real
-            world.
-          </h1>
-          <p class="hero-lede">{profile.support}</p>
-          <div class="hero-actions">
-            <a class="button" href="#selected-work">
-              <span>Explore selected work</span><span aria-hidden="true">↓</span>
-            </a>
-            <a class="button button--ghost" href={`mailto:${profile.email}`}>
-              <span>Start a conversation</span><span aria-hidden="true">↗</span>
-            </a>
-          </div>
+    <section class="home-arrival home-shell" aria-labelledby="welcome-title">
+      <div class="arrival-copy">
+        <p class="home-eyebrow"><span class="home-dot"></span> ADDIS ABABA, ETHIOPIA</p>
+        <h1 id="welcome-title">
+          A curious mind.<br />An open door<span class="heading-dot">.</span>
+        </h1>
+        <p class="arrival-intro">
+          Hey, I’m <strong>Yonas.</strong> An AI engineer, software builder, and a firm believer that
+          good things start with curiosity.
+        </p>
+        <p class="arrival-welcome">
+          Welcome to my little home on the internet.<br />Come in. There’s a lot taking shape here.
+        </p>
+        <div class="arrival-actions">
+          <a class="home-button" href="#workshop"
+            >Explore my work <span aria-hidden="true">↗</span></a
+          ><a class="home-link" href="#main-room">Come inside <span aria-hidden="true">→</span></a>
         </div>
-
-        <div class="hero-system" data-reveal data-visible="true" aria-label="Current system focus">
-          <div class="hero-system__header">
-            <span>WHAT I'M BUILDING</span>
-            <span><i></i> ACTIVE PRACTICE</span>
-          </div>
-          <div class="hero-system__body">
-            <article class="workbench-card workbench-card--primary">
-              <div class="workbench-card__meta">
-                <span>Nexora IMS</span><span class="workbench-state workbench-state--shipped"
-                  >Shipped</span
-                >
-              </div>
-              <h2>School operations, carried through deployment.</h2>
-              <p>Role-aware administration, PostgreSQL, SMS, Docker, and live hosting.</p>
-              <div class="workbench-stack" aria-label="Nexora IMS technologies">
-                <span>PostgreSQL</span><span>Docker</span><span>LiteSpeed</span>
-              </div>
-            </article>
-            <article class="workbench-card">
-              <div class="workbench-card__meta">
-                <span>MM2 Pattern Miner</span><span class="workbench-state">In progress</span>
-              </div>
-              <h2>Find symbolic patterns worth noticing.</h2>
-              <p class="workbench-sequence">support → expand → score</p>
-            </article>
-            <article class="workbench-card">
-              <div class="workbench-card__meta">
-                <span>Berhan</span><span class="workbench-state workbench-state--amber"
-                  >In progress</span
-                >
-              </div>
-              <h2>Calmer donation journeys across distance.</h2>
-              <p>Local and diaspora giving · recurring support · donor privacy</p>
-            </article>
-          </div>
-          <div class="hero-system__footer">
-            <span>Symbolic AI</span><span>Product systems</span><span>Production engineering</span>
-          </div>
+        <div class="arrival-note">
+          <svg width="42" height="35" viewBox="0 0 42 35" fill="none" aria-hidden="true"
+            ><path
+              d="M2 3c21-7 10 26 35 19m-9-7 10 7-9 8"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"></path></svg
+          ><span>Every room has a story.<br />Make yourself at home.</span>
         </div>
       </div>
-
-      <div class="hero-marquee" aria-hidden="true">
-        <div>
-          <span>SYMBOLIC AI</span><i></i><span>MACHINE LEARNING</span><i></i><span
-            >PRODUCT SYSTEMS</span
-          ><i></i><span>TECHNICAL TEACHING</span><i></i><span>PRODUCTION ENGINEERING</span><i></i>
-          <span>SYMBOLIC AI</span><i></i><span>MACHINE LEARNING</span><i></i><span
-            >PRODUCT SYSTEMS</span
-          ><i></i><span>TECHNICAL TEACHING</span><i></i><span>PRODUCTION ENGINEERING</span><i></i>
-        </div>
-      </div>
-      <a class="hero-scroll-cue" href="#selected-work">
-        <span>Scroll to inspect</span><i aria-hidden="true"></i>
-      </a>
-    </section>
-
-    <section class="proof-strip" aria-label="Current roles and focus">
-      <div class="shell proof-strip__grid">
-        <div>
-          <p>Co-founder & Deputy Manager</p>
-          <strong>Nexora Technology PLC</strong>
-        </div>
-        <div>
-          <p>Programmer · Trainer · Evaluator</p>
-          <strong>iCog Labs</strong>
-        </div>
-        <div>
-          <p>Research direction</p>
-          <strong>Symbolic + learning systems</strong>
-        </div>
-        <div>
-          <p>Operating from</p>
-          <strong>Addis Ababa, Ethiopia</strong>
-        </div>
-      </div>
-    </section>
-
-    <section class="section work-section" id="selected-work">
-      <div class="shell">
-        <SectionHeader
-          index="01"
-          eyebrow="Selected work"
-          title="Systems with a reason to exist."
-          description="Production software, symbolic intelligence, and product infrastructure—each shown with its status and the engineering decisions underneath."
-        />
-        <div class="featured-work">
-          {featuredProjects.map((project) => <ProjectCard project={project} layout="feature" />)}
-        </div>
-        <div class="section-action" data-reveal>
-          <p>Four active records in the workshop.</p>
-          <a class="button button--ghost" href={withBase("work/")}
-            >View all work <span aria-hidden="true">↗</span></a
+      <div class="arrival-scene">
+        <div class="scene-caption">
+          <span class="caption-line"></span> A HOME FOR IDEAS & THE THINGS THEY BECOME
+        </div><HouseScene /><div class="scene-bottom">
+          <span><i class="home-dot"></i> A little world. A work in progress.</span><button
+            type="button"
+            data-map-open>Take a look around <span aria-hidden="true">⌘</span></button
           >
         </div>
       </div>
     </section>
-
-    <section class="section capabilities-section" id="capabilities">
-      <div class="shell">
-        <SectionHeader
-          index="02"
-          eyebrow="Capabilities in practice"
-          title="One practice. Four connected systems."
-          description="I do not treat AI, product, and deployment as isolated skills. Each one changes the decisions made in the others."
-        />
-        <ProofGraph />
-        <div class="capability-grid">
-          {
-            capabilityClusters.map((cluster) => (
-              <article class="capability-card" data-reveal>
-                <div class="capability-card__top">
-                  <span>{cluster.signal}</span>
-                  <span>Demonstrated practice</span>
-                </div>
-                <h3>{cluster.title}</h3>
-                <p>{cluster.description}</p>
-                <ul class="tag-list">
-                  {cluster.tools.map((tool) => (
-                    <li>{tool}</li>
-                  ))}
-                </ul>
-              </article>
-            ))
-          }
-        </div>
+    <nav class="room-directory home-shell" aria-label="Explore the rooms">
+      {
+        rooms.map(([n, title, desc, url]) => (
+          <a href={url}>
+            <>
+              <span class="directory-number">{n}</span>
+              <strong>
+                {title}
+                <span aria-hidden="true">↗</span>
+              </strong>
+              <small>{desc}</small>
+            </>
+          </a>
+        ))
+      }
+    </nav>
+    <section
+      id="main-room"
+      class="home-room main-room home-shell"
+      aria-labelledby="main-room-title"
+    >
+      <div class="main-room-photo" data-home-reveal>
+        <div class="portrait-frame">
+          <img
+            src={withBase("images/yonas-portrait-small.webp")}
+            alt="Yonas"
+            width="900"
+            height="1200"
+            loading="lazy"
+          /><span class="photo-tape"></span>
+        </div><span class="portrait-caption">the person behind the projects.</span><svg
+          class="portrait-sprig"
+          viewBox="0 0 80 140"
+          fill="none"
+          aria-hidden="true"
+          ><path
+            d="M39 137c-4-57 3-87 27-124M40 100 12 76M42 77l28-19M49 51 32 29"
+            stroke="currentColor"
+            stroke-width="2"></path><path
+            d="M11 76C-4 44 37 49 39 99M70 58c15-32-28-22-28 19M32 29c-5-25 30-20 17 22"
+            fill="currentColor"></path></svg
+        >
+      </div>
+      <div class="main-room-copy" data-home-reveal>
+        <p class="home-eyebrow">01 / THE MAIN ROOM · ABOUT ME</p><h2 id="main-room-title">
+          A builder at heart.<br />A learner, always.
+        </h2><p>
+          I’m drawn to the space between <em>“what if?”</em> and something that actually works. Sometimes
+          that’s a symbolic AI system. Sometimes it’s software that makes a school’s day a little easier.
+        </p><p>
+          From co-founding Nexora to programming and teaching at iCog Labs, the thread is the same:
+          understand deeply, build thoughtfully, and share what I learn.
+        </p><div class="main-room-roles">
+          <span>Nexora <small>Co-founder</small></span><span
+            >iCog Labs <small>Programmer & trainer</small></span
+          ><span>A2SV <small>Generation 6 alumnus</small></span>
+        </div><a class="home-link" href={withBase("about/")}
+          >A little more about me <span aria-hidden="true">↗</span></a
+        >
       </div>
     </section>
-
-    <section class="section experience-section" id="experience">
-      <div class="shell">
-        <SectionHeader
-          index="03"
-          eyebrow="Experience"
-          title="Building and teaching are part of the same loop."
-          description="Shipping clarifies what matters. Teaching reveals whether the understanding is real."
-        />
-        <div class="timeline" data-reveal>
-          {
-            experience.map((item, index) => (
-              <article class="timeline-item">
-                <div class="timeline-marker">
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <i aria-hidden="true" />
-                </div>
-                <div class="timeline-main">
-                  <p class="eyebrow">{item.marker}</p>
-                  <h3>{item.organization}</h3>
-                </div>
-                <div class="timeline-detail">
-                  <strong>{item.role}</strong>
-                  <p>{item.detail}</p>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <section class="section learning-section" id="learning">
-      <div class="shell learning-layout">
-        <div class="learning-copy" data-reveal>
-          <p class="section-kicker"><span>04</span><span>Learning system</span></p>
-          <h2>The edge keeps moving. So does the work.</h2>
-          <p>
-            I prefer to understand an algorithm below its abstraction, test it against evidence, and
-            only then reach for the framework.
-          </p>
-          <a class="text-link" href={withBase("work/ml-engineering-dojo/")}
-            >Enter the ML Dojo <span aria-hidden="true">↗</span></a
-          >
-        </div>
-        <div class="learning-board" data-reveal>
-          <div class="learning-board__column">
-            <div class="learning-board__header">
-              <span class="status-dot status-dot--done"></span><span>Studied foundations</span
-              ><strong>{learning.completed.length}</strong>
-            </div>
-            <ol>
-              {
-                learning.completed.map((item, index) => (
-                  <li>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    {item}
-                  </li>
-                ))
-              }
-            </ol>
-          </div>
-          <div class="learning-board__column learning-board__column--active">
-            <div class="learning-board__header">
-              <span class="status-dot"></span><span>Current frontier</span><strong
-                >{learning.current.length}</strong
-              >
-            </div>
-            <ol>
-              {
-                learning.current.map((item, index) => (
-                  <li>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    {item}
-                  </li>
-                ))
-              }
-            </ol>
+    <section id="workshop" class="home-workshop home-room" aria-labelledby="workshop-title">
+      <div class="home-shell">
+        <div class="home-section-heading" data-home-reveal>
+          <div>
+            <p class="home-eyebrow">02 / THE WORKSHOP · SELECTED WORK</p><h2 id="workshop-title">
+              Ideas, with their<br /><em>sleeves rolled up.</em>
+            </h2>
+          </div><div>
+            <p>
+              A few things I’ve taken from a question<br class="desktop-break" /> to code, systems, and
+              the real world.
+            </p><a class="home-link" href={withBase("work/")}>See everything on the workbench ↗</a>
           </div>
         </div>
-      </div>
-    </section>
-
-    <AlgorithmProfile />
-
-    <section class="section credentials-preview" id="credentials">
-      <div class="shell">
-        <SectionHeader
-          index="06"
-          eyebrow="Credentials"
-          title="Formal checkpoints along a self-directed path."
-          description="Mathematics, machine learning, deep learning, NLP, and AI-assisted software engineering."
-        />
-        <div class="credential-rail" data-reveal>
+        <div class="home-project-grid">
           {
-            credentials.slice(0, 6).map((credential, index) => (
+            projects.slice(0, 3).map((project, index) => (
               <a
-                href={credential.href}
-                target="_blank"
-                rel="noreferrer"
-                class="credential-card"
-                data-credential-open={index}
-                aria-label={`Preview ${credential.title}`}
+                class:list={["home-project", `home-project-${index}`]}
+                href={withBase(`work/${project.slug}/`)}
+                data-home-reveal
               >
-                <div>
-                  <>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <span>{credential.category}</span>
-                  </>
+                <div class="home-project-art">
+                  <span class="project-art-index">OBJECT / 0{index + 1}</span>
+                  {index === 0 ? (
+                    <div class="project-browser">
+                      <div class="project-browser-bar">
+                        <i />
+                        <i />
+                        <i />
+                        <span>nexora / school operations</span>
+                      </div>
+                      <img
+                        src={withBase("images/projects/nexora-ims-school-life-small.webp")}
+                        alt="Nexora IMS school website"
+                        width="1600"
+                        height="900"
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : index === 1 ? (
+                    <svg class="project-graph-art" viewBox="0 0 360 230" aria-hidden="true">
+                      <g fill="none" stroke="#6a7d5e" stroke-width="1.5">
+                        <path d="m51 130 76-78 65 75 64-87 57 89-57 58-64-60-65 67-76-64Zm76-78v142m129-154v147M51 130l141-3 121 2" />
+                        <ellipse
+                          cx="182"
+                          cy="124"
+                          rx="159"
+                          ry="83"
+                          stroke-dasharray="3 7"
+                          opacity=".3"
+                        />
+                      </g>
+                      {[
+                        [51, 130],
+                        [127, 52],
+                        [127, 194],
+                        [192, 127],
+                        [256, 40],
+                        [256, 187],
+                        [313, 129],
+                      ].map(([x, y], i) => (
+                        <g>
+                          <circle
+                            cx={x}
+                            cy={y}
+                            r={i === 3 ? 24 : 12}
+                            fill={i === 3 ? "#315343" : "#f6f2e9"}
+                            stroke="#315343"
+                            stroke-width="1.5"
+                          />
+                          <circle cx={x} cy={y} r="3" fill={i === 3 ? "#f6f2e9" : "#b9674f"} />
+                        </g>
+                      ))}
+                    </svg>
+                  ) : (
+                    <div class="berhan-object">
+                      <span class="berhan-sun" aria-hidden="true">
+                        ✳
+                      </span>
+                      <strong>berhan</strong>
+                      <span>Small acts. Shared light.</span>
+                      <div class="berhan-path" aria-hidden="true">
+                        <i />
+                        <b />
+                        <i />
+                        <b />
+                        <i />
+                      </div>
+                    </div>
+                  )}
+                  <span class="project-art-note">
+                    {index === 0
+                      ? "Built for real school days."
+                      : index === 1
+                        ? "Finding patterns in the possibility."
+                        : "A more connected way to give."}
+                  </span>
                 </div>
-                <h3>{credential.title}</h3>
-                <p>
-                  {credential.provider}
-                  <span aria-hidden="true">↗</span>
-                </p>
+                <>
+                  <div class="home-project-meta">
+                    <>
+                      <span
+                        class:list={[
+                          "home-project-status",
+                          { "is-shipped": project.status === "shipped" },
+                        ]}
+                      >
+                        <i />
+                        {project.statusLabel}
+                      </span>
+                      <span>0{index + 1} ↗</span>
+                    </>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p>{project.summary}</p>
+                  <div class="home-project-tags">
+                    {project.disciplines.slice(0, 3).map((tag) => (
+                      <span>{tag}</span>
+                    ))}
+                  </div>
+                </>
               </a>
             ))
           }
         </div>
-        <div class="section-action" data-reveal>
-          <p>9 supplied certificates across 3 learning tracks.</p>
-          <a class="button button--ghost" href={withBase("credentials/")}
-            >Browse credentials <span aria-hidden="true">↗</span></a
+      </div>
+    </section>
+    <section id="kitchen" class="home-room home-kitchen home-shell" aria-labelledby="kitchen-title">
+      <div class="kitchen-intro" data-home-reveal>
+        <p class="home-eyebrow">03 / THE KITCHEN · IN PROGRESS</p><h2 id="kitchen-title">
+          Something good<br />is <em>cooking.</em>
+        </h2><p>
+          Not everything is ready to serve.<br />Here’s what’s getting my attention.
+        </p><RoomIllustration kind="kitchen" />
+      </div>
+      <div class="recipe-board" data-home-reveal>
+        <div class="recipe-board-heading">
+          <span class="home-eyebrow">ON THE STOVE</span><span>Two recipes in progress</span>
+        </div>
+        {
+          projects
+            .filter((p) => p.status === "in-progress")
+            .map((project, index) => (
+              <details class="home-recipe" open={index === 0}>
+                <>
+                  <summary>
+                    <>
+                      <span class="recipe-number">0{index + 1}</span>
+                      <span>
+                        <>
+                          <small>
+                            {index === 0 ? "A LITTLE REASONING" : "A LITTLE CONNECTION"}
+                          </small>
+                          <strong>{project.title}</strong>
+                        </>
+                      </span>
+                      <span class="recipe-plus" aria-hidden="true">
+                        +
+                      </span>
+                    </>
+                  </summary>
+                  <div class="recipe-body">
+                    <>
+                      <p>
+                        {index === 0
+                          ? "Finding meaningful patterns in a hypergraph. A mix of symbolic reasoning, careful filtering, and asking what makes a pattern surprising."
+                          : "Building a calmer way for local and diaspora donors to support Ethiopian charities. Flexible giving, with trust at the center."}
+                      </p>
+                      <span class="recipe-label">THE INGREDIENTS</span>
+                      <div class="recipe-ingredients">
+                        {project.disciplines.slice(0, 4).map((tag) => (
+                          <span>{tag}</span>
+                        ))}
+                      </div>
+                      <a class="home-link" href={withBase(`work/${project.slug}/`)}>
+                        Open the recipe ↗
+                      </a>
+                    </>
+                  </div>
+                </>
+              </details>
+            ))
+        }
+        <p class="recipe-footnote">A peek at the process. Both projects are in progress.</p>
+      </div>
+    </section>
+    <section id="garden" class="home-garden home-room" aria-labelledby="garden-title">
+      <div class="home-shell garden-layout">
+        <div data-home-reveal>
+          <p class="home-eyebrow">04 / THE GARDEN · LEARNING</p><h2 id="garden-title">
+            Good things<br />take <em>growing.</em>
+          </h2><p>
+            Some ideas have deep roots. Others are just<br class="desktop-break" /> beginning to reach
+            for the light.
+          </p><RoomIllustration kind="garden" /><span class="garden-handnote"
+            >a little tending, every day.</span
           >
+        </div><div class="garden-notebook" data-home-reveal>
+          <p class="home-eyebrow">FROM AN IDEA TO SOMETHING REAL</p><h3>
+            Follow a growing thread.
+          </h3><div class="garden-topics" role="group" aria-label="Explore learning connections">
+            {
+              topics.map((topic, i) => (
+                <button
+                  type="button"
+                  data-garden-topic={topic.id}
+                  aria-pressed={i === 0}
+                  aria-controls={`garden-${topic.id}`}
+                >
+                  <span>0{i + 1}</span>
+                  {topic.title}
+                  <span aria-hidden="true">↗</span>
+                </button>
+              ))
+            }
+          </div>{
+            topics.map((topic, i) => (
+              <div
+                class="garden-topic-panel"
+                id={`garden-${topic.id}`}
+                data-garden-panel={topic.id}
+                hidden={i !== 0}
+              >
+                <>
+                  <span class="garden-panel-note">{topic.note}</span>
+                  <p>{topic.description}</p>
+                  <div class="recipe-ingredients">
+                    {topic.tags.map((tag) => (
+                      <span>{tag}</span>
+                    ))}
+                  </div>
+                  <a class="garden-evidence" href={withBase(`work/${topic.slug}/`)}>
+                    <>
+                      <span class="garden-thread" aria-hidden="true" />
+                      <small>GROWING THROUGH</small>
+                      <strong>{topic.project} ↗</strong>
+                    </>
+                  </a>
+                </>
+              </div>
+            ))
+          }<noscript
+            ><p>
+              Explore the <a href={withBase("work/")}>workshop</a> for all learning connections.
+            </p></noscript
+          ><div class="garden-current">
+            <span>Currently exploring</span><p>{learning.current.slice(0, 4).join(" · ")}</p>
+          </div>
         </div>
       </div>
     </section>
-
-    <section class="about-bridge" id="operating-manual">
-      <div class="shell about-bridge__grid" data-reveal>
-        <figure
-          class="about-bridge__portrait"
-          style={`--portrait-image: url(${withBase("images/yonas-portrait.jpg")})`}
-        >
-          <img
-            src={withBase("images/yonas-portrait.jpg")}
-            alt="Portrait of Yonas"
-            width="900"
-            height="1200"
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption><strong>Yonas</strong><span>Addis Ababa, Ethiopia</span></figcaption>
-        </figure>
-        <div class="about-bridge__copy">
-          <p class="eyebrow">Based in Addis Ababa · Building beyond boundaries</p>
-          <h2>First principles are not an aesthetic. They are how I get unstuck.</h2>
-          <p>
-            I move between code, mathematical reasoning, technical training, and production
-            operations. The common thread is a need to understand the system well enough to improve
-            it—and explain it clearly enough for others to build on.
-          </p>
-          <a class="text-link" href={withBase("about/")}
-            >More about how I work <span aria-hidden="true">↗</span></a
-          >
+    <section class="home-reading home-shell" aria-labelledby="reading-title">
+      <div class="reading-books" aria-hidden="true">
+        <span>MATHEMATICS</span><span>REASONING</span><span>LEARN & BUILD</span><i></i>
+      </div><div>
+        <p class="home-eyebrow">05 / THE READING NOOK</p><h2 id="reading-title">
+          A few things from the bookshelf.
+        </h2><p>
+          Formal learning, mathematical foundations, and a steady practice of solving problems.
+        </p>
+      </div><a class="home-link" href={withBase("credentials/")}>Browse the collection ↗</a>
+    </section>
+    <section id="contact" class="home-contact home-room" aria-labelledby="contact-title">
+      <div class="home-shell contact-layout">
+        <div data-home-reveal>
+          <p class="home-eyebrow">06 / THE VERANDA · LET’S TALK</p><h2 id="contact-title">
+            There’s room for<br />another <em>good idea.</em>
+          </h2><p>
+            A project to build? A question to explore?<br />Or just a hello. I’d love to hear from
+            you.
+          </p><a class="home-button" href={`mailto:${profile.email}`}
+            >Pull up a chair <span aria-hidden="true">↗</span></a
+          ><div class="contact-email">
+            <a href={`mailto:${profile.email}`}>{profile.email}</a><button
+              type="button"
+              data-copy-email={profile.email}
+              aria-label="Copy email address"
+              ><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+                ><rect
+                  x="8"
+                  y="8"
+                  width="12"
+                  height="12"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.5"></rect><path
+                  d="M15 8V4H4v11h4"
+                  stroke="currentColor"
+                  stroke-width="1.5"></path></svg
+              ></button
+            >
+          </div><p class="copy-status" aria-live="polite" data-copy-status></p>
+        </div><div class="contact-art" data-home-reveal>
+          <RoomIllustration kind="contact" /><span>good conversations grow good things.</span>
         </div>
       </div>
     </section>
-
-    <ContactSection />
-    <CredentialViewer />
   </main>
 </BaseLayout>

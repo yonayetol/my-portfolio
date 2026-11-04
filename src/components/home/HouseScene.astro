@@ -1,0 +1,784 @@
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+const flowers: [number, number][] = [
+  [157, 505],
+  [179, 489],
+  [198, 513],
+  [221, 495],
+  [244, 516],
+  [758, 519],
+  [779, 503],
+  [805, 526],
+  [831, 509],
+  [854, 534],
+];
+const trees = [
+  { x: 147, y: 270, scale: 1.1 },
+  { x: 822, y: 248, scale: 0.91 },
+];
+---
+
+<div class:list={["house-scene", { "house-scene--compact": compact }]}>
+  <svg class="house-art" viewBox="0 0 1000 740" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient
+        id="house-plaster"
+        x1="300"
+        y1="200"
+        x2="550"
+        y2="470"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#FFF5DB"></stop>
+        <stop offset="1" stop-color="#E4D2AD"></stop>
+      </linearGradient>
+      <linearGradient
+        id="house-roof"
+        x1="400"
+        y1="100"
+        x2="400"
+        y2="300"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#D49773"></stop>
+        <stop offset="1" stop-color="#A75F48"></stop>
+      </linearGradient>
+      <linearGradient
+        id="house-lawn"
+        x1="260"
+        y1="400"
+        x2="600"
+        y2="660"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#B9BE85"></stop>
+        <stop offset="1" stop-color="#D5D2A0"></stop>
+      </linearGradient>
+      <linearGradient id="house-glass" x1="0" x2="1" y1="0" y2="1">
+        <stop stop-color="#EBD598"></stop>
+        <stop offset="1" stop-color="#D4B676"></stop>
+      </linearGradient>
+      <linearGradient id="house-blue" x1="0" x2="1" y1="0" y2="1">
+        <stop stop-color="#5278C0"></stop>
+        <stop offset="1" stop-color="#274F96"></stop>
+      </linearGradient>
+      <radialGradient id="house-sun-halo">
+        <stop stop-color="#EFCB78" stop-opacity="0.28"></stop>
+        <stop offset="1" stop-color="#EFCB78" stop-opacity="0"></stop>
+      </radialGradient>
+      <pattern
+        id="house-roof-tiles"
+        width="23"
+        height="18"
+        patternUnits="userSpaceOnUse"
+        patternTransform="skewX(-20)"
+      >
+        <path
+          d="M0 0V12Q11.5 22 23 12V0M0 1H23"
+          stroke="#8E503D"
+          stroke-opacity="0.45"
+          stroke-width="1.2"></path>
+        <path d="M3 2V11" stroke="#EDB58C" stroke-opacity="0.7" stroke-width="2"></path>
+      </pattern>
+      <pattern
+        id="house-pavers"
+        width="44"
+        height="24"
+        patternUnits="userSpaceOnUse"
+        patternTransform="rotate(16)"
+      >
+        <path
+          d="M0 0H44V24H0ZM22 0V12M0 12H44"
+          stroke="#B89C7D"
+          stroke-width="0.75"
+          stroke-opacity="0.45"></path>
+      </pattern>
+      <pattern id="house-wall-grain" width="31" height="29" patternUnits="userSpaceOnUse">
+        <circle cx="5" cy="9" r="0.7" fill="#92775B" opacity="0.19"></circle>
+        <circle cx="23" cy="22" r="0.6" fill="#92775B" opacity="0.15"></circle>
+        <path d="M16 3H19M4 25H7" stroke="#FFFFFF" stroke-opacity="0.3"></path>
+      </pattern>
+      <symbol id="house-shrub" viewBox="0 0 100 65">
+        <path
+          d="M7 53C-4 39 5 21 21 24C17 8 39 2 49 16C58-1 81 5 81 23C98 20 109 48 89 56Z"
+          fill="#6C8551"></path>
+        <path
+          d="M9 45C17 30 31 28 43 42C46 22 69 20 80 40C85 35 94 40 95 49L89 56L7 53Z"
+          fill="#526E47"></path>
+        <path
+          d="M21 27L26 38M51 18L49 31M72 26L65 36"
+          stroke="#9EAD6D"
+          stroke-width="2"
+          stroke-linecap="round"></path>
+      </symbol>
+      <symbol id="house-tree" viewBox="0 0 150 250">
+        <path
+          d="M73 242L77 105M76 177L45 137M77 154L108 112M75 131L57 97"
+          stroke="#796446"
+          stroke-width="8"
+          stroke-linecap="round"></path>
+        <path d="M69 242L75 155L79 155L83 242" fill="#8C7451"></path>
+        <path
+          d="M26 153C-3 143-4 112 14 96C-4 71 13 49 32 48C29 19 51 4 72 14C93-3 122 15 119 38C148 38 156 67 140 86C160 109 144 138 124 139C105 164 90 159 77 151C58 169 41 165 26 153Z"
+          fill="#82935C"></path>
+        <path
+          d="M26 153C6 145 1 128 7 114C24 127 40 120 43 103C57 123 76 117 85 100C98 118 125 104 130 87C149 98 151 122 124 139C105 164 90 159 77 151C58 169 41 165 26 153Z"
+          fill="#617D4D"></path>
+        <path
+          d="M33 59C31 39 51 27 65 34M86 27C106 23 116 39 113 53M17 85C27 73 42 77 43 87M62 64C70 48 87 51 95 65M103 82C116 70 128 77 130 88"
+          stroke="#A8B67A"
+          stroke-width="9"
+          stroke-linecap="round"></path>
+        <path
+          d="M28 132L40 126M63 147L73 137M105 122L116 114M57 94L66 84"
+          stroke="#A8B67A"
+          stroke-width="3"
+          stroke-linecap="round"></path>
+      </symbol>
+      <symbol id="house-pot" viewBox="0 0 50 75">
+        <path
+          d="M24 45V12M24 28C1 29 3 12 4 11C21 9 24 28 24 28ZM25 20C25 4 42 1 45 4C46 19 25 20 25 20ZM25 39C26 24 46 23 46 26C45 40 25 39 25 39Z"
+          fill="#56764B"></path>
+        <path d="M7 43H43L38 70Q25 77 12 70Z" fill="#BD7958"></path>
+        <path d="M8 44H41L39 51H10Z" fill="#D99B70"></path>
+        <path d="M15 54L18 68" stroke="#E4AF83" stroke-width="3" stroke-linecap="round"></path>
+      </symbol>
+    </defs>
+
+    <!-- The illustration is deliberately all vector: sharp, light, and editable. -->
+    <circle cx="695" cy="166" r="163" fill="url(#house-sun-halo)"></circle>
+    <circle class="house-sun" cx="752" cy="110" r="28" fill="#E4BD70" opacity="0.72"></circle>
+    <g stroke="#A59E88" stroke-width="2" stroke-linecap="round" opacity="0.7">
+      <path d="M197 116Q205 108 214 115Q222 107 229 112"></path>
+      <path d="M659 87Q665 82 671 87Q678 81 685 85"></path>
+    </g>
+    <path
+      d="M117 542Q302 667 626 671Q824 665 916 572Q817 479 498 459Q198 438 117 542Z"
+      fill="#766B50"
+      opacity="0.11"></path>
+    <path d="M130 446L555 352L899 489L884 571L481 679L125 549Z" fill="#B7B18A"></path>
+    <path d="M130 432L552 337L899 476L884 555L481 661L125 533Z" fill="url(#house-lawn)"></path>
+    <path d="M137 533L482 653L879 550" stroke="#ECE4BA" stroke-width="3"></path>
+
+    <!-- Trees behind the house establish its silhouette. -->
+    {
+      trees.map((tree) => (
+        <g class="house-foliage" style={`--tree-origin: ${tree.x}px ${tree.y + 200}px`}>
+          <use
+            href="#house-tree"
+            x={tree.x - 65}
+            y={tree.y - 165}
+            width={150 * tree.scale}
+            height={250 * tree.scale}
+          />
+        </g>
+      ))
+    }
+    <path d="M198 321L191 356M822 318L815 352" stroke="#7F754B" stroke-width="2"></path>
+
+    <!-- Kitchen wing, behind the main room. -->
+    <path d="M526 269L717 231L826 280L825 431L630 474L526 423Z" fill="#CEBA91"></path>
+    <path d="M526 269L717 231V383L526 423Z" fill="url(#house-plaster)"></path>
+    <path d="M717 231L826 280V431L717 383Z" fill="#D2BF9A"></path>
+    <path d="M513 266L619 180L746 195L840 275L716 249Z" fill="url(#house-roof)"></path>
+    <path d="M513 266L619 180L746 195L840 275L716 249Z" fill="url(#house-roof-tiles)"></path>
+    <path d="M513 266L716 249L840 275V285L716 259L513 276Z" fill="#87523E"></path>
+    <path d="M619 180L746 195" stroke="#E7AD80" stroke-width="7" stroke-linecap="round"></path>
+    <path d="M717 259V383L825 430" stroke="#B49A75" stroke-width="2"></path>
+
+    <!-- Tall chimney with just a breath of kitchen steam. -->
+    <path d="M698 182V116L727 109L747 120V193L727 199Z" fill="#CCB38F"></path>
+    <path d="M698 116L727 109V199L698 182Z" fill="#E7D5B4"></path>
+    <path d="M693 112L727 103L752 115L748 123L727 115L698 123Z" fill="#AD7759"></path>
+    <path
+      d="M706 139L719 136M698 157L710 154M731 139L741 144M718 171L727 168"
+      stroke="#B49976"
+      stroke-width="2"></path>
+    <g class="house-steam" stroke="#B7B4A1" stroke-width="3" stroke-linecap="round" opacity="0.45">
+      <path d="M721 88C710 75 737 66 726 48"></path>
+      <path d="M734 87C727 79 744 73 741 61"></path>
+    </g>
+
+    <!-- Open workshop and its physical little tools. -->
+    <path d="M742 291L804 316V406L742 381Z" fill="#685A43"></path>
+    <path d="M748 302L798 322V393L748 374Z" fill="#3E4940"></path>
+    <path d="M749 306L797 325M750 316L797 335" stroke="#6F8062" stroke-width="1"></path>
+    <path d="M753 359L793 375V383L753 367Z" fill="#C39A6B"></path>
+    <path d="M757 366V382M788 379V394" stroke="#9B7952" stroke-width="4"></path>
+    <path d="M768 340L788 348V365L768 357Z" fill="#DDD7B5"></path>
+    <path d="M771 344L785 350V360L771 354Z" fill="#547A80"></path>
+    <path d="M778 359V365M773 364L783 368" stroke="#DDD7B5" stroke-width="2"></path>
+    <path d="M755 337L760 339M757 336V350" stroke="#DCBD86" stroke-width="2"></path>
+    <path d="M805 316L823 309V402L805 407Z" fill="#77917C"></path>
+    <path d="M809 324L819 320V394L809 397Z" stroke="#4C6959" stroke-width="1.5"></path>
+    <path d="M740 384L805 410L824 405L827 415L804 422L735 394Z" fill="#B99B78"></path>
+
+    <!-- Main house: warm plaster and a steep, tiled roof. -->
+    <path d="M237 280L404 236L590 294V443L416 493L237 431Z" fill="url(#house-plaster)"></path>
+    <path d="M237 280L404 236L590 294V443L416 493L237 431Z" fill="url(#house-wall-grain)"></path>
+    <path d="M416 326L590 294V443L416 493Z" fill="#D9C8A4"></path>
+    <path d="M237 280L325 165L404 152L512 274L416 326Z" fill="#F2E5C6"></path>
+    <path d="M216 281L319 151L404 137L533 276L416 340Z" fill="url(#house-roof)"></path>
+    <path d="M216 281L319 151L404 137L533 276L416 340Z" fill="url(#house-roof-tiles)"></path>
+    <path d="M404 137L624 212L533 276Z" fill="#9D6049"></path>
+    <path d="M404 137L624 212L533 276Z" fill="url(#house-roof-tiles)" opacity="0.8"></path>
+    <path d="M216 281L416 340L533 276L624 212L625 224L535 288L417 352L216 293Z" fill="#82553F"
+    ></path>
+    <path
+      d="M319 151L404 137L624 212"
+      stroke="#E2A078"
+      stroke-width="7"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+    <path d="M216 281L416 340L533 276" stroke="#E2A078" stroke-width="3"></path>
+    <path d="M237 303L416 357L590 310" stroke="#B9A27F" stroke-width="4" opacity="0.6"></path>
+    <path d="M237 424L415 483L590 435V445L415 495L237 433Z" fill="#C2AA83"></path>
+
+    <!-- A small attic window fits into the roof. -->
+    <path d="M317 217L347 207L376 235V276L317 258Z" fill="#E6D4AF"></path>
+    <path d="M310 217L345 199L384 234L375 238L345 212L316 226Z" fill="#764E3C"></path>
+    <path d="M328 226L344 221L363 239V258L328 248Z" fill="#597A83"></path>
+    <path d="M344 222V253M328 239L363 249" stroke="#EDD6A6" stroke-width="3"></path>
+
+    <!-- Front windows with small shutters and a real reading space behind. -->
+    <path d="M262 329L309 344V399L262 384Z" fill="#846B4D"></path>
+    <path class="house-window" d="M268 337L303 348V390L268 379Z" fill="url(#house-glass)"></path>
+    <path d="M285 342V385M268 357L303 368" stroke="#6F624A" stroke-width="3"></path>
+    <path d="M247 326L259 329V384L247 380Z" fill="#648374"></path>
+    <path d="M312 345L325 349V404L312 400Z" fill="#648374"></path>
+    <path
+      d="M250 334L256 336M250 341L256 343M250 348L256 350M250 355L256 357M250 362L256 364M315 354L322 356M315 361L322 363M315 368L322 370M315 375L322 377M315 382L322 384"
+      stroke="#405E52"
+      stroke-width="2"></path>
+    <path d="M258 385L311 402L310 410L258 393Z" fill="#B48761"></path>
+    <path d="M264 388L304 400L302 410L266 399Z" fill="#B97656"></path>
+    <g fill="#66804C">
+      <ellipse cx="269" cy="385" rx="9" ry="8"></ellipse>
+      <ellipse cx="282" cy="389" rx="10" ry="7"></ellipse>
+      <ellipse cx="298" cy="394" rx="9" ry="8"></ellipse>
+    </g>
+    <g fill="#D7A15D"
+      ><circle cx="268" cy="380" r="3"></circle><circle cx="286" cy="386" r="3"></circle><circle
+        cx="301"
+        cy="390"
+        r="3"></circle></g
+    >
+
+    <!-- The blue front door. -->
+    <path d="M345 357Q373 331 400 374V477L345 459Z" fill="#A88C64"></path>
+    <path d="M351 363Q373 343 394 378V468L351 454Z" fill="url(#house-blue)"></path>
+    <path
+      d="M357 385L388 395V425L357 415ZM357 425L388 435V456L357 446Z"
+      stroke="#7C9BC7"
+      stroke-width="2"></path>
+    <circle cx="386" cy="424" r="3" fill="#E6BC6A"></circle>
+    <path d="M341 458L398 477L413 473L416 482L400 488L337 467Z" fill="#BCA17E"></path>
+    <path d="M337 467L400 488L419 483V492L401 498L332 475Z" fill="#D6BD96"></path>
+    <path d="M330 477L400 501L420 494V503L402 509L326 484Z" fill="#C8AD87"></path>
+
+    <!-- Side kitchen window, awning, hanging lamp, and sill. -->
+    <path d="M456 354L540 332V401L456 426Z" fill="#856B4C"></path>
+    <path class="house-window" d="M463 359L533 341V396L463 416Z" fill="url(#house-glass)"></path>
+    <path d="M498 350V406M463 386L533 367" stroke="#826B4A" stroke-width="4"></path>
+    <path
+      d="M463 359L476 356L473 407L463 416ZM533 341L520 344L523 399L533 396Z"
+      fill="#FFF1C9"
+      opacity="0.9"></path>
+    <path d="M500 350V368M492 375L498 364L506 371Z" stroke="#926F43" fill="#C99D55" stroke-width="2"
+    ></path>
+    <path d="M450 351L543 327L555 337L458 364Z" fill="#547864"></path>
+    <path d="M450 351L458 364V369L555 342V337L458 364" fill="#3D6051"></path>
+    <path d="M451 426L540 400L548 407L456 434Z" fill="#AB865E"></path>
+    <path d="M470 406L480 403L479 416L472 418Z" fill="#B66D50"></path>
+    <path d="M475 407V393M475 400L469 394M475 397L481 389" stroke="#5F7A49" stroke-width="2"></path>
+
+    <!-- Climbing vine over the house corner. -->
+    <path
+      d="M423 483C438 454 421 426 437 396C450 370 439 351 448 325C457 301 484 302 495 288"
+      stroke="#687B4C"
+      stroke-width="4"></path>
+    {
+      Array.from({ length: 12 }, (_, index) => {
+        const x = 426 + index * 4.9;
+        const y = 467 - index * 14.6;
+        return (
+          <g transform={`translate(${x} ${y}) rotate(${index % 2 ? -30 : 28})`}>
+            <>
+              <ellipse cx="-7" cy="-3" rx="12" ry="6" fill={index % 2 ? "#6D874F" : "#83995E"} />
+              <ellipse
+                cx="8"
+                cy="-10"
+                rx="10"
+                ry="5"
+                transform="rotate(-50 8 -10)"
+                fill="#567448"
+              />
+            </>
+          </g>
+        );
+      })
+    }
+
+    <!-- Quiet veranda, a chair and table. -->
+    <path d="M585 430L701 402L789 444L672 480Z" fill="#DCC9A4"></path>
+    <path d="M585 430L701 402L789 444L672 480Z" fill="url(#house-pavers)"></path>
+    <path d="M647 429L685 418L714 432L675 444Z" fill="#BE9669"></path>
+    <path d="M653 434V457M704 437V461" stroke="#856D4C" stroke-width="4"></path>
+    <path d="M673 426L682 423L689 427L680 430Z" fill="#F3EBD2"></path>
+    <path d="M679 423V419L685 420V425" stroke="#F3EBD2" stroke-width="3"></path>
+    <path d="M615 417L634 412V447L615 452ZM614 441L636 435L652 443L631 451Z" fill="#9C8059"></path>
+    <path
+      d="M618 449V463M646 446V460M619 423L631 420M619 431L631 428"
+      stroke="#776448"
+      stroke-width="3"></path>
+    <use href="#house-pot" x="722" y="387" width="40" height="60"></use>
+
+    <!-- Garden paths connect every place, never forcing a route. -->
+    <path d="M388 493L418 482L533 550L600 531L623 545L559 566L593 606L526 627Z" fill="#E8D8B5"
+    ></path>
+    <path
+      d="M420 487L528 549M546 569L575 607"
+      stroke="#C9B48F"
+      stroke-width="1.3"
+      stroke-dasharray="4 8"></path>
+    <path d="M586 540L681 476L665 468L562 532Z" fill="#E6D5AE"></path>
+    <path
+      d="M350 506L385 500L404 513L369 521ZM391 528L424 521L444 536L409 543ZM431 550L463 543L484 557L451 566Z"
+      fill="#C4B295"
+      stroke="#AF9F83"
+      stroke-width="1"></path>
+
+    <!-- Planted beds, low stone edges, and individually drawn blooms. -->
+    <path d="M144 466L278 449L345 491L206 527L144 502Z" fill="#7E8B55"></path>
+    <path d="M144 502L206 527L345 491V501L206 538L144 513Z" fill="#BCA47B"></path>
+    <use href="#house-shrub" x="166" y="430" width="87" height="57"></use>
+    <use href="#house-shrub" x="225" y="449" width="83" height="54"></use>
+    <path d="M725 479L821 457L878 491L867 545L760 572L703 544Z" fill="#81915C"></path>
+    <path d="M703 544L760 572L867 545V554L760 582L703 553Z" fill="#B89D76"></path>
+    <use href="#house-shrub" x="783" y="444" width="90" height="59"></use>
+    <use href="#house-shrub" x="718" y="475" width="78" height="51"></use>
+    {
+      flowers.map(([x, y], index) => (
+        <g>
+          <>
+            <path d={`M${x} ${y + 14}v-18m0 12l-6-5m6 0l6-6`} stroke="#546C40" stroke-width="2" />
+            <g fill={index % 3 === 0 ? "#E3B553" : index % 3 === 1 ? "#C57566" : "#E3D6AA"}>
+              <>
+                <circle cx={x - 3} cy={y - 7} r="4" />
+                <circle cx={x + 3} cy={y - 7} r="4" />
+                <circle cx={x} cy={y - 11} r="4" />
+                <circle cx={x} cy={y - 3} r="4" />
+              </>
+            </g>
+            <circle cx={x} cy={y - 7} r="2.5" fill="#8E6E35" />
+          </>
+        </g>
+      ))
+    }
+
+    <!-- A pergola trellis and climbing stems in the learning garden. -->
+    <path
+      d="M815 475V362M858 490V377M810 368L864 386M810 389L864 407M810 411L864 429M810 433L864 451M830 369V479M846 375V486"
+      stroke="#A79066"
+      stroke-width="3"></path>
+    <path
+      d="M822 474C847 443 822 414 846 389C855 380 846 373 843 369"
+      stroke="#4E7144"
+      stroke-width="3"></path>
+    <g fill="#6D884E">
+      <ellipse cx="832" cy="449" rx="11" ry="6" transform="rotate(-35 832 449)"></ellipse>
+      <ellipse cx="841" cy="434" rx="11" ry="6" transform="rotate(30 841 434)"></ellipse>
+      <ellipse cx="831" cy="416" rx="10" ry="5" transform="rotate(-35 831 416)"></ellipse>
+      <ellipse cx="849" cy="396" rx="10" ry="5" transform="rotate(-35 849 396)"></ellipse>
+      <ellipse cx="839" cy="380" rx="10" ry="5" transform="rotate(30 839 380)"></ellipse>
+    </g>
+
+    <!-- Front wall and the signature cobalt garden gate. -->
+    <path d="M153 532L451 630V589L153 492Z" fill="#D6C49F"></path>
+    <path d="M153 492L167 487L462 582L451 589Z" fill="#F1E2BD"></path>
+    <path d="M153 532L451 630V620L153 522Z" fill="#C3AD85"></path>
+    <path d="M638 586L865 521V478L638 543Z" fill="#D1BE97"></path>
+    <path d="M638 543L865 478L876 485L649 552Z" fill="#F0E0B9"></path>
+    <path d="M649 552V592L876 527V485Z" fill="#C2AC85"></path>
+    <path
+      d="M174 514L216 528M282 550L322 562M375 581L413 593M696 560L730 551M795 530L831 520"
+      stroke="#B59F78"
+      stroke-width="1.3"></path>
+    <path d="M441 628V542L463 536L483 544V638Z" fill="#D6C29B"></path>
+    <path d="M463 536L483 544V638L463 632Z" fill="#BDA47A"></path>
+    <path d="M437 541L462 533L487 541V549L463 543L437 550Z" fill="#EDDCB4"></path>
+    <path d="M619 596V508L641 502L660 511V604Z" fill="#D8C49D"></path>
+    <path d="M641 502L660 511V604L641 598Z" fill="#BCA37A"></path>
+    <path d="M615 507L641 499L664 507V516L641 509L615 516Z" fill="#F0DFB6"></path>
+    <g class="house-gate">
+      <path
+        d="M481 566Q550 513 619 528V595L481 634Z"
+        fill="#4066A6"
+        fill-opacity="0.12"
+        stroke="#31568F"
+        stroke-width="5"
+        stroke-linejoin="round"></path>
+      <path d="M481 582L619 544M481 617L619 579M550 543V614" stroke="#31568F" stroke-width="4"
+      ></path>
+      {
+        Array.from({ length: 9 }, (_, i) => (
+          <path
+            d={`M${492 + i * 14} ${559 - i * 3.2}V${629 - i * 3.9}`}
+            stroke="#426AA5"
+            stroke-width="3"
+          />
+        ))
+      }
+      <path
+        d="M493 578Q509 552 524 570M564 558Q579 533 595 548M496 597Q510 580 524 588M567 578Q582 560 596 569"
+        stroke="#547BB3"
+        stroke-width="2.5"></path>
+      <circle cx="544" cy="583" r="3" fill="#DAB56E"></circle>
+      <circle cx="557" cy="580" r="3" fill="#DAB56E"></circle>
+    </g>
+    <path d="M481 639L622 600L657 619L516 663Z" fill="#E8D5AE"></path>
+    <path d="M517 663L656 620" stroke="#C4AE85" stroke-width="2"></path>
+    <path d="M541 623L566 616M578 638L604 630" stroke="#C3AD85" stroke-width="1.5"></path>
+
+    <!-- A pair of lanterns at the threshold. -->
+    <g stroke="#655C46" stroke-width="2">
+      <path d="M460 532V511M450 511H470L467 490H453Z" fill="#E6C987"></path>
+      <path d="M449 490L460 480L471 490Z" fill="#54715C"></path>
+      <path d="M638 499V478M628 478H648L645 458H631Z" fill="#E6C987"></path>
+      <path d="M627 458L638 448L649 458Z" fill="#54715C"></path>
+    </g>
+    <use href="#house-pot" x="398" y="558" width="41" height="62"></use>
+    <use href="#house-pot" x="669" y="516" width="42" height="64"></use>
+    <g stroke="#71804E" stroke-width="2" stroke-linecap="round" opacity="0.8">
+      <path
+        d="M303 564L300 553M303 564L309 555M688 612L687 602M688 612L695 604M217 571L214 564M217 571L222 564M791 590L790 582M791 590L797 584"
+      ></path>
+    </g>
+    <g fill="#A49D75" opacity="0.6"
+      ><ellipse cx="335" cy="616" rx="4" ry="2"></ellipse><ellipse cx="734" cy="594" rx="5" ry="2"
+      ></ellipse><ellipse cx="409" cy="650" rx="3" ry="1.5"></ellipse><ellipse
+        cx="704"
+        cy="639"
+        rx="4"
+        ry="2"></ellipse></g
+    >
+  </svg>
+
+  <a class="house-pin house-pin--main" href="#main-room"
+    ><span class="house-pin__dot"></span><span>Main room <small>About me</small></span><span
+      aria-hidden="true">↗</span
+    ></a
+  >
+  <a class="house-pin house-pin--kitchen" href="#kitchen"
+    ><span class="house-pin__dot"></span><span>Kitchen <small>What's cooking</small></span><span
+      aria-hidden="true">↗</span
+    ></a
+  >
+  <a class="house-pin house-pin--workshop" href="#workshop"
+    ><span class="house-pin__dot"></span><span>Workshop <small>Selected work</small></span><span
+      aria-hidden="true">↗</span
+    ></a
+  >
+  <a class="house-pin house-pin--garden" href="#garden"
+    ><span class="house-pin__dot"></span><span>Garden <small>Always growing</small></span><span
+      aria-hidden="true">↗</span
+    ></a
+  >
+  <a class="gate-entry" href="#main-room"
+    ><span>THE GATE IS OPEN</span><span aria-hidden="true">↗</span></a
+  >
+  <span class="house-scene__note" aria-hidden="true">a little place for big ideas</span>
+</div>
+
+<script>
+  const initializeHouseScenes = () => {
+    document.querySelectorAll<HTMLElement>(".house-scene").forEach((scene) => {
+      if (scene.dataset.ready === "true") return;
+      scene.dataset.ready = "true";
+      let entryTimer: number | undefined;
+
+      scene.querySelector<HTMLAnchorElement>(".gate-entry")?.addEventListener("click", () => {
+        // Keep native anchor navigation immediate, including browser history and focus.
+        window.clearTimeout(entryTimer);
+        scene.classList.add("is-entering");
+        entryTimer = window.setTimeout(() => scene.classList.remove("is-entering"), 850);
+      });
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            scene.dataset.sceneVisible = String(Boolean(entry?.isIntersecting));
+          },
+          { threshold: 0 },
+        );
+        observer.observe(scene);
+        document.addEventListener(
+          "astro:before-swap",
+          () => {
+            observer.disconnect();
+            window.clearTimeout(entryTimer);
+          },
+          { once: true },
+        );
+      }
+    });
+  };
+
+  const updatePageVisibility = () => {
+    document.documentElement.dataset.pageHidden = String(document.hidden);
+  };
+  document.addEventListener("visibilitychange", updatePageVisibility);
+  document.addEventListener("astro:page-load", initializeHouseScenes);
+  updatePageVisibility();
+  initializeHouseScenes();
+</script>
+
+<style>
+  .house-scene {
+    position: relative;
+    width: 100%;
+    isolation: isolate;
+  }
+  .house-art {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .house-pin {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 44px;
+    padding: 8px 12px;
+    color: #344234;
+    background: #fffaf0;
+    border: 1px solid #d5c9ac;
+    border-radius: 5px;
+    box-shadow:
+      0 3px 0 #d1c3a633,
+      0 8px 22px #665a3910;
+    font-family: var(--font-sans, sans-serif);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-decoration: none;
+    transform: translate(-50%, -50%);
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+    z-index: 2;
+  }
+  .house-pin small {
+    display: block;
+    color: #786f5e;
+    font-size: 9px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .house-pin > span:last-child {
+    margin-left: 4px;
+    color: #77835f;
+  }
+  .house-pin__dot {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    background: #647f50;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #647f5015;
+  }
+  .house-pin--main {
+    left: 25%;
+    top: 40%;
+  }
+  .house-pin--kitchen {
+    left: 62%;
+    top: 39%;
+  }
+  .house-pin--kitchen .house-pin__dot {
+    background: #bf8350;
+  }
+  .house-pin--workshop {
+    left: 86%;
+    top: 48%;
+  }
+  .house-pin--workshop .house-pin__dot {
+    background: #426aa5;
+  }
+  .house-pin--garden {
+    left: 77%;
+    top: 75%;
+  }
+  .house-pin:hover,
+  .house-pin:focus-visible {
+    transform: translate(-50%, -50%) translateY(-4px);
+    border-color: #76855e;
+    box-shadow:
+      0 6px 0 #d1c3a633,
+      0 12px 25px #665a391a;
+  }
+  .house-pin:focus-visible,
+  .gate-entry:focus-visible {
+    outline: 3px solid #3159be;
+    outline-offset: 5px;
+  }
+  .gate-entry {
+    position: absolute;
+    left: 55%;
+    top: 91%;
+    transform: translateX(-50%) rotate(-4deg);
+    display: inline-flex;
+    gap: 13px;
+    align-items: center;
+    min-height: 44px;
+    color: #3c5d8d;
+    font-family: var(--font-mono, monospace);
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    text-decoration: none;
+  }
+  .gate-entry::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 1px;
+    height: 20px;
+    background: #5278a5;
+    opacity: 0.55;
+  }
+  .house-scene__note {
+    position: absolute;
+    left: 16%;
+    bottom: 4%;
+    color: #8b856f;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 12px;
+    transform: rotate(-8deg);
+  }
+  .house-gate {
+    transform-origin: 481px 600px;
+    transition: transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .house-scene:has(.gate-entry:hover) .house-gate,
+  .house-scene:has(.gate-entry:focus-visible) .house-gate {
+    transform: skewY(-4deg) scaleX(0.75);
+  }
+  .house-scene.is-entering .house-gate {
+    transform: skewY(-9deg) scaleX(0.24);
+  }
+  .house-steam {
+    animation: chimney-breath 7s ease-in-out infinite;
+    transform-origin: 730px 100px;
+  }
+  .house-foliage {
+    transform-origin: var(--tree-origin);
+    animation: tree-breath 9s ease-in-out infinite alternate;
+  }
+  .house-foliage:nth-of-type(2) {
+    animation-delay: -4s;
+  }
+  :global([data-theme="dark"]) .house-window {
+    fill: #efc569;
+  }
+  :global([data-theme="dark"]) .house-sun {
+    fill: #e2dfbc;
+    opacity: 0.8;
+  }
+  :global([data-theme="dark"]) .house-art {
+    filter: saturate(0.78) brightness(0.85);
+  }
+  :global([data-motion="off"]) .house-steam,
+  :global([data-motion="off"]) .house-foliage {
+    animation: none;
+  }
+  :global([data-motion="off"]) .house-gate {
+    transition: none;
+  }
+  :global([data-page-hidden="true"]) .house-steam,
+  :global([data-page-hidden="true"]) .house-foliage,
+  .house-scene[data-scene-visible="false"] .house-steam,
+  .house-scene[data-scene-visible="false"] .house-foliage {
+    animation-play-state: paused;
+  }
+  @keyframes chimney-breath {
+    0%,
+    100% {
+      transform: translateY(0) scale(0.95);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateY(-7px) scale(1.04);
+      opacity: 0.55;
+    }
+  }
+  @keyframes tree-breath {
+    from {
+      transform: rotate(-0.35deg);
+    }
+    to {
+      transform: rotate(0.35deg);
+    }
+  }
+  @media (max-width: 600px) {
+    .house-pin {
+      font-size: 11px;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 5px 8px;
+      gap: 5px;
+      border-radius: 4px;
+    }
+    .house-pin small {
+      font-size: 9px;
+    }
+    .house-pin--main {
+      left: 20%;
+      top: 38%;
+    }
+    .house-pin--kitchen {
+      left: 60%;
+      top: 34%;
+    }
+    .house-pin--workshop {
+      left: 82%;
+      top: 52%;
+    }
+    .house-pin--garden {
+      left: 79%;
+      top: 79%;
+    }
+    .house-pin > span:last-child {
+      display: none;
+    }
+    .gate-entry {
+      font-size: 9px;
+      letter-spacing: 0.6px;
+      top: 92%;
+      white-space: nowrap;
+    }
+    .gate-entry::before {
+      height: 10px;
+    }
+    .house-scene__note {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .house-steam,
+    .house-foliage {
+      animation: none;
+    }
+    .house-gate,
+    .house-pin {
+      transition: none;
+    }
+  }
+</style>

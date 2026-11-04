@@ -1,204 +1,139 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import SectionHeader from "@/components/SectionHeader.astro";
-import ContactSection from "@/components/ContactSection.astro";
-import { capabilityClusters, experience } from "@/data/profile";
+import { capabilityClusters, experience, profile } from "@/data/profile";
 import { withBase } from "@/utils/paths";
-
-const sections = [
-  { id: "top", index: "00", label: "Introduction" },
-  { id: "practice", index: "01", label: "Practice" },
-  { id: "principles", index: "02", label: "Principles" },
-  { id: "trajectory", index: "03", label: "Trajectory" },
-  { id: "technical-map", index: "04", label: "Technical map" },
-  { id: "learning-loop", index: "05", label: "Learning loop" },
-  { id: "contact", index: "06", label: "Contact" },
+import "@/styles/interiors.css";
+const principles = [
+  {
+    title: "Start beneath the surface.",
+    text: "Understand what an abstraction hides. Derive the idea, rebuild the mechanism, and make the framework a deliberate choice.",
+  },
+  {
+    title: "Let the evidence speak.",
+    text: "Inspect intermediate states, test assumptions, and make the behavior visible before reaching for an explanation.",
+  },
+  {
+    title: "Carry it into the world.",
+    text: "A useful system includes its deployment. The database, network, server, and people using it are all part of the work.",
+  },
 ];
 ---
 
 <BaseLayout
-  title="About — Yonas"
-  description="How Yonas connects first-principles learning, intelligent systems, production engineering, and technical teaching."
-  sections={sections}
+  title="The main room · About Yonas"
+  description="Meet Yonas, an AI engineer, software builder, and technical trainer in Addis Ababa. First principles, real software, and a habit of sharing what he learns."
 >
-  <main id="main-content">
-    <header class="page-hero about-hero" id="top">
-      <div class="shell about-hero__grid">
-        <div data-reveal data-visible="true">
-          <p class="section-kicker"><span>02</span><span>About / operating manual</span></p>
-          <h1>
-            I learn by taking systems <em>apart.</em> I build by putting them back together—better.
-          </h1>
-        </div>
-        <figure
-          class="about-portrait"
-          style={`--portrait-image: url(${withBase("images/yonas-portrait.jpg")})`}
-          data-reveal
-          data-visible="true"
-        >
+  <main id="main-content" class="interior-page">
+    <header class="home-shell interior-heading interior-about-heading" id="top">
+      <a class="interior-breadcrumb" href={withBase()}>← Back to the courtyard</a>
+      <div class="interior-about-grid">
+        <div>
+          <p class="home-eyebrow">Room 01 / The main room</p><h1>
+            A curious mind.<br />An open <em>door.</em>
+          </h1><p class="interior-deck">
+            I’m Yonas. I like understanding how things work—and making them work better.
+          </p><p>
+            AI engineer, software builder, and technical trainer.<br />At home in Addis Ababa,
+            Ethiopia.
+          </p><a class="home-link" href={`mailto:${profile.email}`}>Say hello ↗</a>
+        </div><figure class="interior-portrait">
           <img
             src={withBase("images/yonas-portrait.jpg")}
-            alt="Portrait of Yonas"
+            alt="Yonas"
             width="900"
             height="1200"
-            loading="eager"
-            decoding="async"
             fetchpriority="high"
-          />
-          <figcaption class="about-portrait__label">
-            <strong>Yonas</strong><span>AI engineer · software builder</span>
-          </figcaption>
+          /><figcaption><span>THE PERSON BEHIND THE WORK</span><strong>Yonas</strong></figcaption>
         </figure>
       </div>
     </header>
-
-    <section class="section about-intro" id="practice">
-      <div class="shell about-intro__grid">
-        <p class="eyebrow" data-reveal>AI engineer · Software builder · Technical trainer</p>
-        <div data-reveal>
-          <p class="about-intro__lead">
-            I’m Yonas, a software developer and AI engineer working where symbolic reasoning,
-            machine learning, and real product infrastructure meet.
-          </p>
-          <p>
-            My default approach is simple: understand the mechanism, expose the evidence, and design
-            the system around the constraints that actually exist. That can mean rebuilding an ML
-            algorithm before using its framework, tracing a pattern through a hypergraph, or
-            debugging the hosting layer of a production application.
-          </p>
-          <p>
-            Teaching is part of that practice. At iCog Labs, my work includes programming, technical
-            training, intern mentorship, symbolic-AI learning material, and analytical assessment
-            design. Explaining a system makes weak understanding visible—and makes strong
-            understanding reusable.
-          </p>
-        </div>
+    <section class="home-shell interior-case-section" id="practice">
+      <p class="home-eyebrow">Pull up a chair</p><div>
+        <h2>Reasoning, building,<br /><em>and passing it on.</em></h2><p class="interior-lead">
+          My work sits where symbolic reasoning, machine learning, and real product infrastructure
+          meet.
+        </p><p>
+          Sometimes that means tracing a pattern through a hypergraph. Sometimes it means rebuilding
+          a machine-learning algorithm from its mathematics. Sometimes it means debugging the
+          hosting layer until a product actually reaches the people who need it.
+        </p><p>
+          Teaching belongs in that same loop. At iCog Labs, my work includes programming, technical
+          training, intern mentorship, symbolic-AI learning material, and analytical assessment
+          design. Explaining a system makes my understanding sharper—and makes it useful to someone
+          else.
+        </p>
       </div>
     </section>
-
-    <section class="section principles-section" id="principles">
-      <div class="shell">
-        <SectionHeader
-          index="01"
-          eyebrow="Working principles"
-          title="The rules behind the work."
-          description="Not personality adjectives—operating constraints I use to make better technical decisions."
-        />
-        <div class="principles-grid">
-          <article data-reveal>
-            <span>01</span><h3>Evidence before assumption.</h3><p>
-              Instrument the behavior, inspect intermediate states, and let the system show where
-              the model is wrong.
-            </p>
-          </article>
-          <article data-reveal>
-            <span>02</span><h3>Mechanism before abstraction.</h3><p>
-              Understand what a framework hides so its convenience becomes a choice rather than a
-              dependency.
-            </p>
-          </article>
-          <article data-reveal>
-            <span>03</span><h3>Correctness before optimization.</h3><p>
-              Make the path legible and testable first. Improve speed only when the evidence shows
-              where it matters.
-            </p>
-          </article>
-          <article data-reveal>
-            <span>04</span><h3>Deployment is product work.</h3><p>
-              The server, database, network, and routing layer all shape what the user experiences.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section about-experience" id="trajectory">
-      <div class="shell">
-        <SectionHeader
-          index="02"
-          eyebrow="Current trajectory"
-          title="Build. Teach. Study. Repeat."
-        />
-        <div class="about-path" data-reveal>
+    <section class="interior-decision-section" id="principles">
+      <div class="home-shell">
+        <div class="interior-section-heading">
+          <p class="home-eyebrow">Notes I keep close</p><h2>A few things<br />I build by.</h2>
+        </div><div class="interior-decisions">
           {
-            experience.map((item, index) => (
+            principles.map((item, i) => (
               <article>
-                <div>
-                  <>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <i />
-                  </>
-                </div>
-                <p class="eyebrow">{item.marker}</p>
-                <h3>{item.organization}</h3>
-                <strong>{item.role}</strong>
-                <p>{item.detail}</p>
+                <>
+                  <span class="interior-decision-number">0{i + 1}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </>
               </article>
             ))
           }
         </div>
       </div>
     </section>
-
-    <section class="section toolkit-section" id="technical-map">
-      <div class="shell">
-        <SectionHeader
-          index="03"
-          eyebrow="Technical map"
-          title="Capabilities grouped by what they make possible."
-        />
-        <div class="toolkit-table">
-          {
-            capabilityClusters.map((cluster) => (
-              <article data-reveal>
-                <div>
-                  <span>Practice</span>
-                  <p>{cluster.signal}</p>
-                </div>
+    <section class="home-shell interior-experience" id="trajectory">
+      <div class="interior-section-heading">
+        <p class="home-eyebrow">The people and places</p><h2>
+          Where the work<br /><em>takes me.</em>
+        </h2>
+      </div>{
+        experience.map((item, i) => (
+          <article class="interior-experience-row">
+            <>
+              <span class="interior-small">0{i + 1}</span>
+              <div>
+                <>
+                  <h3>{item.organization}</h3>
+                  <span>{item.role}</span>
+                </>
+              </div>
+              <p>{item.detail}</p>
+            </>
+          </article>
+        ))
+      }
+    </section>
+    <section class="home-shell interior-toolkit" id="technical-map">
+      <div class="interior-section-heading">
+        <p class="home-eyebrow">Tools on the shelf</p><h2>
+          Different tools.<br />Connected thinking.
+        </h2>
+      </div><div class="interior-toolkit-grid">
+        {
+          capabilityClusters.map((cluster) => (
+            <article>
+              <>
+                <span class="interior-small">{cluster.signal}</span>
                 <h3>{cluster.title}</h3>
                 <p>{cluster.description}</p>
-                <ul>
+                <ul class="interior-tags">
                   {cluster.tools.map((tool) => (
                     <li>{tool}</li>
                   ))}
                 </ul>
-              </article>
-            ))
-          }
-        </div>
+              </>
+            </article>
+          ))
+        }
       </div>
     </section>
-
-    <section class="section learning-manifesto" id="learning-loop">
-      <div class="shell learning-manifesto__grid">
-        <div data-reveal>
-          <p class="section-kicker"><span>04</span><span>Continuous learning</span></p>
-          <h2>Current knowledge is a snapshot, not an identity.</h2>
-          <p>
-            My path is moving from classical ML foundations into deep learning, transformers, AI
-            agents, RAG, LangGraph, MCP, and distributed AI. The labels stay honest: studied,
-            implementing, or exploring.
-          </p>
-          <a class="button button--ghost" href={withBase("work/ml-engineering-dojo/")}
-            >View the learning lab <span aria-hidden="true">↗</span></a
-          >
-        </div>
-        <div class="manifesto-code" data-reveal aria-label="Learning loop pseudocode">
-          <div><span></span><span></span><span></span><small>learning-loop.metta</small></div>
-          <pre><code><b>01</b>  (: learn (-> Problem Evidence))
-<b>02</b>
-<b>03</b>  (= (learn $problem)
-<b>04</b>     (let* (
-<b>05</b>       ($model (derive $problem))
-<b>06</b>       ($build (implement $model))
-<b>07</b>       ($proof (evaluate $build)))
-<b>08</b>       (iterate $proof)))
-<b>09</b>
-<b>10</b>  ; assumptions must be inspectable</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <ContactSection />
+    <aside class="home-shell interior-endnote">
+      <span class="home-eyebrow">Always a little more to learn</span><p>
+        The garden is still growing. I’m moving from classical machine-learning foundations into
+        deep learning, transformers, agents, and distributed AI.
+      </p><a class="home-link" href={`${withBase()}#garden`}>Take a walk through the garden →</a>
+    </aside>
   </main>
 </BaseLayout>

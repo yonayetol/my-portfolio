@@ -2,152 +2,131 @@
 import type { GetStaticPaths } from "astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProjectVisual from "@/components/ProjectVisual.astro";
-import StatusBadge from "@/components/StatusBadge.astro";
-import ContactSection from "@/components/ContactSection.astro";
 import { projects, type Project } from "@/data/projects";
 import { withBase } from "@/utils/paths";
-
+import "@/styles/interiors.css";
 export const getStaticPaths = (() =>
   projects.map((project) => ({
     params: { slug: project.slug },
     props: { project },
   }))) satisfies GetStaticPaths;
-
 interface Props {
   project: Project;
 }
-
 const { project } = Astro.props;
-const projectIndex = projects.findIndex((item) => item.slug === project.slug);
-const nextProject = projects[(projectIndex + 1) % projects.length] ?? projects[0];
-const sections = [
-  { id: "top", index: "00", label: "Overview" },
-  { id: "system-context", index: "01", label: "Context" },
-  { id: "engineering-decisions", index: "02", label: "Decisions" },
-  { id: "evidence-record", index: "03", label: "Evidence" },
-  { id: "reflection", index: "04", label: "Reflection" },
-  { id: "contact", index: "05", label: "Contact" },
-];
+const next =
+  projects[(projects.findIndex((item) => item.slug === project.slug) + 1) % projects.length];
+const context = project.context.replace(
+  "The supplied project record describes a platform",
+  "I worked on a platform",
+);
+const scope = project.proof.filter(
+  (item) => !item.includes("supplied project record") && item !== "Active in-progress status",
+);
 ---
 
-<BaseLayout title={`${project.title} — Yonas`} description={project.summary} sections={sections}>
-  <main id="main-content">
-    <article class:list={["case-study", `accent--${project.accent}`]}>
-      <header class="case-hero" id="top">
-        <div class="shell">
-          <nav class="breadcrumb" aria-label="Breadcrumb" data-reveal data-visible="true">
-            <a href={withBase("work/")}>Work</a><span aria-hidden="true">/</span><span
-              aria-current="page">{project.title}</span
-            >
-          </nav>
-          <div class="case-hero__grid">
-            <div data-reveal data-visible="true">
-              <div class="case-meta">
-                <span class="mono">CASE STUDY</span>
-                <StatusBadge status={project.status} label={project.statusLabel} />
-              </div>
-              <p class="eyebrow">{project.eyebrow}</p>
-              <h1>{project.title}</h1>
-              <p class="case-statement">{project.statement}</p>
-            </div>
-            <div class="case-hero__aside" data-reveal data-visible="true">
-              <p>{project.summary}</p>
-              <ul class="tag-list">
-                {project.disciplines.map((discipline) => <li>{discipline}</li>)}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div class="shell case-visual" data-reveal>
-        <ProjectVisual type={project.visual} />
+<BaseLayout title={`${project.title} · Yonas’s workshop`} description={project.summary}>
+  <main id="main-content" class={`interior-page interior-case interior-case--${project.visual}`}>
+    <header class="home-shell interior-heading" id="top">
+      <a class="interior-breadcrumb" href={withBase("work/")}>← Back to the workshop</a>
+      <div class="interior-case-label">
+        <p class="home-eyebrow">From the workbench / {project.index}</p><span
+          class={`interior-status interior-status--${project.status}`}>{project.statusLabel}</span
+        >
       </div>
-
-      <section class="case-section" id="system-context">
-        <div class="shell case-two-column">
-          <div class="case-section__label" data-reveal>
-            <span>01</span><p>Context</p>
-          </div>
-          <div class="case-prose" data-reveal>
-            <h2>The system behind the interface.</h2>
-            <p class="large-copy">{project.context}</p>
-            <p>{project.system}</p>
-          </div>
+      <h1>{project.title}</h1>
+      <div class="interior-case-intro">
+        <p class="interior-deck">{project.statement}</p><div>
+          <p>{project.summary}</p><ul class="interior-tags">
+            {project.disciplines.map((item) => <li>{item}</li>)}
+          </ul>
         </div>
-      </section>
-
-      <section class="case-section case-section--surface" id="engineering-decisions">
-        <div class="shell">
-          <div class="case-section__label" data-reveal>
-            <span>02</span><p>Engineering decisions</p>
-          </div>
-          <div class="decision-grid">
-            {
-              project.decisions.map((decision, index) => (
-                <article class="decision-card" data-reveal>
-                  <span class="mono">Engineering choice {index + 1}</span>
+      </div>
+    </header>
+    <figure class="home-shell interior-case-visual">
+      <ProjectVisual type={project.visual} /><figcaption>
+        {
+          project.visual === "infrastructure"
+            ? "A view of the school’s public interface."
+            : "An illustration of the project’s technical direction."
+        }
+      </figcaption>
+    </figure>
+    <section class="home-shell interior-case-section" id="system-context">
+      <div><span class="interior-small">01 / THE CONTEXT</span></div><div>
+        <h2>What needed<br /><em>figuring out.</em></h2><p class="interior-lead">{context}</p><p>
+          {project.system}
+        </p>
+      </div>
+    </section>
+    <section class="interior-decision-section" id="engineering-decisions">
+      <div class="home-shell">
+        <div class="interior-section-heading">
+          <p class="home-eyebrow">02 / The decisions</p><h2>
+            The thinking<br />behind the making.
+          </h2>
+        </div><div class="interior-decisions">
+          {
+            project.decisions.map((decision, index) => (
+              <article>
+                <>
+                  <span class="interior-decision-number">0{index + 1}</span>
                   <h3>{decision.title}</h3>
                   <p>{decision.detail}</p>
-                </article>
-              ))
-            }
-          </div>
+                </>
+              </article>
+            ))
+          }
         </div>
-      </section>
-
-      <section class="case-section" id="evidence-record">
-        <div class="shell evidence-layout">
-          <div class="case-section__label" data-reveal>
-            <span>03</span><p>Evidence record</p>
-          </div>
-          <div class="evidence-panel" data-reveal>
-            <div class="evidence-panel__head">
-              <span class="signal-dot"></span><span>SUPPORTED SCOPE</span><span
-                >{String(project.proof.length).padStart(2, "0")} ITEMS</span
-              >
+      </div>
+    </section>
+    <section class="home-shell interior-case-section" id="evidence-record">
+      <div><span class="interior-small">03 / SUPPORTED SCOPE</span></div><div>
+        <h2>A closer look<br /><em>at the work.</em></h2><ol class="interior-scope">
+          {
+            scope.map((item, index) => (
+              <li>
+                <span>0{index + 1}</span>
+                {item}
+              </li>
+            ))
+          }
+        </ol>{
+          project.status === "in-progress" && (
+            <p class="interior-note">
+              This project is in progress. These entries describe its current scope and direction,
+              not a claim that every proposed feature is live.
+            </p>
+          )
+        }
+      </div>
+    </section>
+    <section class="interior-reflection" id="reflection">
+      <div class="home-shell">
+        <p class="home-eyebrow">A note from the workbench</p><blockquote>
+          {project.reflection}
+        </blockquote><span class="interior-signature">Yonas</span>
+      </div>
+    </section>
+    {
+      next && (
+        <aside class="home-shell interior-next">
+          <>
+            <div>
+              <>
+                <p class="home-eyebrow">Next on the workbench</p>
+                <a href={withBase(`work/${next.slug}/`)}>
+                  {next.title}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </>
             </div>
-            <ol>
-              {
-                project.proof.map((item, index) => (
-                  <li>
-                    <>
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      <p>{item}</p>
-                      <i aria-hidden="true">✓</i>
-                    </>
-                  </li>
-                ))
-              }
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <section class="case-reflection" id="reflection">
-        <div class="shell case-reflection__grid" data-reveal>
-          <p class="eyebrow">Reflection / what this work makes visible</p>
-          <blockquote>{project.reflection}</blockquote>
-        </div>
-      </section>
-
-      {
-        nextProject && (
-          <aside class="next-project">
-            <a class="shell" href={withBase(`work/${nextProject.slug}/`)}>
-              <div>
-                <span class="mono">NEXT PROJECT</span>
-                <p>{nextProject.eyebrow}</p>
-              </div>
-              <strong>{nextProject.title}</strong>
-              <span class="next-project__arrow" aria-hidden="true">
-                ↗
-              </span>
+            <a class="home-link" href={`${withBase()}#contact`}>
+              Let’s build something →
             </a>
-          </aside>
-        )
-      }
-    </article>
-    <ContactSection />
+          </>
+        </aside>
+      )
+    }
   </main>
 </BaseLayout>
