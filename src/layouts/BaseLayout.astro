@@ -12,6 +12,7 @@ import { profile, socialLinks } from "@/data/profile";
 import { withBase } from "@/utils/paths";
 
 interface Props {
+  immersive?: boolean;
   title?: string;
   description?: string;
   image?: string;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const {
+  immersive = false,
   title = `${profile.name} — ${profile.role}`,
   description = profile.support,
   image = withBase("social-card.png"),
@@ -100,9 +102,9 @@ const jsonLd = {
         }
       </style></noscript
     >
-    <Header />
+    {!immersive && <Header />}
     <slot />
-    <Footer />
+    {!immersive && <Footer />}
     <script>
       import { initHome } from "@/components/home/home";
       initHome();

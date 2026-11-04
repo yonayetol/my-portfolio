@@ -7,7 +7,7 @@ import "@/styles/interiors.css";
 
 <BaseLayout
   title="The workshop · Projects by Yonas"
-  description="Step inside Yonas’s workshop. Production software, symbolic AI, donation infrastructure, and machine-learning experiments."
+  description="Step inside Yonas’s workshop. Production software, symbolic AI, and machine-learning experiments."
 >
   <main id="main-content" class="interior-page">
     <header class="home-shell interior-heading" id="top">
@@ -18,7 +18,7 @@ import "@/styles/interiors.css";
           <p>
             Some things are out in the world. Others are still taking shape. Here’s what’s on my
             workbench—and the thinking behind it.
-          </p><span class="interior-small">FOUR PROJECTS · ALWAYS BUILDING</span>
+          </p><span class="interior-small">{projects.length} PROJECTS · ALWAYS BUILDING</span>
         </div>
       </div>
     </header>
@@ -31,7 +31,9 @@ import "@/styles/interiors.css";
           <button type="button" data-filter="in-progress" aria-pressed="false">In progress</button>
           <button type="button" data-filter="research" aria-pressed="false">Learning</button>
         </div>
-        <p class="sr-only" aria-live="polite" data-filter-status>Showing all 4 projects.</p>
+        <p class="sr-only" aria-live="polite" data-filter-status>
+          Showing all {projects.length} projects.
+        </p>
       </div>
       <div class="interior-projects">
         {
@@ -71,32 +73,6 @@ import "@/styles/interiors.css";
                           <circle cx="405" cy="265" r="8" />
                           <circle cx="210" cy="250" r="8" />
                         </g>
-                      </>
-                    )}
-                    {project.visual === "donation" && (
-                      <>
-                        <circle
-                          cx="300"
-                          cy="155"
-                          r="85"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="1"
-                          stroke-dasharray="3 8"
-                        />
-                        <path
-                          d="M300 218c-118-69-88-148-38-129 16 6 29 22 38 37 9-15 22-31 38-37 50-19 80 60-38 129"
-                          fill="currentColor"
-                          opacity=".8"
-                        />
-                        <path
-                          d="M140 253q160 24 320 0M200 274q100 12 200 0"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <circle cx="155" cy="96" r="7" fill="currentColor" />
-                        <circle cx="459" cy="198" r="5" fill="currentColor" />
                       </>
                     )}
                     {project.visual === "learning" && (

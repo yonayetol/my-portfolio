@@ -143,22 +143,7 @@ The public interface uses the strongest proof points and labels the capture date
 
 Project statuses below are intentionally explicit so the site never presents plans as shipped products.
 
-### 1. Berhan
-
-| Field             | Data                                                                                                                             |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Type              | Unified donation platform for Ethiopian charities                                                                                |
-| Status            | In progress                                                                                                                      |
-| Audience          | Ethiopian charities, local donors, and diaspora donors                                                                           |
-| Supplied features | Local and diaspora payments; split donations; anonymous giving; recurring donations; donor tiers                                 |
-| Stack             | Not supplied                                                                                                                     |
-| Role              | Not supplied                                                                                                                     |
-| Links             | Not supplied                                                                                                                     |
-| Evidence needed   | Screenshots, architecture, current feature state, repository/demo, role, collaborators, payment constraints, and milestone dates |
-
-**Safe public framing:** An in-progress product; do not imply that payment flows or charity partnerships are live without evidence.
-
-### 3. School Information Management System / Nexora IMS
+### 1. School Information Management System / Nexora IMS
 
 | Field                   | Data                                                                                                                                                                                                                     |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -171,7 +156,7 @@ Project statuses below are intentionally explicit so the site never presents pla
 | Approved visual         | School Life interface screenshot supplied on 2026-07-22; optimized derivative stored as `public/images/projects/nexora-ims-school-life.webp`                                                                             |
 | Evidence needed         | Anonymized metrics, supported user roles, deployment diagram, team/role details, broader institution permission, and outcome data                                                                                        |
 
-### 4. MM2 Pattern Miner
+### 2. MM2 Pattern Miner
 
 | Field                     | Data                                                                                                                                                |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -182,7 +167,7 @@ Project statuses below are intentionally explicit so the site never presents pla
 | Links                     | Not supplied                                                                                                                                        |
 | Evidence needed           | Repository/PR links, precise ownership, example query/output, architecture, performance or correctness evidence, and permission to present the work |
 
-### 9. ML Engineering Dojo
+### 3. ML Engineering Dojo
 
 | Field                           | Data                                                                                                                                                                     |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -305,7 +290,6 @@ There is a possible status inconsistency: S1 describes classical ML fundamentals
 ### Building
 
 - Portfolio website
-- Berhan donation platform
 - AI workflow automation projects
 - ML from-scratch implementations
 

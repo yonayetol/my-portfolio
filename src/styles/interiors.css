@@ -104,10 +104,6 @@
   background: #e9e2ef;
   color: #80618f;
 }
-.interior-project--donation .interior-project-art {
-  background: #f0dfd2;
-  color: #ac614a;
-}
 .interior-project-art img {
   width: 85%;
   height: auto;
@@ -263,9 +259,6 @@
   background: #e0e8db;
   color: #52735a;
   --accent: #52735a;
-}
-.interior-case-visual .project-visual--donation {
-  background: #eae2d7;
 }
 .interior-case-visual figcaption {
   margin-top: 15px;
@@ -852,14 +845,6 @@ html[data-motion="off"] .interior-project-art svg {
   --violet: #725884;
   --mint: #52735a;
 }
-.interior-case-visual .project-visual--donation {
-  min-height: 560px;
-}
 .interior-case-visual .project-visual--infrastructure {
   min-height: 0;
-}
-@media (max-width: 640px) {
-  .interior-case-visual .project-visual--donation {
-    min-height: 650px;
-  }
 }

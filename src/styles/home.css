@@ -587,42 +587,6 @@ html[data-js] [data-reveal],
   width: 90%;
   height: 190px;
 }
-.berhan-object {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  color: #644c32;
-}
-.berhan-sun {
-  font-size: 51px;
-  line-height: 1;
-  color: #b77935;
-}
-.berhan-object strong {
-  font: 40px var(--font-serif);
-  letter-spacing: -2px;
-  margin: 0 0 3px;
-}
-.berhan-object > span:last-of-type {
-  font-size: 8px;
-  letter-spacing: 1px;
-}
-.berhan-path {
-  display: flex;
-  align-items: center;
-  margin-top: 18px;
-}
-.berhan-path i {
-  width: 8px;
-  height: 8px;
-  border: 1px solid #a97e4a;
-  border-radius: 50%;
-}
-.berhan-path b {
-  width: 24px;
-  height: 1px;
-  background: #a97e4a;
-}
 .home-project-meta {
   display: flex;
   justify-content: space-between;

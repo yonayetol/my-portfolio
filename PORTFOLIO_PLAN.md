@@ -150,7 +150,6 @@ Map current projects as follows after confirmation:
 | ------------------- | --------------------- | -------------------------------------------------- |
 | Nexora IMS          | Shipped               | Featured case study, with confidentiality controls |
 | MM2 Pattern Miner   | In progress           | Featured technical case study                      |
-| Berhan              | In progress           | Featured product-direction case study              |
 | ML Engineering Dojo | Learning lab          | Featured transparent learning record               |
 
 ### Case-study template
@@ -185,7 +184,6 @@ Each featured project will follow the same evidence-driven structure:
 ├── /work
 │   ├── /work/nexora-ims
 │   ├── /work/mm2-pattern-miner
-│   ├── /work/berhan
 │   └── /work/ml-engineering-dojo
 ├── /about
 ├── /notes                         (launch only with at least 2 strong notes)
@@ -233,7 +231,7 @@ Credentials will be discoverable from About and the homepage without crowding pr
    - Dates must be supplied before launch.
 
 6. **Current lab**
-   - Honest snapshot of Berhan and the ML Engineering Dojo.
+   - Honest snapshot of MM2 Pattern Miner and the ML Engineering Dojo.
    - Shows momentum without presenting plans as products.
 
 7. **Credentials**
@@ -437,7 +435,6 @@ No content should be buried inside presentation components. Profile, experience,
 - Optional workspace/candid photo.
 - [x] Nexora IMS / Abdi Adama School Life interface capture supplied and approved for portfolio use.
 - MM2 Pattern Miner public repository/PRs and technical output examples.
-- Berhan prototype screens when ready.
 - Company/project logos with publication permission.
 - Resume PDF.
 - Exact role and education dates.
@@ -476,7 +473,7 @@ AI-generated imagery will not substitute for proof of real projects. If used at 
 
 - [ ] Approve primary title, value proposition, and brand line.
 - [x] Draft the complete homepage narrative in plain language.
-- [x] Select the four launch work records from the revised data.
+- [x] Select the three launch work records from the revised data.
 - [ ] Interview Yonas through focused questions for missing project details.
 - [x] Draft all selected case studies using Context → System → Decisions → Evidence → Reflection.
 - [x] Separate shipped, in-progress, and learning-lab work.
@@ -519,7 +516,7 @@ AI-generated imagery will not substitute for proof of real projects. If used at 
 - [x] Implement reduced-motion behavior.
 - [x] Build the work index and semantic filters with a live result announcement.
 - [x] Build a reusable case-study layout.
-- [x] Complete Nexora IMS, MM2 Pattern Miner, Berhan, and ML Engineering Dojo case studies.
+- [x] Complete Nexora IMS, MM2 Pattern Miner, and ML Engineering Dojo case studies.
 - [x] Create code-native, nonessential system diagrams with accessible surrounding content.
 
 **Exit gate:** signature interaction is useful, stable, and accessible; every featured work route is complete.
@@ -658,7 +655,7 @@ These do not block initial design-system work, but they block accurate launch co
 ## Change log
 
 - **2026-07-21:** Initial plan created from the three supplied profile/context documents and the current empty workspace audit.
-- **2026-07-21:** Implemented the complete static portfolio, four case studies, responsive visual system, Proof Graph, About and Credentials pages, validation/privacy tooling, SEO assets, and GitHub Pages workflow. Production build generated nine routes and the final mobile Lighthouse audit scored 100 in all four primary categories.
+- **2026-07-21:** Implemented the complete static portfolio, project case studies, responsive visual system, Proof Graph, About and Credentials pages, validation/privacy tooling, SEO assets, and GitHub Pages workflow. Production build generated nine routes and the final mobile Lighthouse audit scored 100 in all four primary categories.
 - **2026-07-21:** Refined the hero for short laptop and mobile viewports, eliminating the perceived bottom clipping. Added accessible inertial scrolling, smooth anchors, active section rail, scroll progress, direct-hash reveal handling, and reduced-motion fallbacks.
 - **2026-07-21:** Integrated the supplied portrait as an identity-record visual and added a dated LeetCode proof module with an explicit link to the live profile.
 - **2026-07-22:** Replaced the Nexora IMS placeholder topology with an optimized approved School Life capture. Rebuilt the subtle view-linked motion as explicit JS-backed scroll choreography with full-screen chapter transitions, opposing project parallax, media depth, mobile tuning, and reduced-motion protection.
@@ -667,6 +664,6 @@ These do not block initial design-system work, but they block accurate launch co
 - **2026-07-22:** Removed the misleading static Addis Ababa clock in favor of factual location coordinates and timezone context. Tightened credential-window typography and spacing, with adaptive title sizing, to eliminate unnecessary desktop scrolling.
 - **2026-07-22:** Recalibrated the portfolio's oversized display typography and rebuilt navigation and motion as global systems. Added a persistent page-aware vertical navigator with previous/next jumps, illuminated progress, active labels, and compact mobile behavior; expanded cinematic chapter transitions and view-linked scene motion across the homepage, About, Credentials, Work, and every case study.
 - **2026-07-22:** Removed the disruptive full-screen chapter text treatment after studying OJI's continuous brand journey, Ricardo Chance's depth-led portfolio, and Explanideo's user-paced scrollytelling. Replaced it with an original continuous story field, section-linked media crops, scale, parallax, and progress motion. Added a no-flash, system-aware light/dark theme with persistent preference and a responsive bottom story controller on mobile.
-- **2026-07-22:** Replaced the portfolio's repeated node-and-orbit diagrams with evidence-led, project-specific compositions: a truthful active-project workbench in the hero, an interactive capability-to-project evidence panel, and an honest Berhan product-flow concept. Removed faux identity scans, decorative project codes, arbitrary visual numbering, and unsupported dashboard metrics so the presentation feels authored, credible, and specific to the work.
+- **2026-07-22:** Replaced the portfolio's repeated node-and-orbit diagrams with evidence-led, project-specific compositions: an active-project workbench in the hero and an interactive capability-to-project evidence panel. Removed faux identity scans, decorative project codes, arbitrary visual numbering, and unsupported dashboard metrics so the presentation feels authored, credible, and specific to the work.
 - **2026-07-22:** Removed the standalone Addis Ababa context section from the About page and closed the navigation sequence so Contact follows the learning section directly.
 - **2026-07-22:** Rebuilt the motion hierarchy around user-paced storytelling after studying OJI's chapter continuity, Ricardo Chance's layered portfolio movement, and Explanideo's scrollytelling principles. Added staggered editorial entrances, a continuous chapter field and progress sweep, a bounded stacked-project sequence, scroll-driven media depth and marquee movement, live reduced-motion teardown, and a continuously updating section rail across desktop and mobile. Removed the redundant fixed glow layer and synchronized first-paint motion defaults; the final mobile production audit scored 98 Performance and 100 for Accessibility, Best Practices, and SEO, with CLS reduced to 0.03.

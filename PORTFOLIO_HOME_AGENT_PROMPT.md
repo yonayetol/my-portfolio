@@ -28,7 +28,6 @@ Existing project records include:
 | ------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | Nexora IMS          | A substantial finished object in the workshop           | Existing record labels it shipped; explain actual engineering decisions and available evidence    |
 | MM2 Pattern Miner   | An active kitchen recipe and a workshop research record | Keep its in-progress status; explain support filtering, conjunction expansion, and surprisingness |
-| Berhan              | Another active kitchen recipe                           | Keep its in-progress status; distinguish proposed functionality from demonstrated implementation  |
 | ML Engineering Dojo | A learning notebook connected to the garden             | Use its existing record and distinguish learning practice from production work                    |
 
 Do not invent metrics, deployments, testimonials, employment dates, partnerships, research results, repository links, or recent activity. Existing learning statistics are dated snapshots, not live feeds. Keep their capture dates visible or omit the numbers. Never expose unpublished contact details. Do not turn the current education record into a guessed graduation date.
@@ -118,7 +117,7 @@ The portrait should feel like a personal presence in the room, not a corporate h
 
 Make this the most substantial professional destination. Place a small number of distinct project objects on a workbench. Give each object an always-visible title, purpose, and status. A visitor should immediately understand which object leads to which project.
 
-Nexora IMS could use a miniature architectural model of a school system. MM2 could use a carefully drawn graph instrument. Berhan could use a connection study with branching paths. These are illustrative metaphors, not fabricated product screenshots.
+Nexora IMS could use a miniature architectural model of a school system. MM2 could use a carefully drawn graph instrument. These are illustrative metaphors, not fabricated product screenshots.
 
 Selecting a project opens a proper case-study route with a readable editorial layout. Carry over the selected object, color, or label as a short visual transition. Present the problem, my responsibility, status, engineering decisions, actual evidence, limitations, and lessons. Include source or demo links only when verified. Preserve existing project URLs wherever possible.
 
@@ -139,7 +138,7 @@ Translate kitchen language into useful project information:
 | Ready to serve   | A verified shipped result                  |
 | Next step        | A documented next action, if available     |
 
-Use at most three visible featured items. MM2 and Berhan fit here based on current records. Show last-updated dates only when known. Do not create fake progress percentages, completion timers, heat gauges pretending to measure progress, or automatically changing activity messages.
+Use only supported current work. MM2 fits here based on the current record; keep the learning lab clearly labeled as learning. Show last-updated dates only when known. Do not create fake progress percentages, completion timers, heat gauges pretending to measure progress, or automatically changing activity messages.
 
 On focus or selection, a recipe page lifts slightly and its details appear in a clean reading area. The steam remains decorative. The kitchen should communicate the state of the work even with all animation removed.
 
@@ -251,7 +250,7 @@ Preserve working project and credential URLs, public contact links, SEO metadata
 
 ## 12 Make the art achievable
 
-Create a compact asset plan before coding detailed scenes: one courtyard master composition, coordinated room vignettes, four project objects, a small foliage set, and reusable material textures. Lock perspective, shadow direction, line weight, and color treatment first.
+Create a compact asset plan before coding detailed scenes: one courtyard master composition, coordinated room vignettes, three project objects, a small foliage set, and reusable material textures. Lock perspective, shadow direction, line weight, and color treatment first.
 
 For generated art, use one consistent art-direction brief and references. Generate background and foreground layers separately where needed. Keep all text out of generated imagery. Retain editable source assets when available and track rights for third-party materials.
 

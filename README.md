@@ -1,8 +1,8 @@
 # Yonas — A Home for a Mind That Builds
 
-A personal portfolio for Yonas, an AI engineer, software builder, and technical trainer in Addis Ababa. The `feat/portfolio-home` redesign turns the site into an illustrated courtyard home: a main room for introductions, a workshop for projects, a kitchen for work in progress, a learning garden, a credential reading nook, and a contact veranda.
+A personal portfolio for Yonas, an AI engineer, software builder, and technical trainer in Addis Ababa. The `feat/portfolio-home` redesign makes the homepage an interactive 3D courtyard home. Enter through the gate, move between rooms, and inspect objects to discover introductions, projects, work in progress, learning, credentials, and contact details.
 
-Built with Astro, strict TypeScript, locally served Space Grotesk and Space Mono fonts, semantic HTML, CSS, and small progressive-enhancement scripts. The site produces static files for the existing GitHub Pages deployment.
+Built with Astro, TypeScript, Three.js, locally served Space Grotesk and Space Mono fonts, semantic HTML, and CSS. The site produces static files for the existing GitHub Pages deployment.
 
 ## Local development
 
@@ -20,23 +20,24 @@ npm run preview
 
 ## Navigation and interactions
 
-- `/` contains the courtyard and rooms with direct section links and a house-map dialog.
-- `/quick-view/` presents the essentials in a compact reading layout.
-- `/work/` lists projects with status filters; `/work/[slug]/` contains their case studies.
-- `/about/` and `/credentials/` provide the detailed introduction and learning records.
-- Daylight/evening and motion controls store preferences locally. Reduced-motion preferences are respected.
-- Kitchen recipe details use native disclosure elements. Credential links retain their external destinations when JavaScript is unavailable.
+- `/` opens at the gate. **Come inside** moves the camera into the main room; the room navigation selects the workshop, kitchen, reading nook, garden, or veranda.
+- Move the pointer to look around. The eye cursor highlights inspectable objects; click an object or its labeled hotspot to open its story. The **Objects in this room** list provides equivalent buttons.
+- On touch devices, drag to look and tap an object to inspect it. With the canvas focused, use arrow keys to look around and **Home** to reset the view. Close stories with the close button or **Escape**.
+- `/quick-view/` is the compact HTML overview. `/work/`, `/work/[slug]/`, `/about/`, and `/credentials/` remain direct routes to the detailed content.
+- Daylight/evening and camera-motion controls persist preferences locally. Reduced motion disables animated camera movement.
+- An SVG courtyard poster appears while the 3D view loads. An HTML overview remains available when JavaScript or WebGL is unavailable; essential information also lives on the direct routes.
 
 ## Editing the home
 
-- `src/data/profile.ts`, `projects.ts`, and `credentials.ts` hold shared public content.
-- `src/components/home/HouseScene.astro` draws the custom SVG courtyard and destination links.
-- `src/components/home/RoomIllustration.astro` contains the coordinated room illustrations.
-- `src/components/home/home.ts` handles the map, preferences, garden selection, and email copying.
-- `src/styles/home.css` defines the home design; `interiors.css` styles the secondary pages. Existing `global.css` supports retained components, including technical exhibits and the credential viewer.
+- `src/components/home/ImmersiveHome.astro` defines the scene interface, room links, object stories, and HTML fallback.
+- `src/components/home/house-world.ts` constructs the Three.js house, garden, furnishings, textures, and inspectable objects.
+- `src/components/home/house-experience.ts` handles rendering, camera transitions, raycasting, projected labels, input, history, and preferences.
+- `src/styles/spatial.css` styles the immersive interface. `home.css` and `interiors.css` support the standard pages; `global.css` also supports retained technical exhibits and the credential viewer.
+- `src/components/home/HouseScene.astro` supplies the SVG courtyard poster. `RoomIllustration.astro` retains the coordinated SVG room artwork.
+- `src/data/profile.ts`, `projects.ts`, and `credentials.ts` hold shared public content. `CodingPractice.astro` renders the LeetCode snapshot from that data.
 - `PORTFOLIO_HOME_AGENT_PROMPT.md` records the creative brief. `PORTFOLIO_PLAN.md` preserves the earlier design plan.
 
-Keep navigation and essential text in HTML rather than embedding them in illustrations. Reuse the shared data modules so the home, case studies, and quick view stay consistent.
+Keep room/object identifiers consistent between the interface, camera controller, and world. Keep essential text and actions in HTML, with equivalent buttons for canvas interactions. Reuse shared data so stories, case studies, and quick view remain consistent.
 
 ## Checks
 
@@ -62,4 +63,4 @@ The included GitHub Pages workflow applies the deployment values. Use `withBase`
 
 ## Content and privacy
 
-`PORTFOLIO_DATA.md` is the internal content source of truth. Keep private contact details out of public pages and assets. Preserve project status distinctions and the capture date on coding statistics; do not present concepts, learning records, or dated snapshots as shipped features or live activity.
+`PORTFOLIO_DATA.md` is the internal content source of truth. Keep private contact details out of public pages and assets. Preserve project status distinctions. The LeetCode totals reflect a shared screenshot, not a live feed; the earlier rank and badge metadata have a separate historical capture date. Do not infer a date for an undated snapshot or describe its totals as current activity.

@@ -1,0 +1,386 @@
+---
+import HouseScene from "./HouseScene.astro";
+import CodingPractice from "./CodingPractice.astro";
+import { profile, experience, learning, codingProfile } from "@/data/profile";
+import { projects } from "@/data/projects";
+import { credentials } from "@/data/credentials";
+import { withBase } from "@/utils/paths";
+import "@/styles/spatial.css";
+const rooms = [
+  { id: "main-room", name: "Main room", note: "A little about me", number: "01" },
+  { id: "workshop", name: "Workshop", note: "Things I’ve built", number: "02" },
+  { id: "kitchen", name: "Kitchen", note: "What’s cooking", number: "03" },
+  { id: "reading-nook", name: "Reading nook", note: "Practice & learning", number: "04" },
+  { id: "garden", name: "Garden", note: "Ideas taking root", number: "05" },
+  { id: "contact", name: "Veranda", note: "Pull up a chair", number: "06" },
+];
+const objects = [
+  { id: "about", room: "main-room", label: "Meet the person", hint: "THE PORTRAIT" },
+  { id: "principles", room: "main-room", label: "How I think", hint: "THE NOTEBOOK" },
+  { id: "nexora", room: "workshop", label: "Nexora IMS", hint: "THE MONITOR" },
+  { id: "mm2", room: "workshop", label: "MM2 Pattern Miner", hint: "THE REASONING BOARD" },
+  { id: "dojo", room: "workshop", label: "ML Engineering Dojo", hint: "THE WORKBOOK" },
+  { id: "recipe", room: "kitchen", label: "What’s cooking?", hint: "THE RECIPE" },
+  {
+    id: "practice",
+    room: "reading-nook",
+    label: `${codingProfile.totalSolved} problems. One practice.`,
+    hint: "THE PRACTICE NOTEBOOK",
+  },
+  { id: "credentials", room: "reading-nook", label: "A shelf of learning", hint: "THE BOOKSHELF" },
+  { id: "learning", room: "garden", label: "Ideas taking root", hint: "THE PLANTING BED" },
+  { id: "contact", room: "contact", label: "Start a conversation", hint: "THE COFFEE TABLE" },
+];
+---
+
+<main id="main-content" class="spatial-home" data-house-state="outside">
+  <div class="spatial-stage" data-spatial-stage>
+    <div class="spatial-poster" aria-hidden="true" inert><HouseScene /></div>
+    <canvas
+      data-house-canvas
+      aria-label="Three-dimensional home. Use the room links to explore, or focus here and use the arrow keys to look around."
+      tabindex="-1"></canvas>
+    <div class="spatial-vignette" aria-hidden="true"></div>
+    <div class="digital-eye" aria-hidden="true"><span></span><i></i><small>LOOK CLOSER</small></div>
+  </div>
+  <header class="spatial-header">
+    <a class="spatial-brand" href={withBase()} aria-label="Yonas home"
+      ><svg viewBox="0 0 32 35" aria-hidden="true" fill="none"
+        ><path d="m3 16 13-11 13 11v16H3ZM12 32V21h8v11" stroke="currentColor" stroke-width="1.5"
+        ></path></svg
+      ><span>yonas.<small>A HOME FOR A CURIOUS MIND</small></span></a
+    >
+    <div class="spatial-location spatial-only">
+      <span class="location-dot"></span><span data-current-room>At the garden gate</span>
+    </div>
+    <nav class="spatial-utilities" aria-label="Experience controls">
+      <button
+        class="spatial-only"
+        type="button"
+        data-house-motion
+        aria-pressed="false"
+        aria-label="Pause camera motion"
+        ><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+          ><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2"></path></svg
+        ><span data-motion-label>Motion on</span></button
+      >
+      <button
+        class="spatial-only"
+        type="button"
+        data-house-light
+        aria-pressed="false"
+        aria-label="Switch to evening"
+        ><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+          ><circle cx="12" cy="12" r="4" stroke="currentColor"></circle><path
+            d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"
+            stroke="currentColor"></path></svg
+        ><span data-light-label>Daylight</span></button
+      >
+      <a href={withBase("quick-view/")} class="spatial-quick"
+        >Quick view <span aria-hidden="true">↗</span></a
+      >
+    </nav>
+  </header>
+  <div class="spatial-welcome">
+    <p class="spatial-eyebrow"><i></i> ADDIS ABABA, ETHIOPIA</p>
+    <h1>A curious mind.<br />An open <em>door.</em></h1>
+    <p>
+      I’m Yonas. AI engineer, software builder,<br class="spatial-desktop" /> and the person who lives
+      in these ideas.
+    </p>
+    <p class="spatial-invitation">
+      This is a place to explore.<br /> Come in. Look around. Stay a little.
+    </p>
+    <a class="spatial-enter" href="#inside" data-enter-house
+      ><span>Come inside</span><span aria-hidden="true">→</span></a
+    >
+    <span class="spatial-loading" role="status" data-house-loading>Opening the shutters…</span>
+    <a class="spatial-text-link" href={withBase("work/")}>Or head straight to my work ↗</a>
+  </div>
+  <div class="spatial-outside-note" aria-hidden="true">
+    <span>a little world of my own.</span><svg viewBox="0 0 80 50" fill="none"
+      ><path d="M4 4Q20 44 68 26m-13-4 14 4-10 12" stroke="currentColor" stroke-width="1.2"
+      ></path></svg
+    >
+  </div>
+  <div class="spatial-room-caption spatial-only">
+    <p class="spatial-eyebrow" data-room-number>01 / MAKE YOURSELF AT HOME</p><h2
+      data-room-title
+      tabindex="-1"
+    >
+      The main room.
+    </h2><p data-room-description>Objects hold stories. Take a closer look.</p><details
+      class="spatial-object-list"
+    >
+      <summary>Objects in this room <span aria-hidden="true">+</span></summary><div>
+        {
+          objects.map((object) => (
+            <button type="button" data-inspect={object.id} data-room-object={object.room}>
+              {object.label}
+              <span aria-hidden="true">↗</span>
+            </button>
+          ))
+        }
+      </div>
+    </details>
+  </div>
+  <div class="spatial-hotspots spatial-only" aria-label="Objects to inspect">
+    {
+      objects.map((object) => (
+        <button
+          class="spatial-hotspot"
+          type="button"
+          data-inspect={object.id}
+          data-hotspot={object.id}
+          data-room-object={object.room}
+          hidden
+        >
+          <>
+            <span class="hotspot-dot" aria-hidden="true">
+              +
+            </span>
+            <span class="hotspot-label">
+              <small>{object.hint}</small>
+              {object.label}
+            </span>
+          </>
+        </button>
+      ))
+    }
+  </div>
+  <div class="spatial-bottom spatial-only">
+    <button
+      type="button"
+      class="spatial-return"
+      data-return-outside
+      aria-label="Return to the garden gate"
+      ><span aria-hidden="true">↶</span><span>The gate</span></button
+    >
+    <nav class="spatial-room-nav" aria-label="Explore the house">
+      {
+        rooms.map((room) => (
+          <a href={`#${room.id}`} data-go-room={room.id}>
+            <>
+              <span>{room.number}</span>
+              <strong>{room.name}</strong>
+            </>
+          </a>
+        ))
+      }
+    </nav>
+    <div class="spatial-look-hint">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+        ><path d="M2 12Q12-2 22 12 12 26 2 12Z" stroke="currentColor"></path><circle
+          cx="12"
+          cy="12"
+          r="3"
+          stroke="currentColor"></circle></svg
+      ><span data-look-hint>Move to look.<br />Click to discover.</span>
+    </div>
+  </div>
+  <p class="sr-only" role="status" aria-live="polite" data-spatial-announcement></p>
+  <dialog class="spatial-story" data-story-dialog aria-labelledby="story-title">
+    <div class="story-top">
+      <span class="spatial-eyebrow" data-story-location>THE MAIN ROOM</span><button
+        type="button"
+        data-story-close
+        aria-label="Close story and return to the room">✕</button
+      >
+    </div>
+    <h2 id="story-title" data-story-title>Look a little closer.</h2>
+    <article data-story="about" hidden>
+      <img
+        class="story-portrait"
+        src={withBase("images/yonas-portrait-small.webp")}
+        alt="Yonas"
+        width="480"
+        height="577"
+      /><p>
+        I’m drawn to the space between <em>“what if?”</em> and something that actually works. I build
+        intelligent systems, ship software, and share what I learn.
+      </p><div class="story-experience">
+        {
+          experience.slice(0, 3).map((item) => (
+            <div>
+              <>
+                <strong>{item.organization}</strong>
+                <span>{item.role}</span>
+              </>
+            </div>
+          ))
+        }
+      </div><a class="spatial-story-link" href={withBase("about/")}>More about me ↗</a>
+    </article>
+    <article data-story="principles" hidden>
+      <p class="story-lead">
+        Understand it deeply.<br />Make something useful.<br />Help someone else build.
+      </p><p>
+        My work moves between symbolic AI, mathematical reasoning, technical training, and
+        production operations. The common thread is understanding a system well enough to improve
+        it—and explain it clearly.
+      </p><a class="spatial-story-link" href={withBase("about/")}>Read my working philosophy ↗</a>
+    </article>
+    {
+      projects.map((project) => (
+        <article
+          data-story={
+            project.slug === "nexora-ims"
+              ? "nexora"
+              : project.slug === "mm2-pattern-miner"
+                ? "mm2"
+                : "dojo"
+          }
+          hidden
+        >
+          <span class="story-status">{project.statusLabel}</span>
+          {project.slug === "nexora-ims" && (
+            <img
+              class="story-project-image"
+              src={withBase("images/projects/nexora-ims-school-life-small.webp")}
+              alt="Nexora IMS school interface"
+              width="640"
+              height="360"
+            />
+          )}
+          <p class="story-lead">{project.statement}</p>
+          <>
+            <p>{project.summary}</p>
+            <div class="story-tags">
+              {project.disciplines.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+            <ol class="story-facts">
+              {project.facts.map((fact) => (
+                <li>{fact}</li>
+              ))}
+            </ol>
+            <details class="story-deep-read">
+              <summary>
+                Read the engineering story <span aria-hidden="true">+</span>
+              </summary>
+              <>
+                <p>
+                  {project.context.replace("The supplied project record describes", "I worked on")}
+                </p>
+                <p>{project.system}</p>
+              </>
+              {project.decisions.map((decision) => (
+                <section>
+                  <h3>{decision.title}</h3>
+                  <p>{decision.detail}</p>
+                </section>
+              ))}
+              <>
+                <h3>What I learned</h3>
+                <p>{project.reflection}</p>
+              </>
+            </details>
+            <a class="spatial-story-link" href={withBase(`work/${project.slug}/`)}>
+              Open the full reading view ↗
+            </a>
+          </>
+        </article>
+      ))
+    }
+    <article data-story="recipe" hidden>
+      <span class="story-status">IN PROGRESS</span><p class="story-lead">MM2 Pattern Miner</p><p>
+        On the stove: finding meaningful patterns in a hypergraph. A mix of symbolic reasoning,
+        careful filtering, and asking what makes a pattern surprising.
+      </p><div class="recipe-step">
+        <span>01</span><div><strong>Filter</strong><p>Keep patterns with enough support.</p></div>
+      </div><div class="recipe-step">
+        <span>02</span><div><strong>Expand</strong><p>Explore meaningful conjunctions.</p></div>
+      </div><div class="recipe-step">
+        <span>03</span><div>
+          <strong>Score</strong><p>Separate frequency from interestingness.</p>
+        </div>
+      </div><a class="spatial-story-link" href={withBase("work/mm2-pattern-miner/")}
+        >Open the working recipe ↗</a
+      >
+    </article>
+    <article data-story="practice" hidden><CodingPractice /></article>
+    <article data-story="credentials" hidden>
+      <details class="story-deep-read">
+        <summary>Open the collection <span aria-hidden="true">+</span></summary>
+        {
+          credentials.map((credential) => (
+            <a class="story-credential" href={credential.href} target="_blank" rel="noreferrer">
+              <>
+                <small>
+                  {credential.provider} / {credential.category}
+                </small>
+                <span>{credential.title} ↗</span>
+              </>
+            </a>
+          ))
+        }
+      </details>
+      <p class="story-lead">Always a student.</p><p>
+        A shelf of learning in mathematics, machine learning, deep learning, NLP, and applied AI.
+        Formal checkpoints along a self-directed path.
+      </p><div class="story-book"><span>01</span><strong>Mathematical foundations</strong></div><div
+        class="story-book"
+      >
+        <span>02</span><strong>Machine & deep learning</strong>
+      </div><div class="story-book"><span>03</span><strong>Applied AI</strong></div><a
+        class="spatial-story-link"
+        href={withBase("credentials/")}>Browse credentials & practice ↗</a
+      >
+    </article>
+    <article data-story="learning" hidden>
+      <p class="story-lead">A little tending, every day.</p><p>
+        Some ideas have deep roots. Others are just beginning to take shape. My learning connects
+        mathematical foundations to hands-on implementation.
+      </p><h3>Established roots</h3><div class="story-tags">
+        {learning.completed.map((topic) => <span>{topic}</span>)}
+      </div><h3>Currently exploring</h3><div class="story-tags">
+        {learning.current.map((topic) => <span>{topic}</span>)}
+      </div><a class="spatial-story-link" href={withBase("work/ml-engineering-dojo/")}
+        >Visit the ML Engineering Dojo ↗</a
+      >
+    </article>
+    <article data-story="contact" hidden>
+      <p class="story-lead">There’s room for another good idea.</p><p>
+        A project to build? A question to explore? Or just a hello. I’d love to hear from you.
+      </p><a class="spatial-enter" href={`mailto:${profile.email}`}
+        >Write to Yonas <span aria-hidden="true">↗</span></a
+      ><a class="story-email" href={`mailto:${profile.email}`}>{profile.email}</a><button
+        type="button"
+        class="spatial-text-link"
+        data-spatial-copy>Copy email address</button
+      ><p class="story-copy-status" role="status" data-copy-result></p>
+    </article>
+  </dialog>
+  <section class="spatial-fallback" id="inside" aria-label="The home in words">
+    <p class="spatial-eyebrow">THE HOME IN WORDS</p><h2>Every object has a story.</h2><p>
+      {profile.support}
+    </p><div>
+      {
+        projects.map((project) => (
+          <a href={withBase(`work/${project.slug}/`)}>
+            <>
+              <span>{project.statusLabel}</span>
+              <h3>{project.title} ↗</h3>
+              <p>{project.summary}</p>
+            </>
+          </a>
+        ))
+      }
+    </div><CodingPractice /><nav aria-label="Explore without 3D">
+      <a href={withBase("about/")}>About Yonas ↗</a><a href={withBase("credentials/")}
+        >Credentials ↗</a
+      ><a href={`mailto:${profile.email}`}>Say hello ↗</a>
+    </nav>
+  </section>
+</main>
+<script>
+  import { startHouse } from "./house-experience";
+  startHouse().catch((error: unknown) => {
+    console.error("House experience unavailable:", error);
+    document.documentElement.dataset.world = "unavailable";
+    const message = document.querySelector("[data-house-loading]");
+    if (message) message.textContent = "The home in words is ready below.";
+    document.querySelector("[data-enter-house]")?.setAttribute("href", "#inside");
+  });
+</script>

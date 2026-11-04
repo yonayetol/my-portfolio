@@ -1,5 +1,5 @@
 export type ProjectStatus = "shipped" | "in-progress" | "research";
-export type ProjectVisual = "infrastructure" | "pattern" | "donation" | "learning";
+export type ProjectVisual = "infrastructure" | "pattern" | "learning";
 
 export interface Project {
   index: string;
@@ -122,55 +122,6 @@ export const projects: Project[] = [
   },
   {
     index: "03",
-    slug: "berhan",
-    title: "Berhan",
-    eyebrow: "Donation infrastructure · Ethiopia",
-    status: "in-progress",
-    statusLabel: "In progress",
-    summary:
-      "An in-progress unified donation platform designed around Ethiopian charities, local supporters, and the diaspora.",
-    statement: "Make giving across distance feel direct, flexible, and human.",
-    visual: "donation",
-    accent: "amber",
-    disciplines: ["Product design", "Payments", "Recurring giving", "Multi-party flows"],
-    facts: [
-      "Local and diaspora payment paths",
-      "Split donations",
-      "Anonymous giving",
-      "Recurring donations and donor tiers",
-    ],
-    context:
-      "Berhan is being shaped around a fragmented donation journey: charities need a coherent platform while local and diaspora donors need flexible ways to support causes from different payment contexts.",
-    system:
-      "The current product direction brings donor identity preferences, recurring support, split allocation, donor tiers, and local/diaspora payment paths into one understandable giving flow.",
-    decisions: [
-      {
-        title: "Design for more than one payment context",
-        detail:
-          "Local and diaspora giving are treated as first-class journeys rather than forcing every donor through one assumed path.",
-      },
-      {
-        title: "Keep donor intent flexible",
-        detail:
-          "Anonymous giving, split donations, recurring support, and tiers reflect different ways people choose to participate.",
-      },
-      {
-        title: "Label the work honestly",
-        detail:
-          "Berhan remains explicitly in progress; the portfolio describes direction and implemented thinking without implying live payment partnerships.",
-      },
-    ],
-    proof: [
-      "Defined local and diaspora audiences",
-      "Specified split and anonymous donation flows",
-      "Specified recurring support and donor tiers",
-      "Active in-progress status",
-    ],
-    reflection:
-      "The product challenge is not adding more donation features. It is making several forms of trust, identity, payment, and allocation feel like one calm experience.",
-  },
-  {
-    index: "04",
     slug: "ml-engineering-dojo",
     title: "ML Engineering Dojo",
     eyebrow: "From-scratch learning lab",
